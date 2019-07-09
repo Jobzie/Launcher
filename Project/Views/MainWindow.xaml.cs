@@ -30,9 +30,7 @@ namespace Launcher
 
             // server
             ServerGeneralGrid.Visibility = Visibility.Hidden;
-            // ServerBotsPmcWarGrid.Visibility = Visibility.Hidden;
-            // ServerBotsLimitGrid.Visibility = Visibility.Hidden;
-            // ServerBotsSpawnGrid.Visibility = Visibility.Hidden;
+            ServerBotsGrid.Visibility = Visibility.Hidden;
             // ServerWeatherGrid.Visibility = Visibility.Hidden;
 
             // launcher
@@ -93,19 +91,10 @@ namespace Launcher
             LoadServerGeneralSettings();
         }
 
-        private void OnServerBotsPmcWar(object sender, RoutedEventArgs e)
+        private void OnServerBots(object sender, RoutedEventArgs e)
         {
-            // code here
-        }
-
-        private void OnServerBotsLimit(object sender, RoutedEventArgs e)
-        {
-            // code here
-        }
-
-        private void OnServerBotsSpawn(object sender, RoutedEventArgs e)
-        {
-            // code here
+            HideAllMenuBarGrids();
+            ServerBotsGrid.Visibility = Visibility.Visible;
         }
 
         private void OnServerWeather(object sender, RoutedEventArgs e)
