@@ -60,8 +60,8 @@
         </DockPanel>
 
         <!-- start buttons -->
-        <Button Content="Start Server" HorizontalAlignment="Left" Margin="581.801,392.467,0,0" VerticalAlignment="Top" Width="110" Height="35" Click="OnStartServer" FontSize="16" Background="#FF404040" Foreground="#FFDDDDDD" BorderBrush="#FFABADB3"  Template="{DynamicResource ButtonTemplates}"/>
-        <Button Content="Start Game" HorizontalAlignment="Left" Margin="466.801,392.467,0,0" VerticalAlignment="Top" Width="110" Height="35" Click="OnStartGame" FontSize="16" Background="#FF404040" Foreground="#FFDDDDDD" BorderBrush="#FFABADB3"  Template="{DynamicResource ButtonTemplates}"/>
+        <Button Content="Start Server" HorizontalAlignment="Left" Margin="574.801,394.467,0,0" VerticalAlignment="Top" Width="110" Height="35" Click="OnStartServer" FontSize="16" Background="#FF404040" Foreground="#FFDDDDDD" BorderBrush="#FFABADB3"  Template="{DynamicResource ButtonTemplates}"/>
+        <Button Content="Start Game" HorizontalAlignment="Left" Margin="459.801,394.467,0,0" VerticalAlignment="Top" Width="110" Height="35" Click="OnStartGame" FontSize="16" Background="#FF404040" Foreground="#FFDDDDDD" BorderBrush="#FFABADB3"  Template="{DynamicResource ButtonTemplates}"/>
 
         <!-- app grid -->
         <Grid x:Name="AppGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="502.177" RenderTransformOrigin="3.188,1.039" Margin="221.023,32.911,0,0">
