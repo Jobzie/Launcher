@@ -3,7 +3,7 @@ using Launcher.Code.Helper;
 
 namespace Launcher.Code.Settings
 {
-    public class SettingsBase<T>
+    public class SettingsBase<T> where T : new()
     {
         protected T config { private set; get; }
         private string filepath = "";
@@ -16,12 +16,22 @@ namespace Launcher.Code.Settings
 
         public virtual void LoadSettings()
         {
-            config = JSON.Load<T>(filepath);
+            if (File.Exists(filepath))
+            {
+                config = JSON.Load<T>(filepath);
+            }
+            else
+            {
+                config = new T();
+            }
         }
 
         public virtual void SaveSettings()
         {
-            JSON.Save<T>(filepath, config);
+            if (File.Exists(filepath))
+            {
+                JSON.Save<T>(filepath, config);
+            }
         }
     }
 }
