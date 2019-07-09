@@ -10,12 +10,12 @@ namespace Launcher
     /// </summary>
     public partial class MainWindow : Window
     {
-        private LauncherSettings laucherSettings = new LauncherSettings();
+        private LauncherSettings laucherSettings = null;
+        private ServerSettings serverSettings = null;
 
         public MainWindow()
         {
             InitializeComponent();
-            LoadAllSettings();
             OnAccount(null, null);
         }
 
@@ -29,32 +29,51 @@ namespace Launcher
             // ChangePasswordGrid.Visibility = Visibility.Hidden;
 
             // server
-            // ServerGeneral.Visibility = Visibility.Hidden;
-            // ServerBots.Visibility = Visibility.Hidden;
-            // ServerWeather.Visibility = Visibility.Hidden;
+            ServerGeneralGrid.Visibility = Visibility.Hidden;
+            // ServerBotsPmcWarGrid.Visibility = Visibility.Hidden;
+            // ServerBotsLimitGrid.Visibility = Visibility.Hidden;
+            // ServerBotsSpawnGrid.Visibility = Visibility.Hidden;
+            // ServerWeatherGrid.Visibility = Visibility.Hidden;
 
             // launcher
             SettingsGrid.Visibility = Visibility.Hidden;
         }
 
         #region LOAD_SETTINGS
+        private void LoadAllSettings()
+        {
+            laucherSettings = new LauncherSettings();
+            serverSettings = new ServerSettings(System.IO.Path.Combine(laucherSettings.GetServerLocation(), "data"));
+        }
+
         private void LoadAccountSettings()
         {
+            // reload config files
+            LoadAllSettings();
+
+            // load the settings
             Email.Text = laucherSettings.GetEmail();
             Password.Text = laucherSettings.GetPassword();
             ClientBackendURL.Text = laucherSettings.GetBackendURL();
         }
 
-        private void LoadLauncherSettings()
+        private void LoadServerGeneralSettings()
         {
-            GameLocation.Text = laucherSettings.GetGameLocation();
-            ServerLocation.Text = laucherSettings.GetServerLocation();
+            // reload config files
+            LoadAllSettings();
+
+            // load the settings
+            Port.Text = serverSettings.GetServerPort();
         }
 
-        private void LoadAllSettings()
+        private void LoadLauncherSettings()
         {
-            LoadAccountSettings();
-            LoadLauncherSettings();
+            // reload config files
+            LoadAllSettings();
+
+            // load the settings
+            GameLocation.Text = laucherSettings.GetGameLocation();
+            ServerLocation.Text = laucherSettings.GetServerLocation();
         }
         #endregion
 
@@ -69,10 +88,22 @@ namespace Launcher
 
         private void OnServerGeneral(object sender, RoutedEventArgs e)
         {
+            HideAllMenuBarGrids();
+            ServerGeneralGrid.Visibility = Visibility.Visible;
+            LoadServerGeneralSettings();
+        }
+
+        private void OnServerBotsPmcWar(object sender, RoutedEventArgs e)
+        {
             // code here
         }
 
-        private void OnServerBots(object sender, RoutedEventArgs e)
+        private void OnServerBotsLimit(object sender, RoutedEventArgs e)
+        {
+            // code here
+        }
+
+        private void OnServerBotsSpawn(object sender, RoutedEventArgs e)
         {
             // code here
         }
@@ -127,6 +158,15 @@ namespace Launcher
         {
             // code here
         }
+        #endregion
+
+        #region SERVER_GENERAL
+
+        private void OnChangePort(object sender, RoutedEventArgs e)
+        {
+            // change settings here
+        }
+
         #endregion
 
         #region LAUNCHER_SETTINGS

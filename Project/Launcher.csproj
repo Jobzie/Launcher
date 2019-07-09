@@ -79,6 +79,7 @@
     </Page>
     <Compile Include="Code\Helper\JSON.cs" />
     <Compile Include="Code\Settings\GameSettings.cs" />
+    <Compile Include="Code\Settings\ServerSettings.cs" />
     <Compile Include="Code\Starter\GameStarter.cs" />
     <Compile Include="Code\Starter\ServerStarter.cs" />
     <Compile Include="Code\Starter\StarterBase.cs" />
