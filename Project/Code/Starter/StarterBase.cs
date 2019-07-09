@@ -26,6 +26,8 @@ namespace Launcher.Code.Starter
 
             ProcessStartInfo process = new ProcessStartInfo();
             process.FileName = Path.Combine(filepath, executable);
+            process.UseShellExecute = false;
+            process.WorkingDirectory = filepath;
 
             if (File.Exists(process.FileName))
             {
