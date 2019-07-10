@@ -27,6 +27,7 @@ namespace Launcher
             // AccountGrid.Visibility = Visibility.Hidden;
             // ChangeEmailGrid.Visibility = Visibility.Hidden;
             // ChangePasswordGrid.Visibility = Visibility.Hidden;
+            // ChangeOutfitGrid.Visibility = Visibility.Hidden;
 
             // server
             ServerGeneralGrid.Visibility = Visibility.Hidden;
@@ -64,6 +65,16 @@ namespace Launcher
             Port.Text = serverSettings.GetServerPort();
         }
 
+        private void LoadServerBotsSettings()
+        {
+            // reload config files
+            LoadAllSettings();
+
+            // load PMC war settings
+            PmcWarEnabled.IsChecked = serverSettings.GetBotsPmcWarEnabled();
+            PmcWarUsecChance.Text = serverSettings.GetBotsPmcWarUsecChance();
+        }
+
         private void LoadLauncherSettings()
         {
             // reload config files
@@ -95,6 +106,7 @@ namespace Launcher
         {
             HideAllMenuBarGrids();
             ServerBotsGrid.Visibility = Visibility.Visible;
+            LoadServerBotsSettings();
         }
 
         private void OnServerWeather(object sender, RoutedEventArgs e)
@@ -150,10 +162,21 @@ namespace Launcher
         #endregion
 
         #region SERVER_GENERAL
-
         private void OnChangePort(object sender, RoutedEventArgs e)
         {
-            // change settings here
+            serverSettings.SetServerPort(Port.Text);
+        }
+        #endregion
+
+        #region SERVER_BOTS
+        private void OnChangePmcWarEnabled(object sender, RoutedEventArgs e)
+        {
+            serverSettings.SetBotsPmcWarEnabled((bool)PmcWarEnabled.IsChecked);
+        }
+
+        private void OnChangePmcWarUsecChance(object sender, TextChangedEventArgs e)
+        {
+            serverSettings.SetBotsPmcWarUsecChance(PmcWarUsecChance.Text);
         }
 
         #endregion

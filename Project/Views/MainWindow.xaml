@@ -60,8 +60,8 @@
         </DockPanel>
 
         <!-- start buttons -->
-        <Button Content="Start Server" HorizontalAlignment="Left" Margin="574.801,394.467,0,0" VerticalAlignment="Top" Width="110" Height="35" Click="OnStartServer" FontSize="16" Background="#FF404040" Foreground="#FFDDDDDD" BorderBrush="#FFABADB3"  Template="{DynamicResource ButtonTemplates}"/>
-        <Button Content="Start Game" HorizontalAlignment="Left" Margin="459.801,394.467,0,0" VerticalAlignment="Top" Width="110" Height="35" Click="OnStartGame" FontSize="16" Background="#FF404040" Foreground="#FFDDDDDD" BorderBrush="#FFABADB3"  Template="{DynamicResource ButtonTemplates}"/>
+        <Button Content="Start Server" HorizontalAlignment="Left" Margin="579.801,394.467,0,0" VerticalAlignment="Top" Width="110" Height="35" Click="OnStartServer" FontSize="16" Background="#FF404040" Foreground="#FFDDDDDD" BorderBrush="#FFABADB3"  Template="{DynamicResource ButtonTemplates}"/>
+        <Button Content="Start Game" HorizontalAlignment="Left" Margin="463.801,394.467,0,0" VerticalAlignment="Top" Width="110" Height="35" Click="OnStartGame" FontSize="16" Background="#FF404040" Foreground="#FFDDDDDD" BorderBrush="#FFABADB3"  Template="{DynamicResource ButtonTemplates}"/>
 
         <!-- app grid -->
         <Grid x:Name="AppGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="502.177" RenderTransformOrigin="3.188,1.039" Margin="221.023,32.911,0,0">
@@ -80,19 +80,19 @@
                 <TextBox x:Name="ClientBackendURL" HorizontalAlignment="Right" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="0,184.315,43.354,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeClientBackendURL" />
 
                 <!-- buttons -->
-                <Button x:Name="Login" Content="Login" HorizontalAlignment="Right" Margin="0,246.311,169.131,0" VerticalAlignment="Top" Width="75" Height="25" Foreground="#FFDDDDDD" Background="#FF404040" BorderBrush="#FFABADB3" Click="OnLogin" Template="{DynamicResource ButtonTemplates}" />
-                <Button x:Name="RegisterMeu" Content="Register" HorizontalAlignment="Right" Margin="0,246.311,89.354,0" VerticalAlignment="Top" Width="75" Height="25" Foreground="#FFDDDDDD" Background="#FF404040" BorderBrush="#FFABADB3" Click="OnRegisterMenu" Template="{DynamicResource ButtonTemplates}" />
+                <Button x:Name="Login" Content="Login" HorizontalAlignment="Right" Margin="0,246.311,169.016,0" VerticalAlignment="Top" Width="75" Height="25" Foreground="#FFDDDDDD" Background="#FF404040" BorderBrush="#FFABADB3" Click="OnLogin" Template="{DynamicResource ButtonTemplates}" />
+                <Button x:Name="RegisterMeu" Content="Register" HorizontalAlignment="Right" Margin="0,246.311,88.462,0" VerticalAlignment="Top" Width="75" Height="25" Foreground="#FFDDDDDD" Background="#FF404040" BorderBrush="#FFABADB3" Click="OnRegisterMenu" Template="{DynamicResource ButtonTemplates}" />
             </Grid>
 
             <!-- server general -->
-            <Grid x:Name="ServerGeneralGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="502.177" d:IsHidden="True">
+            <Grid x:Name="ServerGeneralGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="502.177">
                 <!-- port -->
-                <Label Content="Port" HorizontalAlignment="Right" Margin="0,134.55,37.333,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>
-                <TextBox x:Name="Port" HorizontalAlignment="Right" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="0,160.15,38.333,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangePort" />
+                <Label Content="Port" HorizontalAlignment="Left" Margin="254.558,21.298,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" Grid.ColumnSpan="2" />
+                <TextBox x:Name="Port" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="254.558,46.898,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangePort" />
             </Grid>
 
             <!-- bots grid -->
-            <Grid x:Name="ServerBotsGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="293.51" Margin="208.667,0,0,0">
+            <Grid x:Name="ServerBotsGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="293.51" Margin="208.667,0,0,0" d:IsHidden="True">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
@@ -100,12 +100,13 @@
                 <!-- PMC war -->
                 <GroupBox Header=" PMC War" HorizontalAlignment="Left" Height="72.667" Margin="10,-0.005,0,0" VerticalAlignment="Top" Width="263.775" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}">
                     <Grid HorizontalAlignment="Left" Height="38.666" Margin="0,10,-1.775,0" VerticalAlignment="Top" Width="253.775">
-                        <!-- side usec chance -->
-                        <Label Content="SideUsec" HorizontalAlignment="Left" Margin="89.005,2.658,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="text1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="67.333" Margin="155.114,5.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
-
                         <!-- enable -->
-                        <CheckBox Content="Enable" HorizontalAlignment="Left" Margin="10,8.766,0,0" VerticalAlignment="Top" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}"/>
+                        <Label Content="Enabled" HorizontalAlignment="Left" Margin="10,2.666,0,0" VerticalAlignment="Top" Width="72.6" Foreground="#FFDDDDDD"/>
+                        <CheckBox x:Name="PmcWarEnabled" HorizontalAlignment="Left" Margin="84.6,9.6,0,0" VerticalAlignment="Top" Foreground="#FFDDDDDD" BorderBrush="#FFABADB3" Width="26.405" RenderTransformOrigin="0.829,0.525" Height="18.666" Click="OnChangePmcWarEnabled" Background="#FF404040"/>
+
+                        <!-- side usec chance -->
+                        <Label Content="USEC chance" HorizontalAlignment="Left" Margin="119.005,3.066,0,0" VerticalAlignment="Top" Width="80.037" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="PmcWarUsecChance" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="37.733" Margin="207.042,5.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangePmcWarUsecChance" />
                     </Grid>
                 </GroupBox>
 
@@ -113,47 +114,47 @@
                 <GroupBox Header=" Limits" HorizontalAlignment="Left" Height="122.667" Margin="10,73.66,0,0" VerticalAlignment="Top" Width="263.775" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}">
                     <Grid HorizontalAlignment="Left" Height="97.332" VerticalAlignment="Top" Width="243.775">
                         <Label Content="Killa" HorizontalAlignment="Left" Margin="10,5.666,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_killa" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="70,8.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <TextBox x:Name="box_killa" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="77,8.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
                         <Label Content="Bully" HorizontalAlignment="Left" Margin="10,33.666,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_bully" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="70,36.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <TextBox x:Name="box_bully" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="77,36.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
                         <Label Content="Followers" HorizontalAlignment="Left" Margin="10,61.666,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_followers" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="70,64.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <TextBox x:Name="box_followers" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="77,64.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
-                        <Label Content="marksman" HorizontalAlignment="Left" Margin="132.667,5.666,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_marksman" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="192.667,8.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <Label Content="marksman" HorizontalAlignment="Left" Margin="120.867,5.666,0,0" VerticalAlignment="Top" Width="68.8" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="box_marksman" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,8.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
-                        <Label Content="pmcBot" HorizontalAlignment="Left" Margin="132.667,33.666,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_pmcbot" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="192.667,36.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <Label Content="pmcBot" HorizontalAlignment="Left" Margin="120.867,33.666,0,0" VerticalAlignment="Top" Width="68.8" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="box_pmcbot" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,36.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
-                        <Label Content="scav" HorizontalAlignment="Left" Margin="132.667,61.666,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_scav" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="192.667,64.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <Label Content="scav" HorizontalAlignment="Left" Margin="120.867,61.666,0,0" VerticalAlignment="Top" Width="68.8" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="box_scav" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,64.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
                     </Grid>
                 </GroupBox>
 
-                <GroupBox Header=" Limits" HorizontalAlignment="Left" Height="138.741" Margin="10,197.325,0,0" VerticalAlignment="Top" Width="263.775" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}">
+                <GroupBox Header=" Spawn" HorizontalAlignment="Left" Height="138.741" Margin="10,197.325,0,0" VerticalAlignment="Top" Width="263.775" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}">
                     <Grid HorizontalAlignment="Left" Height="117.832" VerticalAlignment="Top" Width="253.775" Margin="0,0,-1.775,-0.832">
-                        <Label Content="Glasses" HorizontalAlignment="Left" Margin="10,5.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_glasses" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="83,8.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <Label Content="Glasses" HorizontalAlignment="Left" Margin="10,3.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="box_glasses" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,6.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
-                        <Label Content="FaceCover" HorizontalAlignment="Left" Margin="10,33.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_facecover" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="83,36.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <Label Content="FaceCover" HorizontalAlignment="Left" Margin="10,31.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="box_facecover" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,34.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
-                        <Label Content="Backpack" HorizontalAlignment="Left" Margin="10,61.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_backpack" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="83,64.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <Label Content="Backpack" HorizontalAlignment="Left" Margin="10,59.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="box_backpack" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,62.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
-                        <Label Content="ArmorVest" HorizontalAlignment="Left" Margin="132.667,5.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_armorvest" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="205.667,8.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <Label Content="ArmorVest" HorizontalAlignment="Left" Margin="119,3.666,0,0" VerticalAlignment="Top" Width="81.667" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="box_armorvest" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,6.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
-                        <Label Content="Meds pockets" HorizontalAlignment="Left" Margin="132.667,33.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_medpockets" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="205.667,36.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <Label Content="Meds pockets" HorizontalAlignment="Left" Margin="119,31.666,0,0" VerticalAlignment="Top" Width="84.667" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="box_medpockets" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,34.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
-                        <Label Content="Item pockets" HorizontalAlignment="Left" Margin="132.667,61.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_itempockets" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="205.667,64.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <Label Content="Item pockets" HorizontalAlignment="Left" Margin="119,59.666,0,0" VerticalAlignment="Top" Width="81.667" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="box_itempockets" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,62.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
-                        <Label Content="Headwear" HorizontalAlignment="Left" Margin="10,89.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_headwear" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="83,92.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <Label Content="Headwear" HorizontalAlignment="Left" Margin="10,87.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="box_headwear" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,90.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
                     </Grid>
                 </GroupBox>
             </Grid>
