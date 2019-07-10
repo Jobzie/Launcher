@@ -118,16 +118,127 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="bear_body" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\body\bear_body.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bear_feet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\legs\bear_feet.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bear_feet_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\legs\bear_feet_1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bear_hands_skin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\hands\bear_hands_skin.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bear_head" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\head\bear_head.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bear_head_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\head\bear_head_1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="bg" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\data\images\bg.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\data\images\background\bg.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bg_alpha" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\data\images\bg_alpha.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\data\images\background\bg_alpha.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bg_error" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\data\images\bg_error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\data\images\error\bg_error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="head_boss_killa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\head\head_boss_killa.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icon_error" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\data\images\icon_error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\data\images\error\icon_error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pants_wild_scavelite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\legs\pants_wild_scavelite.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pant_boss_killa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\legs\pant_boss_killa.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="top_boss_killa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\body\top_boss_killa.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="top_wild_scavelite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\body\top_wild_scavelite.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="usec_body" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\body\usec_body.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="usec_feet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\legs\usec_feet.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="usec_hands_skin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\hands\usec_hands_skin.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="usec_head" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\head\usec_head.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="usec_head_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\head\usec_head_1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_body" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\body\wild_body.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_body_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\body\wild_body_1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_body_1_firsthands" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\hands\wild_body_1_firsthands.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_body_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\body\wild_body_2.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_body_2_firsthands" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\hands\wild_body_2_firsthands.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_body_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\body\wild_body_3.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_body_3_firsthands" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\hands\wild_body_3_firsthands.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_body_firsthands" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\hands\wild_body_firsthands.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_dealmaker_body" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\body\wild_dealmaker_body.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_dealmaker_feet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\legs\wild_dealmaker_feet.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_dealmaker_head" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\head\wild_dealmaker_head.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_feet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\legs\wild_feet.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_feet_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\legs\wild_feet_1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_feet_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\legs\wild_feet_2.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_head" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\head\wild_head.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_head_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\head\wild_head_1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_head_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\head\wild_head_2.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_head_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\head\wild_head_3.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_security_body_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\body\wild_security_body_1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_security_body_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\body\wild_security_body_2.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wild_security_feet_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\data\images\character\legs\wild_security_feet_1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -23,11 +23,12 @@ namespace Launcher
         {
             // account
             LoginGrid.Visibility = Visibility.Hidden;
-            // RegisterGrid.Visibility = Visibility.Hidden;
+            RegisterGrid.Visibility = Visibility.Hidden;
             // AccountGrid.Visibility = Visibility.Hidden;
             // ChangeEmailGrid.Visibility = Visibility.Hidden;
             // ChangePasswordGrid.Visibility = Visibility.Hidden;
-            // ChangeOutfitGrid.Visibility = Visibility.Hidden;
+            // ChangeNicknameGrid.Visibility = Visibility.Hidden;
+            ChangeAppearanceGrid.Visibility = Visibility.Hidden;
 
             // server
             ServerGeneralGrid.Visibility = Visibility.Hidden;
@@ -51,8 +52,8 @@ namespace Launcher
             LoadAllSettings();
 
             // load the settings
-            Email.Text = laucherSettings.GetEmail();
-            Password.Text = laucherSettings.GetPassword();
+            LoginEmail.Text = laucherSettings.GetEmail();
+            LoginPassword.Text = laucherSettings.GetPassword();
             ClientBackendURL.Text = laucherSettings.GetBackendURL();
         }
 
@@ -125,7 +126,7 @@ namespace Launcher
         #region APPLICATION_LAUNCHER
         private void OnStartGame(object sender, RoutedEventArgs e)
         {
-            GameStarter starter = new GameStarter(GameLocation.Text, ClientBackendURL.Text, Email.Text, Password.Text);
+            GameStarter starter = new GameStarter(GameLocation.Text, ClientBackendURL.Text, LoginEmail.Text, LoginPassword.Text);
         }
 
         private void OnStartServer(object sender, RoutedEventArgs e)
@@ -135,14 +136,14 @@ namespace Launcher
         #endregion
 
         #region ACCOUNT_LOGIN
-        private void OnChangeEmail(object sender, TextChangedEventArgs e)
+        private void OnChangeLoginEmail(object sender, TextChangedEventArgs e)
         {
-            laucherSettings.SetEmail(Email.Text);
+            laucherSettings.SetEmail(LoginEmail.Text);
         }
 
-        private void OnChangePassword(object sender, TextChangedEventArgs e)
+        private void OnChangeLoginPassword(object sender, TextChangedEventArgs e)
         {
-            laucherSettings.SetPassword(Password.Text);
+            laucherSettings.SetPassword(LoginPassword.Text);
         }
 
         private void OnChangeClientBackendURL(object sender, TextChangedEventArgs e)
@@ -154,8 +155,30 @@ namespace Launcher
         {
             // code here
         }
+        #endregion
 
-        private void OnRegisterMenu(object sender, RoutedEventArgs e)
+        #region ACCOUNT_REGISTER
+        private void OnChangeRegisterEmail(object sender, TextChangedEventArgs e)
+        {
+            // code here
+        }
+
+        private void OnChangeRegisterPassword(object sender, TextChangedEventArgs e)
+        {
+            // code here
+        }
+
+        private void OnChangeRegisterNickname(object sender, TextChangedEventArgs e)
+        {
+            // code here
+        }
+
+        private void OnChangeRegisterSide(object sender, SelectionChangedEventArgs e)
+        {
+            // code here
+        }
+
+        private void OnRegister(object sender, RoutedEventArgs e)
         {
             // code here
         }
