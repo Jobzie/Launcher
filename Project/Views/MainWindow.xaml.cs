@@ -24,6 +24,7 @@ namespace Launcher
             // account
             LoginGrid.Visibility = Visibility.Hidden;
             RegisterGrid.Visibility = Visibility.Hidden;
+            AccountGrid.Visibility = Visibility.Hidden;
             // AccountGrid.Visibility = Visibility.Hidden;
             // ChangeEmailGrid.Visibility = Visibility.Hidden;
             // ChangePasswordGrid.Visibility = Visibility.Hidden;
