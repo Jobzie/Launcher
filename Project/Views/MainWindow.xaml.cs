@@ -158,6 +158,36 @@ namespace Launcher
         }
         #endregion
 
+        #region ACCOUNT_PANEL
+        private void OnChangeEmail(object sender, RoutedEventArgs e)
+        {
+            // code here
+        }
+        private void OnChangePassword(object sender, RoutedEventArgs e)
+        {
+            // code here
+        }
+        private void OnChangeNickname(object sender, RoutedEventArgs e)
+        {
+            // code here
+        }
+        private void OnChangeAppearance(object sender, RoutedEventArgs e)
+        {
+            // code here
+        }
+        private void OnLogout(object sender, RoutedEventArgs e)
+        {
+            // code here
+        }
+        #endregion
+
+        #region ACCOUNT_ACTION_BUTTONS
+        private void OnSaveChange(object sender, RoutedEventArgs e)
+        {
+            // code here
+        }
+        #endregion
+
         #region ACCOUNT_REGISTER
         private void OnChangeRegisterEmail(object sender, TextChangedEventArgs e)
         {
