@@ -234,27 +234,27 @@
                     <Grid HorizontalAlignment="Center" Height="97.332" VerticalAlignment="Top" Width="255">
                         <!-- killa -->
                         <Label Content="Killa" HorizontalAlignment="Left" Margin="10,5.666,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_killa" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="77,8.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <TextBox x:Name="LimitKilla" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="77,8.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
                         <!-- bully -->
                         <Label Content="Bully" HorizontalAlignment="Left" Margin="10,33.666,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_bully" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="77,36.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <TextBox x:Name="LimitBully" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="77,36.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
                         <!-- bully followers -->
                         <Label Content="Followers" HorizontalAlignment="Left" Margin="10,61.666,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_followers" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="77,64.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <TextBox x:Name="LimitFollowers" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="77,64.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
                         <!-- marksman -->
                         <Label Content="marksman" HorizontalAlignment="Left" Margin="120.867,5.666,0,0" VerticalAlignment="Top" Width="68.8" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_marksman" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,8.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <TextBox x:Name="limitMarksman" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,8.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
                         <!-- raiders -->
                         <Label Content="pmcBot" HorizontalAlignment="Left" Margin="120.867,33.666,0,0" VerticalAlignment="Top" Width="68.8" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_pmcbot" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,36.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <TextBox x:Name="LimitPmcBot" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,36.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
                         <!-- scavs -->
                         <Label Content="scav" HorizontalAlignment="Left" Margin="120.867,61.666,0,0" VerticalAlignment="Top" Width="68.8" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_scav" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,64.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <TextBox x:Name="LimitScav" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,64.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
                     </Grid>
                 </GroupBox>
 
@@ -262,31 +262,31 @@
                     <Grid HorizontalAlignment="Center" Height="120" VerticalAlignment="Top" Width="255" Margin="0,0,0,0">
                         <!-- glasses -->
                         <Label Content="Glasses" HorizontalAlignment="Left" Margin="10,3.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_glasses" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,6.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <TextBox x:Name="SpawnGlasses" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,6.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
                         <!-- face cover -->
                         <Label Content="FaceCover" HorizontalAlignment="Left" Margin="10,31.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_facecover" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,34.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <TextBox x:Name="SpawnFaceCover" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,34.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
                         <!-- backpack -->
                         <Label Content="Backpack" HorizontalAlignment="Left" Margin="10,59.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_backpack" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,62.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <TextBox x:Name="SpawnBackpack" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,62.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
                         <!-- armor vest -->
                         <Label Content="ArmorVest" HorizontalAlignment="Left" Margin="119,3.666,0,0" VerticalAlignment="Top" Width="81.667" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_armorvest" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,6.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <TextBox x:Name="SpawnArmorVest" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,6.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
                         <!-- meds pockets -->
                         <Label Content="Meds pockets" HorizontalAlignment="Left" Margin="119,31.666,0,0" VerticalAlignment="Top" Width="84.667" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_medpockets" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,34.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <TextBox x:Name="SpawnMedPockets" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,34.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
                         <!-- item pockets -->
                         <Label Content="Item pockets" HorizontalAlignment="Left" Margin="119,59.666,0,0" VerticalAlignment="Top" Width="81.667" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_itempockets" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,62.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <TextBox x:Name="SpawnItemPockets" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,62.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
                         <!-- headwear -->
                         <Label Content="Headwear" HorizontalAlignment="Left" Margin="10,87.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="box_headwear" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,90.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                        <TextBox x:Name="SpawnHeadwear" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,90.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
                     </Grid>
                 </GroupBox>
             </Grid>
