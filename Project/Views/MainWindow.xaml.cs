@@ -254,8 +254,15 @@ namespace Launcher
         {
             // reload config files
             LoadAllSettings();
+            LoadBotsPmcWarSettings();
+            LoadBotsLimitSettings();
+            LoadBotsSpawnSettings();
+        }
+        #endregion
 
-            // load PMC war settings
+        #region BOTS_PMCWAR
+        private void LoadBotsPmcWarSettings()
+        {
             PmcWarEnabled.IsChecked = serverSettings.GetBotsPmcWarEnabled();
             PmcWarUsecChance.Text = serverSettings.GetBotsPmcWarUsecChance();
         }
@@ -269,7 +276,90 @@ namespace Launcher
         {
             serverSettings.SetBotsPmcWarUsecChance(PmcWarUsecChance.Text);
         }
+        #endregion
 
+        #region BOTS_LIMIT
+        private void LoadBotsLimitSettings()
+        {
+            LimitKilla.Text = serverSettings.GetBotsLimitKilla();
+            LimitBully.Text = serverSettings.GetBotsLimitBully();
+            LimitBullyFollowers.Text = serverSettings.GetBotsLimitBullyFollowers();
+            LimitMarksman.Text = serverSettings.GetBotsLimitMarksman();
+            LimitPmcBot.Text = serverSettings.GetBotsLimitPmcBot();
+            LimitScav.Text = serverSettings.GetBotsLimitScav();
+        }
+
+        private void OnChangeLimitKilla(object sender, TextChangedEventArgs e)
+        {
+            serverSettings.SetBotsLimitKilla(LimitKilla.Text);
+        }
+
+        private void OnChangeLimitBully(object sender, TextChangedEventArgs e)
+        {
+            serverSettings.SetBotsLimitBully(LimitBully.Text);
+        }
+
+        private void OnChangeLimitBullyFollower(object sender, TextChangedEventArgs e)
+        {
+            serverSettings.SetBotsLimitBullyFollowers(LimitBullyFollowers.Text);
+        }
+
+        private void OnChangeLimitMarksman(object sender, TextChangedEventArgs e)
+        {
+            serverSettings.SetBotsLimitMarksman(LimitMarksman.Text);
+        }
+
+        private void OnChangeLimitPmcBot(object sender, TextChangedEventArgs e)
+        {
+            serverSettings.SetBotsLimitPmcBot(LimitPmcBot.Text);
+        }
+
+        private void OnChangeLimitScav(object sender, TextChangedEventArgs e)
+        {
+            serverSettings.SetBotsLimitScav(LimitScav.Text);
+        }
+        #endregion
+
+        #region BOTS_SPAWN
+        private void LoadBotsSpawnSettings()
+        {
+            // code here
+        }
+
+        private void OnChangeSpawnGlasses(object sender, TextChangedEventArgs e)
+        {
+            // code here
+        }
+
+        private void OnChangeSpawnFaceCover(object sender, TextChangedEventArgs e)
+        {
+            // code here
+        }
+
+        private void OnChangeSpawnHeadWear(object sender, TextChangedEventArgs e)
+        {
+            // code here
+        }
+
+        private void OnChangeSpawnBackpack(object sender, TextChangedEventArgs e)
+        {
+            // code here
+        }
+
+        private void OnChangeSpawnArmorVest(object sender, TextChangedEventArgs e)
+        {
+            // code here
+        }
+
+        private void OnChangeSpawnMedsPockets(object sender, TextChangedEventArgs e)
+        {
+            // code here
+        }
+
+        private void OnChangeSpawnItemPockets(object sender, TextChangedEventArgs e)
+        {
+            // code here
+        }
         #endregion
 
         #region LAUNCHER_SETTINGS
