@@ -245,15 +245,15 @@
                         <TextBox x:Name="LimitBullyFollowers" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="77,64.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeLimitBullyFollower" />
 
                         <!-- marksman -->
-                        <Label Content="marksman" HorizontalAlignment="Left" Margin="120.867,5.666,0,0" VerticalAlignment="Top" Width="68.8" Foreground="#FFDDDDDD"/>
+                        <Label Content="Marksman" HorizontalAlignment="Left" Margin="120.867,5.666,0,0" VerticalAlignment="Top" Width="68.8" Foreground="#FFDDDDDD"/>
                         <TextBox x:Name="LimitMarksman" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,8.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeLimitMarksman" />
 
                         <!-- raiders -->
-                        <Label Content="pmcBot" HorizontalAlignment="Left" Margin="120.867,33.666,0,0" VerticalAlignment="Top" Width="68.8" Foreground="#FFDDDDDD"/>
+                        <Label Content="Raider" HorizontalAlignment="Left" Margin="120.867,33.666,0,0" VerticalAlignment="Top" Width="68.8" Foreground="#FFDDDDDD"/>
                         <TextBox x:Name="LimitPmcBot" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,36.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeLimitPmcBot" />
 
                         <!-- scavs -->
-                        <Label Content="scav" HorizontalAlignment="Left" Margin="120.867,61.666,0,0" VerticalAlignment="Top" Width="68.8" Foreground="#FFDDDDDD"/>
+                        <Label Content="Scav" HorizontalAlignment="Left" Margin="120.867,61.666,0,0" VerticalAlignment="Top" Width="68.8" Foreground="#FFDDDDDD"/>
                         <TextBox x:Name="LimitScav" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,64.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeLimitScav" />
                     </Grid>
                 </GroupBox>
@@ -265,7 +265,7 @@
                         <TextBox x:Name="SpawnGlasses" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,6.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeSpawnGlasses" />
 
                         <!-- face cover -->
-                        <Label Content="FaceCover" HorizontalAlignment="Left" Margin="10,31.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
+                        <Label Content="Face cover" HorizontalAlignment="Left" Margin="10,31.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
                         <TextBox x:Name="SpawnFaceCover" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,34.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeSpawnFaceCover" />
 
                         <!-- backpack -->
@@ -273,7 +273,7 @@
                         <TextBox x:Name="SpawnBackpack" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,62.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeSpawnBackpack" />
 
                         <!-- armor vest -->
-                        <Label Content="ArmorVest" HorizontalAlignment="Left" Margin="119,3.666,0,0" VerticalAlignment="Top" Width="81.667" Foreground="#FFDDDDDD"/>
+                        <Label Content="Armor / vests" HorizontalAlignment="Left" Margin="119,3.666,0,0" VerticalAlignment="Top" Width="81.667" Foreground="#FFDDDDDD"/>
                         <TextBox x:Name="SpawnArmorVest" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,6.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeSpawnArmorVest" />
 
                         <!-- meds pockets -->
