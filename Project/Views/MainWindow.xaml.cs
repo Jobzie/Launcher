@@ -323,7 +323,13 @@ namespace Launcher
         #region BOTS_SPAWN
         private void LoadBotsSpawnSettings()
         {
-            // code here
+            SpawnGlasses.Text = "";
+            SpawnFaceCover.Text = "";
+            SpawnHeadwear.Text = "";
+            SpawnBackpack.Text = "";
+            SpawnArmorVest.Text = "";
+            SpawnMedPockets.Text = "";
+            SpawnItemPockets.Text = "";
         }
 
         private void OnChangeSpawnGlasses(object sender, TextChangedEventArgs e)
