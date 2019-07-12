@@ -39,6 +39,7 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+        
         <ControlTemplate x:Key="GroupBoxTemplate" TargetType="{x:Type GroupBox}">
             <Grid SnapsToDevicePixels="True">
                 <Grid.ColumnDefinitions>
@@ -63,11 +64,13 @@
                             <MultiBinding.Converter>
                                 <BorderGapMaskConverter/>
                             </MultiBinding.Converter>
+                            
                             <Binding ElementName="Header" Path="ActualWidth"/>
                             <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/>
                             <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
                         </MultiBinding>
                     </Border.OpacityMask>
+                    
                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
                         <Border BorderBrush="#FF707070" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2"/>
                     </Border>
@@ -152,7 +155,7 @@
             <!-- account -->
             <Grid x:Name="AccountGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="true">
                 <!-- player greeting -->
-                <Label Content="Hello, {username}" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="270" Foreground="#FFDDDDDD" Height="36.8" FontSize="20"/>
+                <Label x:Name="PlayerName" Content="Hello, {username}" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="270" Foreground="#FFDDDDDD" Height="36.8" FontSize="20"/>
 
                 <!-- buttons -->
                 <GroupBox Header=" Edit profile" HorizontalAlignment="Left" Height="157.667" Margin="10,174.566,0,0" VerticalAlignment="Top" Width="140.775" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" Template="{DynamicResource GroupBoxTemplate}">

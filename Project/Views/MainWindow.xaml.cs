@@ -22,7 +22,7 @@ namespace Launcher
             OnAccount(null, null);
         }
 
-        private void HideAllMenuBarGrids()
+        private void HideAllGrids()
         {
             // account
             LoginGrid.Visibility = Visibility.Hidden;
@@ -50,7 +50,7 @@ namespace Launcher
             serverSettings = new ServerSettings(System.IO.Path.Combine(laucherSettings.GetServerLocation(), "data"));
         }
 
-        private void LoadAccountSettings()
+        private void LoadLoginSettings()
         {
             // reload config files
             LoadAllSettings();
@@ -59,6 +59,12 @@ namespace Launcher
             LoginEmail.Text = laucherSettings.GetEmail();
             LoginPassword.Text = laucherSettings.GetPassword();
             ClientBackendURL.Text = laucherSettings.GetBackendURL();
+        }
+
+        private void LoadAccountSettings()
+        {
+            // load the settings
+            PlayerName.Content = "EmuTarkov user";  // replace this with the actual player nickname!
         }
 
         private void LoadServerGeneralSettings()
@@ -95,21 +101,21 @@ namespace Launcher
         // TODO: Check if user is logged in
         private void OnAccount(object sender, RoutedEventArgs e)
         {
-            HideAllMenuBarGrids();
+            HideAllGrids();
             LoginGrid.Visibility = Visibility.Visible;
-            LoadAccountSettings();
+            LoadLoginSettings();
         }
 
         private void OnServerGeneral(object sender, RoutedEventArgs e)
         {
-            HideAllMenuBarGrids();
+            HideAllGrids();
             ServerGeneralGrid.Visibility = Visibility.Visible;
             LoadServerGeneralSettings();
         }
 
         private void OnServerBots(object sender, RoutedEventArgs e)
         {
-            HideAllMenuBarGrids();
+            HideAllGrids();
             ServerBotsGrid.Visibility = Visibility.Visible;
             LoadServerBotsSettings();
         }
@@ -121,7 +127,7 @@ namespace Launcher
 
         private void OnSettings(object sender, RoutedEventArgs e)
         {
-            HideAllMenuBarGrids();
+            HideAllGrids();
             SettingsGrid.Visibility = Visibility.Visible;
             LoadLauncherSettings();
         }
@@ -171,37 +177,12 @@ namespace Launcher
 
         private void OnLogin(object sender, RoutedEventArgs e)
         {
-            // code here
-        }
-        #endregion
+            // check if login is valid
 
-        #region ACCOUNT_PANEL
-        private void OnChangeEmail(object sender, RoutedEventArgs e)
-        {
-            // code here
-        }
-        private void OnChangePassword(object sender, RoutedEventArgs e)
-        {
-            // code here
-        }
-        private void OnChangeNickname(object sender, RoutedEventArgs e)
-        {
-            // code here
-        }
-        private void OnChangeAppearance(object sender, RoutedEventArgs e)
-        {
-            // code here
-        }
-        private void OnLogout(object sender, RoutedEventArgs e)
-        {
-            // code here
-        }
-        #endregion
-
-        #region ACCOUNT_ACTION_BUTTONS
-        private void OnSaveChange(object sender, RoutedEventArgs e)
-        {
-            // code here
+            // show account panel
+            HideAllGrids();
+            AccountGrid.Visibility = Visibility.Visible;
+            LoadAccountSettings();
         }
         #endregion
 
@@ -227,6 +208,41 @@ namespace Launcher
         }
 
         private void OnRegister(object sender, RoutedEventArgs e)
+        {
+            // code here
+        }
+        #endregion
+
+        #region ACCOUNT_PANEL
+        private void OnChangeEmail(object sender, RoutedEventArgs e)
+        {
+            // code here
+        }
+        private void OnChangePassword(object sender, RoutedEventArgs e)
+        {
+            // code here
+        }
+        private void OnChangeNickname(object sender, RoutedEventArgs e)
+        {
+            // code here
+        }
+        private void OnChangeAppearance(object sender, RoutedEventArgs e)
+        {
+            // code here
+        }
+        private void OnLogout(object sender, RoutedEventArgs e)
+        {
+            // logout user
+            
+            // show account panel
+            HideAllGrids();
+            LoginGrid.Visibility = Visibility.Visible;
+            LoadLoginSettings();
+        }
+        #endregion
+
+        #region ACCOUNT_ACTION_BUTTONS
+        private void OnSaveChange(object sender, RoutedEventArgs e)
         {
             // code here
         }
