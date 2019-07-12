@@ -43,59 +43,11 @@ namespace Launcher
             SettingsGrid.Visibility = Visibility.Hidden;
         }
 
-        #region LOAD_SETTINGS
         private void LoadAllSettings()
         {
             laucherSettings = new LauncherSettings();
             serverSettings = new ServerSettings(System.IO.Path.Combine(laucherSettings.GetServerLocation(), "data"));
         }
-
-        private void LoadLoginSettings()
-        {
-            // reload config files
-            LoadAllSettings();
-
-            // load the settings
-            LoginEmail.Text = laucherSettings.GetEmail();
-            LoginPassword.Text = laucherSettings.GetPassword();
-            ClientBackendURL.Text = laucherSettings.GetBackendURL();
-        }
-
-        private void LoadAccountSettings()
-        {
-            // load the settings
-            PlayerName.Content = "EmuTarkov user";  // replace this with the actual player nickname!
-        }
-
-        private void LoadServerGeneralSettings()
-        {
-            // reload config files
-            LoadAllSettings();
-
-            // load the settings
-            Port.Text = serverSettings.GetServerPort();
-        }
-
-        private void LoadServerBotsSettings()
-        {
-            // reload config files
-            LoadAllSettings();
-
-            // load PMC war settings
-            PmcWarEnabled.IsChecked = serverSettings.GetBotsPmcWarEnabled();
-            PmcWarUsecChance.Text = serverSettings.GetBotsPmcWarUsecChance();
-        }
-
-        private void LoadLauncherSettings()
-        {
-            // reload config files
-            LoadAllSettings();
-
-            // load the settings
-            GameLocation.Text = laucherSettings.GetGameLocation();
-            ServerLocation.Text = laucherSettings.GetServerLocation();
-        }
-        #endregion
 
         #region MENU_BAR
         // TODO: Check if user is logged in
@@ -160,6 +112,17 @@ namespace Launcher
         #endregion
 
         #region ACCOUNT_LOGIN
+        private void LoadLoginSettings()
+        {
+            // reload config files
+            LoadAllSettings();
+
+            // load the settings
+            LoginEmail.Text = laucherSettings.GetEmail();
+            LoginPassword.Text = laucherSettings.GetPassword();
+            ClientBackendURL.Text = laucherSettings.GetBackendURL();
+        }
+
         private void OnChangeLoginEmail(object sender, TextChangedEventArgs e)
         {
             laucherSettings.SetEmail(LoginEmail.Text);
@@ -213,23 +176,35 @@ namespace Launcher
         }
         #endregion
 
-        #region ACCOUNT_PANEL
+        #region ACCOUNT_SETTINGS
+        private void LoadAccountSettings()
+        {
+            // load the settings
+            PlayerName.Content = "EmuTarkov user";  // replace this with the actual player nickname!
+        }
+
         private void OnChangeEmail(object sender, RoutedEventArgs e)
         {
             // code here
         }
+
         private void OnChangePassword(object sender, RoutedEventArgs e)
         {
             // code here
         }
+
         private void OnChangeNickname(object sender, RoutedEventArgs e)
         {
             // code here
         }
+
         private void OnChangeAppearance(object sender, RoutedEventArgs e)
         {
-            // code here
+            HideAllGrids();
+            ChangeAppearanceGrid.Visibility = Visibility.Visible;
+            //LoadLoginSettings();
         }
+
         private void OnLogout(object sender, RoutedEventArgs e)
         {
             // logout user
@@ -249,6 +224,15 @@ namespace Launcher
         #endregion
 
         #region SERVER_GENERAL
+        private void LoadServerGeneralSettings()
+        {
+            // reload config files
+            LoadAllSettings();
+
+            // load the settings
+            Port.Text = serverSettings.GetServerPort();
+        }
+
         private void OnChangePort(object sender, RoutedEventArgs e)
         {
             serverSettings.SetServerPort(Port.Text);
@@ -256,6 +240,16 @@ namespace Launcher
         #endregion
 
         #region SERVER_BOTS
+        private void LoadServerBotsSettings()
+        {
+            // reload config files
+            LoadAllSettings();
+
+            // load PMC war settings
+            PmcWarEnabled.IsChecked = serverSettings.GetBotsPmcWarEnabled();
+            PmcWarUsecChance.Text = serverSettings.GetBotsPmcWarUsecChance();
+        }
+
         private void OnChangePmcWarEnabled(object sender, RoutedEventArgs e)
         {
             serverSettings.SetBotsPmcWarEnabled((bool)PmcWarEnabled.IsChecked);
@@ -269,6 +263,16 @@ namespace Launcher
         #endregion
 
         #region LAUNCHER_SETTINGS
+        private void LoadLauncherSettings()
+        {
+            // reload config files
+            LoadAllSettings();
+
+            // load the settings
+            GameLocation.Text = laucherSettings.GetGameLocation();
+            ServerLocation.Text = laucherSettings.GetServerLocation();
+        }
+
         private void OnChangeGameLocation(object sender, TextChangedEventArgs e)
         {
             laucherSettings.SetGameLocation(GameLocation.Text);
