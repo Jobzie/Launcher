@@ -168,39 +168,39 @@
             <!-- change appearance -->
             <Grid x:Name="ChangeAppearanceGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="true">
                 <!-- head -->
-                <ComboBox Name="select_head" HorizontalAlignment="Left" Margin="44,29.512,0,0" VerticalAlignment="Top" Width="80">
+                <ComboBox Name="ChangeHead" HorizontalAlignment="Left" Margin="44,29.512,0,0" VerticalAlignment="Top" Width="80">
                     <ComboBoxItem Content="Head 1" IsSelected="True"/>
                     <ComboBoxItem Content="Head 2"/>
                 </ComboBox>
                 <Label Content="Head" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="64,0,0,0" VerticalAlignment="Top" Width="43.04" Height="29.512"/>
-                <Image Name="img_head" Source="/data/images/character/head/bear_head.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="44,51.512,0,0" VerticalAlignment="Top" />
+                <Image Name="HeadImage" Source="/data/images/character/head/bear_head.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="44,51.512,0,0" VerticalAlignment="Top" />
 
                 <!-- hands -->
-                <ComboBox Name="select_hands" HorizontalAlignment="Left" Margin="169,29.512,0,0" VerticalAlignment="Top" Width="80">
+                <ComboBox Name="ChangeHands" HorizontalAlignment="Left" Margin="169,29.512,0,0" VerticalAlignment="Top" Width="80">
                     <ComboBoxItem Content="Hands 1" IsSelected="True"/>
                     <ComboBoxItem Content="Hands 2"/>
                 </ComboBox>
                 <Label Content="Hands" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="186.5,0,0,0" VerticalAlignment="Top" Width="43.04" Height="29.512"/>
-                <Image Name="img_hands" Source="/data/images/character/hands/bear_hands_skin.png" HorizontalAlignment="Left" Height="95" Width="80"  Margin="169,51.512,0,0" VerticalAlignment="Top" />
+                <Image Name="HandsImage" Source="/data/images/character/hands/bear_hands_skin.png" HorizontalAlignment="Left" Height="95" Width="80"  Margin="169,51.512,0,0" VerticalAlignment="Top" />
 
                 <!-- body -->
-                <ComboBox Name="select_body" HorizontalAlignment="Left" Margin="169,187.664,0,0" VerticalAlignment="Top" Width="80">
+                <ComboBox Name="ChangeBody" HorizontalAlignment="Left" Margin="169,187.664,0,0" VerticalAlignment="Top" Width="80">
                     <ComboBoxItem Content="Body 1" IsSelected="True"/>
                     <ComboBoxItem Content="Body 2"/>
                 </ComboBox>
                 <Label Content="Body" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="189,158.162,0,0" VerticalAlignment="Top" Width="43.04" Height="29.502"/>
-                <Image Name="img_body" Source="/data/images/character/body/bear_body.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="169,210.82,0,0" VerticalAlignment="Top"/>
+                <Image Name="BodyImage" Source="/data/images/character/body/bear_body.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="169,210.82,0,0" VerticalAlignment="Top"/>
 
                 <!-- legs -->
-                <ComboBox Name="select_legs" HorizontalAlignment="Left" Margin="44,187.664,0,0" VerticalAlignment="Top" Width="80">
+                <ComboBox Name="ChangeLegs" HorizontalAlignment="Left" Margin="44,187.664,0,0" VerticalAlignment="Top" Width="80">
                     <ComboBoxItem Content="Legs 1" IsSelected="True"/>
                     <ComboBoxItem Content="Legs 2"/>
                 </ComboBox>
                 <Label Content="Legs" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="66.5,158.162,0,0" VerticalAlignment="Top" Width="43.04" Height="29.502"/>
-                <Image Name="img_legs" Source="/data/images/character/legs/bear_feet.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="44,210.82,0,0" VerticalAlignment="Top" />
+                <Image Name="LegsImage" Source="/data/images/character/legs/bear_feet.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="44,210.82,0,0" VerticalAlignment="Top" />
 
                 <!-- buttons -->
-                <Button x:Name="ConfirmChangeAppearance" Content="Change" HorizontalAlignment="Right" Margin="0,314.398,106.391,0" VerticalAlignment="Top" Width="75" Height="25" Foreground="#FFDDDDDD" Background="#FF404040" BorderBrush="#FFABADB3" Click="OnSaveChange" Template="{DynamicResource ButtonTemplates}" />
+                <Button x:Name="ConfirmChangeAppearance" Content="Change" HorizontalAlignment="Right" Margin="0,314.398,106.391,0" VerticalAlignment="Top" Width="75" Height="25" Foreground="#FFDDDDDD" Background="#FF404040" BorderBrush="#FFABADB3" Click="OnAppearanceChange" Template="{DynamicResource ButtonTemplates}" />
             </Grid>
 
             <!-- server general -->

@@ -202,7 +202,7 @@ namespace Launcher
         {
             HideAllGrids();
             ChangeAppearanceGrid.Visibility = Visibility.Visible;
-            //LoadLoginSettings();
+            LoadAppearanceSettings();
         }
 
         private void OnLogout(object sender, RoutedEventArgs e)
@@ -216,10 +216,20 @@ namespace Launcher
         }
         #endregion
 
-        #region ACCOUNT_ACTION_BUTTONS
-        private void OnSaveChange(object sender, RoutedEventArgs e)
+        #region ACCOUNT_CHANGE_APPEARANCE
+        private void LoadAppearanceSettings()
         {
             // code here
+        }
+
+        private void OnAppearanceChange(object sender, RoutedEventArgs e)
+        {
+            // send changes to the server
+
+            // show account panel
+            HideAllGrids();
+            AccountGrid.Visibility = Visibility.Visible;
+            LoadAccountSettings();
         }
         #endregion
 
