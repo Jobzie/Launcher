@@ -278,15 +278,15 @@
 
                         <!-- meds pockets -->
                         <Label Content="Meds pockets" HorizontalAlignment="Left" Margin="119,31.666,0,0" VerticalAlignment="Top" Width="84.667" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="SpawnMedPockets" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,34.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeSpawnMedsPockets" />
+                        <TextBox x:Name="SpawnMedPocket" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,34.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeSpawnMedsPocket" />
 
                         <!-- item pockets -->
                         <Label Content="Item pockets" HorizontalAlignment="Left" Margin="119,59.666,0,0" VerticalAlignment="Top" Width="81.667" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="SpawnItemPockets" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,62.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeSpawnItemPockets" />
+                        <TextBox x:Name="SpawnItemPocket" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,62.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeSpawnItemPocket" />
 
                         <!-- headwear -->
                         <Label Content="Headwear" HorizontalAlignment="Left" Margin="10,87.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="SpawnHeadwear" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,90.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeSpawnHeadWear" />
+                        <TextBox x:Name="SpawnHeadwear" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,90.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeSpawnHeadwear" />
                     </Grid>
                 </GroupBox>
             </Grid>

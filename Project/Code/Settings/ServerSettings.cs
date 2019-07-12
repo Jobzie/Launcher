@@ -114,5 +114,84 @@ namespace Launcher.Code.Settings
             base.SaveSettings();
         }
         #endregion
+
+        #region BOTS_SPAWN
+        public string GetBotsSpawnGlasses()
+        {
+            return base.config.bots.spawn.glasses.ToString();
+        }
+
+        public void SetBotsSpawnGlasses(string value)
+        {
+            base.config.bots.spawn.glasses = Convert.ToInt32(value);
+            base.SaveSettings();
+        }
+
+        public string GetBotsSpawnFaceCover()
+        {
+            return base.config.bots.spawn.faceCover.ToString();
+        }
+
+        public void SetBotsSpawnFaceCover(string value)
+        {
+            base.config.bots.spawn.faceCover = Convert.ToInt32(value);
+            base.SaveSettings();
+        }
+
+        public string GetBotsSpawnHeadwear()
+        {
+            return base.config.bots.spawn.headwear.ToString();
+        }
+
+        public void SetBotsSpawnHeadwear(string value)
+        {
+            base.config.bots.spawn.headwear = Convert.ToInt32(value);
+            base.SaveSettings();
+        }
+
+        public string GetBotsSpawnBackpack()
+        {
+            return base.config.bots.spawn.backpack.ToString();
+        }
+
+        public void SetBotsSpawnBackpack(string value)
+        {
+            base.config.bots.spawn.backpack = Convert.ToInt32(value);
+            base.SaveSettings();
+        }
+
+        public string GetBotsSpawnArmorVest()
+        {
+            return base.config.bots.spawn.armorVest.ToString();
+        }
+
+        public void SetBotsSpawnArmorVest(string value)
+        {
+            base.config.bots.spawn.armorVest = Convert.ToInt32(value);
+            base.SaveSettings();
+        }
+
+        public string GetBotsSpawnMedPocket()
+        {
+            return base.config.bots.spawn.medPocket.ToString();
+        }
+
+        public void SetBotsSpawnMedPocket(string value)
+        {
+            base.config.bots.spawn.medPocket = Convert.ToInt32(value);
+            base.SaveSettings();
+        }
+
+        public string GetBotsSpawnItemPocket()
+        {
+            return base.config.bots.spawn.itemPocket.ToString();
+        }
+
+        public void SetBotsSpawnItemPocket(string value)
+        {
+            base.config.bots.spawn.itemPocket = Convert.ToInt32(value);
+            base.SaveSettings();
+        }
+        #endregion
     }
 }

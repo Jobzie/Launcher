@@ -323,48 +323,48 @@ namespace Launcher
         #region BOTS_SPAWN
         private void LoadBotsSpawnSettings()
         {
-            SpawnGlasses.Text = "";
-            SpawnFaceCover.Text = "";
-            SpawnHeadwear.Text = "";
-            SpawnBackpack.Text = "";
-            SpawnArmorVest.Text = "";
-            SpawnMedPockets.Text = "";
-            SpawnItemPockets.Text = "";
+            SpawnGlasses.Text = serverSettings.GetBotsSpawnGlasses();
+            SpawnFaceCover.Text = serverSettings.GetBotsSpawnFaceCover();
+            SpawnHeadwear.Text = serverSettings.GetBotsSpawnHeadwear();
+            SpawnBackpack.Text = serverSettings.GetBotsSpawnBackpack();
+            SpawnArmorVest.Text = serverSettings.GetBotsSpawnArmorVest();
+            SpawnMedPocket.Text = serverSettings.GetBotsSpawnMedPocket();
+            SpawnItemPocket.Text = serverSettings.GetBotsSpawnItemPocket();
         }
 
         private void OnChangeSpawnGlasses(object sender, TextChangedEventArgs e)
         {
-            // code here
+            serverSettings.SetBotsSpawnGlasses(SpawnGlasses.Text);
         }
 
         private void OnChangeSpawnFaceCover(object sender, TextChangedEventArgs e)
         {
-            // code here
+            serverSettings.SetBotsSpawnFaceCover(SpawnFaceCover.Text);
         }
 
-        private void OnChangeSpawnHeadWear(object sender, TextChangedEventArgs e)
+        private void OnChangeSpawnHeadwear(object sender, TextChangedEventArgs e)
         {
-            // code here
+            serverSettings.SetBotsSpawnHeadwear(SpawnHeadwear.Text);
         }
 
         private void OnChangeSpawnBackpack(object sender, TextChangedEventArgs e)
         {
-            // code here
+            serverSettings.SetBotsSpawnBackpack(SpawnBackpack.Text);
         }
 
         private void OnChangeSpawnArmorVest(object sender, TextChangedEventArgs e)
         {
-            // code here
+            serverSettings.SetBotsSpawnArmorVest(SpawnArmorVest.Text);
         }
 
-        private void OnChangeSpawnMedsPockets(object sender, TextChangedEventArgs e)
+        private void OnChangeSpawnMedsPocket(object sender, TextChangedEventArgs e)
         {
-            // code here
+            serverSettings.SetBotsSpawnMedPocket(SpawnMedPocket.Text);
         }
 
-        private void OnChangeSpawnItemPockets(object sender, TextChangedEventArgs e)
+        private void OnChangeSpawnItemPocket(object sender, TextChangedEventArgs e)
         {
-            // code here
+            serverSettings.SetBotsSpawnItemPocket(SpawnItemPocket.Text);
         }
         #endregion
 
