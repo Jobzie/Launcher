@@ -180,7 +180,7 @@ namespace Launcher
         private void LoadAccountSettings()
         {
             // load the settings
-            PlayerName.Content = "EmuTarkov user";  // replace this with the actual player nickname!
+            PlayerName.Content = "Hello, " + "EmuTarkov user";  // replace this with the actual player nickname!
         }
 
         private void OnChangeEmail(object sender, RoutedEventArgs e)
