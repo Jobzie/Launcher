@@ -8,22 +8,15 @@ namespace Launcher.Code.Starter
     {
         private string filepath = "";
         private string executable = "";
-        private Watcher watcher = null;
 
         protected StarterBase(string filepath, string executable)
         {
             this.filepath = filepath;
             this.executable = executable;
-            watcher = new Watcher(executable);
         }
 
         protected void Start()
         {
-            if (watcher.IsProcessAlive())
-            {
-                return;
-            }
-
             ProcessStartInfo process = new ProcessStartInfo();
             process.FileName = Path.Combine(filepath, executable);
             process.UseShellExecute = false;

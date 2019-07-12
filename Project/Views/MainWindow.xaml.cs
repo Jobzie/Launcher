@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using Launcher.Code.Settings;
 using Launcher.Code.Starter;
+using Launcher.Code.Monitor;
 
 namespace Launcher
 {
@@ -12,6 +13,8 @@ namespace Launcher
     {
         private LauncherSettings laucherSettings = null;
         private ServerSettings serverSettings = null;
+        private Watcher gameWatcher = new Watcher("EscapeFromTarkov.exe");
+        private Watcher serverWatcher = new Watcher("EmuTarkov-Server.exe");
 
         public MainWindow()
         {
@@ -124,14 +127,28 @@ namespace Launcher
         }
         #endregion
 
-        #region APPLICATION_LAUNCHER
+        #region APPLICATION_START
         private void OnStartGame(object sender, RoutedEventArgs e)
         {
+            // allow only one instance to run
+            if (gameWatcher.IsProcessAlive())
+            {
+                // show error message
+                return;
+            }
+
             GameStarter starter = new GameStarter(GameLocation.Text, ClientBackendURL.Text, LoginEmail.Text, LoginPassword.Text);
         }
 
         private void OnStartServer(object sender, RoutedEventArgs e)
         {
+            // allow only one instance to run
+            if (!serverWatcher.IsProcessAlive())
+            {
+                // show error message
+                return;
+            }
+
             ServerStarter starter = new ServerStarter(ServerLocation.Text);
         }
         #endregion
