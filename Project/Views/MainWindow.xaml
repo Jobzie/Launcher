@@ -113,6 +113,9 @@
 
         <!-- app grid -->
         <Grid x:Name="AppGrid" HorizontalAlignment="right" Height="340" Width="290" VerticalAlignment="Top" RenderTransformOrigin="3.188,1.039" Margin="0,30,0,0">
+            <!-- account grid -->
+            <!-- show here the option to login or register, and the backendurl to connect to -->
+            
             <!-- login grid -->
             <Grid x:Name="LoginGrid" HorizontalAlignment="Center" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="True">
                 <!-- email -->
@@ -156,8 +159,8 @@
                 <Button x:Name="Register" Content="Create Profile" HorizontalAlignment="Center" Margin="0,262.398,0,0" VerticalAlignment="Top" Width="120" Height="30" Foreground="#FFDDDDDD" Background="#FF404040" BorderBrush="#FFABADB3" Click="OnLogin" Template="{DynamicResource ButtonTemplates}" />
             </Grid>
 
-            <!-- account -->
-            <Grid x:Name="AccountGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290">
+            <!-- account settings -->
+            <Grid x:Name="AccountSettingsGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="True">
                 <!-- player greeting -->
                 <Label x:Name="PlayerName" FontFamily="{DynamicResource Bender}" Content="Hello, {username}" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="270" Foreground="White" Height="36.8" FontSize="20"/>
 
@@ -170,6 +173,15 @@
                 <Button x:Name="Logout" Content="Logout" HorizontalAlignment="Right" Margin="0,187,153,0" VerticalAlignment="Top" Width="122" Height="25" Foreground="#FFDDDDDD" Background="#FF404040" BorderBrush="#FFABADB3" Click="OnLogout" Template="{DynamicResource ButtonTemplates}" />
             </Grid>
 
+            <!-- change email -->
+            <!-- add textbox with change button -->
+            
+            <!-- change password -->
+            <!-- add textbox with change button -->
+            
+            <!-- change nickname -->
+            <!-- add textbox with change button -->
+            
             <!-- change appearance -->
             <Grid x:Name="ChangeAppearanceGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="true">
                 <!-- head -->
@@ -208,6 +220,12 @@
                 <Button x:Name="ConfirmChangeAppearance" Content="Change" HorizontalAlignment="Right" Margin="0,314.398,106.391,0" VerticalAlignment="Top" Width="75" Height="25" Foreground="#FFDDDDDD" Background="#FF404040" BorderBrush="#FFABADB3" Click="OnAppearanceChange" Template="{DynamicResource ButtonTemplates}" />
             </Grid>
 
+            <!-- delete account -->
+            <!-- show warning for account deletion with button to go back or proceed -->
+            
+            <!-- logout -->
+            <!-- show logout grid here with a message that the user logged out -->
+            
             <!-- server general -->
             <Grid x:Name="ServerGeneralGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="True">
                 <!-- port -->

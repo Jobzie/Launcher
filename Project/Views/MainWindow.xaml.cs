@@ -27,7 +27,7 @@ namespace Launcher
             // account
             LoginGrid.Visibility = Visibility.Hidden;
             RegisterGrid.Visibility = Visibility.Hidden;
-            AccountGrid.Visibility = Visibility.Hidden;
+            AccountSettingsGrid.Visibility = Visibility.Hidden;
             // AccountGrid.Visibility = Visibility.Hidden;
             // ChangeEmailGrid.Visibility = Visibility.Hidden;
             // ChangePasswordGrid.Visibility = Visibility.Hidden;
@@ -144,7 +144,7 @@ namespace Launcher
 
             // show account panel
             HideAllGrids();
-            AccountGrid.Visibility = Visibility.Visible;
+            AccountSettingsGrid.Visibility = Visibility.Visible;
             LoadAccountSettings();
         }
         #endregion
@@ -228,7 +228,7 @@ namespace Launcher
 
             // show account panel
             HideAllGrids();
-            AccountGrid.Visibility = Visibility.Visible;
+            AccountSettingsGrid.Visibility = Visibility.Visible;
             LoadAccountSettings();
         }
         #endregion
