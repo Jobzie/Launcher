@@ -101,7 +101,7 @@ namespace Launcher
         private void OnStartServer(object sender, RoutedEventArgs e)
         {
             // allow only one instance to run
-            if (!serverWatcher.IsProcessAlive())
+            if (serverWatcher.IsProcessAlive())
             {
                 // show error message
                 return;
