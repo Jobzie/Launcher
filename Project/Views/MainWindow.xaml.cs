@@ -24,6 +24,7 @@ namespace Launcher
 
         private void HideAllGrids()
         {
+            IntroGrid.Visibility = Visibility.Hidden;
             // account
             LoginGrid.Visibility = Visibility.Hidden;
             RegisterGrid.Visibility = Visibility.Hidden;
@@ -37,7 +38,7 @@ namespace Launcher
             // server
             ServerGeneralGrid.Visibility = Visibility.Hidden;
             ServerBotsGrid.Visibility = Visibility.Hidden;
-            // ServerWeatherGrid.Visibility = Visibility.Hidden;
+            ServerWeatherGrid.Visibility = Visibility.Hidden;
 
             // launcher
             SettingsGrid.Visibility = Visibility.Hidden;
@@ -47,6 +48,11 @@ namespace Launcher
         {
             laucherSettings = new LauncherSettings();
             serverSettings = new ServerSettings(System.IO.Path.Combine(laucherSettings.GetServerLocation(), "data"));
+        }
+
+        private void OnIntro(object sender, RoutedEventArgs e) {
+            HideAllGrids();
+            IntroGrid.Visibility = Visibility.Visible;
         }
 
         #region MENU_BAR
@@ -375,18 +381,30 @@ namespace Launcher
             LoadAllSettings();
 
             // load the settings
+                //load locations
             ClientLocation.Text = laucherSettings.GetClientLocation();
             ServerLocation.Text = laucherSettings.GetServerLocation();
+                //load filenames
+            ClientFileName.Text = laucherSettings.GetClientFilename();
+            ServerFileName.Text = laucherSettings.GetServerFilename();
         }
 
         private void OnChangeClientLocation(object sender, TextChangedEventArgs e)
         {
             laucherSettings.SetClientLocation(ClientLocation.Text);
         }
+        private void OnChangeClientFilename(object sender, TextChangedEventArgs e)
+        {
+            laucherSettings.SetClientFilename(ClientFileName.Text);
+        }
 
         private void OnChangeServerLocation(object sender, TextChangedEventArgs e)
         {
             laucherSettings.SetServerLocation(ServerLocation.Text);
+        }
+        private void OnChangeServerFilename(object sender, TextChangedEventArgs e)
+        {
+            laucherSettings.SetServerFilename(ServerFileName.Text);
         }
         #endregion
     }

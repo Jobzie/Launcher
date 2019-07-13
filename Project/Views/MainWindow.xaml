@@ -1,18 +1,16 @@
-﻿<Window x:Class="Launcher.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Launcher"
-        mc:Ignorable="d"
-        Title="Just EmuTarkov Launcher" Height="480" Width="730">
+        xmlns:local="clr-namespace:Launcher" 
+        x:Class="Launcher.MainWindow" mc:Ignorable="d"
+        Height="481" MinHeight="481" MaxHeight="481"
+        Width="727" MinWidth="727" MaxWidth="727"
+        Title="Just EmuTarkov Launcher" Background="Black" Foreground="White">
 
-    <!-- button hover -->
+    <!-- Additional templace ressources -->
     <Window.Resources>
-        <FontFamily x:Key="Bender">
-            pack://application:,,,/Resources/Fonts/#Bender
-        </FontFamily>
-
+        <FontFamily x:Key="Bender">pack://application:,,,/Resources/Fonts/#Bender</FontFamily>
         <ControlTemplate x:Key="ButtonTemplates" TargetType="{x:Type Button}">
             <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
                 <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
@@ -24,11 +22,11 @@
                 </Trigger>
 
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" TargetName="border" Value="#FF1A1A1A"/>
+                    <Setter Property="Background" TargetName="border" Value="#FF404040"/>
                 </Trigger>
 
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" TargetName="border" Value="#FF1A1A1A"/>
+                    <Setter Property="Background" TargetName="border" Value="#FF404040"/>
                 </Trigger>
 
                 <Trigger Property="ToggleButton.IsChecked" Value="True">
@@ -43,7 +41,6 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
-
         <ControlTemplate x:Key="GroupBoxTemplate" TargetType="{x:Type GroupBox}">
             <Grid SnapsToDevicePixels="True">
                 <Grid.ColumnDefinitions>
@@ -87,6 +84,38 @@
                 <ContentPresenter Grid.ColumnSpan="2" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" ContentStringFormat="{TemplateBinding ContentStringFormat}" Margin="{TemplateBinding Padding}" Grid.Row="2" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
             </Grid>
         </ControlTemplate>
+        <ControlTemplate x:Key="SubMenuItemTemplate" TargetType="{x:Type MenuItem}">
+            <Border x:Name="templateRoot" BorderBrush="#ff202020" BorderThickness="{TemplateBinding BorderThickness}" Background="#ff202020" SnapsToDevicePixels="True">
+                <Grid VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Path x:Name="GlyphPanel" Data="F1M10,1.2L4.7,9.1 4.5,9.1 0,5.2 1.3,3.5 4.3,6.1 8.3,0 10,1.2z" Fill="#FF212121" FlowDirection="LeftToRight" Margin="3" Visibility="Collapsed" VerticalAlignment="Center"/>
+                    <ContentPresenter ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Grid.Column="1" Height="20" ContentStringFormat="{TemplateBinding HeaderStringFormat}"  ContentSource="Header" Margin="8,5,5,10" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Visibility" TargetName="GlyphPanel" Value="Visible"/>
+                </Trigger>
+                <Trigger Property="IsHighlighted" Value="True">
+                    <Setter Property="Background" TargetName="templateRoot" Value="#ff404040"/>
+                    <Setter Property="BorderBrush" TargetName="templateRoot" Value="#ff404040"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="#FF707070"/>
+                    <Setter Property="Fill" TargetName="GlyphPanel" Value="#FF707070"/>
+                </Trigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsHighlighted" Value="True"/>
+                        <Condition Property="IsEnabled" Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background" TargetName="templateRoot" Value="#ff000000"/>
+                    <Setter Property="BorderBrush" TargetName="templateRoot" Value="#ff550055"/>
+                </MultiTrigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
     </Window.Resources>
 
     <Grid x:Name="WindowGrid">
@@ -97,236 +126,262 @@
         <!-- menu bar -->
         <DockPanel Margin="428.838,-1.509,-2.338,418.998">
             <Menu DockPanel.Dock="Top" HorizontalAlignment="Left" Height="24" Margin="0,0,4,0" Foreground="#FFDDDDDD" Background="#00000000">
-                <MenuItem Header="Account" FontSize="12" Foreground="#FFDDDDDD" Background="{x:Null}" Click="OnAccount" Height="24" />
-                <MenuItem Header="Server" FontSize="12" Foreground="#FFDDDDDD" Background="{x:Null}">
-                    <MenuItem Header="General" FontSize="12" Foreground="#FFDDDDDD" Background="#FF202020" Click="OnServerGeneral" />
-                    <MenuItem Header="Bots" FontSize="12" Foreground="#FFDDDDDD" Background="#FF202020" Click="OnServerBots" />
-                    <MenuItem Header="Weather" FontSize="12" Foreground="#FFDDDDDD" Background="#FF202020" Click="OnServerWeather" />
+                <MenuItem Header="#" FontSize="12" Foreground="#FFDDDDDD" Background="{x:Null}" Click="OnIntro" Height="24" FontFamily="{DynamicResource Bender}" />
+                <MenuItem Header="Account" FontSize="12" Foreground="#FFDDDDDD" Background="{x:Null}" Click="OnAccount" Height="24" FontFamily="{DynamicResource Bender}" />
+                <MenuItem Header="Server" FontSize="12" Foreground="#FFDDDDDD" Background="#ff202020" FontFamily="{DynamicResource Bender}">
+                    <MenuItem Header="General" FontSize="12" Foreground="#FFDDDDDD" Background="#FF202020" Click="OnServerGeneral" FontFamily="{DynamicResource Bender}" Template="{DynamicResource SubMenuItemTemplate}" />
+                    <MenuItem Header="Bots" FontSize="12" Foreground="#FFDDDDDD" Background="#FF202020" Click="OnServerBots" FontFamily="{DynamicResource Bender}" Template="{DynamicResource SubMenuItemTemplate}" />
+                    <MenuItem Header="Weather" FontSize="12" Foreground="#FFDDDDDD" Background="#FF202020" Click="OnServerWeather" FontFamily="{DynamicResource Bender}" Template="{DynamicResource SubMenuItemTemplate}" />
                 </MenuItem>
-                <MenuItem Header="Settings" FontSize="12" Foreground="#FFDDDDDD" Background="{x:Null}" Click="OnSettings" />
+                <MenuItem Header="Settings" FontSize="12" Foreground="#FFDDDDDD" Background="{x:Null}" Click="OnSettings" FontFamily="{DynamicResource Bender}" />
             </Menu>
         </DockPanel>
 
-        <!-- start buttons -->
-        <Button FontFamily="{DynamicResource Bender}" Content="Start Server" HorizontalAlignment="Left" Margin="579.801,394.467,0,0" VerticalAlignment="Top" Width="110" Height="35" Click="OnStartServer" FontSize="16" Background="#FF404040" Foreground="White" BorderBrush="#FFABADB3"  Template="{DynamicResource ButtonTemplates}"/>
-        <Button FontFamily="{DynamicResource Bender}" Content="Start Client" HorizontalAlignment="Left" Margin="463.801,394.467,0,0" VerticalAlignment="Top" Width="110" Height="35" Click="OnStartClient" FontSize="16" Background="#FF404040" Foreground="White" BorderBrush="#FFABADB3"  Template="{DynamicResource ButtonTemplates}"/>
+        <Button FontFamily="{DynamicResource Bender}" Content="Start Server" HorizontalAlignment="Left" Margin="579.801,394.467,0,0" VerticalAlignment="Top" Width="110" Height="35" Click="OnStartServer" FontSize="16" Background="#00404040" Foreground="White" BorderBrush="#FFABADB3"  Template="{DynamicResource ButtonTemplates}"/>
+        <Button FontFamily="{DynamicResource Bender}" Content="Start Client" HorizontalAlignment="Left" Margin="463.801,394.467,0,0" VerticalAlignment="Top" Width="110" Height="35" Click="OnStartClient" FontSize="16" Background="#00404040" Foreground="White" BorderBrush="#FFABADB3"  Template="{DynamicResource ButtonTemplates}"/>
 
-        <!-- app grid -->
         <Grid x:Name="AppGrid" HorizontalAlignment="right" Height="340" Width="290" VerticalAlignment="Top" RenderTransformOrigin="3.188,1.039" Margin="0,30,0,0">
+
             <!-- account grid -->
             <!-- show here the option to login or register, and the backendurl to connect to -->
-            
-            <!-- login grid -->
-            <Grid x:Name="LoginGrid" HorizontalAlignment="Center" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="True">
-                <!-- email -->
-                <Label Content="Email" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>
-                <TextBox x:Name="LoginEmail" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="44.8,30.6,45.2,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeLoginEmail" />
-
-                <!-- password -->
-                <Label Content="Password" HorizontalAlignment="Center" Margin="44.8,58.6,45.2,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>
-                <TextBox x:Name="LoginPassword" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="44.8,84.2,45.2,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeLoginPassword" />
-
-                <!-- backendurl -->
-                <Label x:Name="BackendURL" Content="BackendURL" HorizontalAlignment="Center" Margin="44.8,112.2,45.2,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>
-                <TextBox x:Name="LoginBackendURL" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="44.8,137.8,45.2,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeClientBackendURL" />
-
-                <!-- buttons -->
-                <Button x:Name="Login" Content="Login" HorizontalAlignment="Center" Margin="0,262.398,0,0" VerticalAlignment="Top" Width="75" Height="25" Foreground="#FFDDDDDD" Background="#FF404040" BorderBrush="#FFABADB3" Click="OnLogin" Template="{DynamicResource ButtonTemplates}" />
-            </Grid>
-
-            <!-- register -->
-            <Grid x:Name="RegisterGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="true">
-                <!-- email -->
-                <Label Content="Email" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>
-                <TextBox x:Name="RegisterEmail" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="0,35,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeRegisterEmail" />
-
-                <!-- password -->
-                <Label Content="Password" HorizontalAlignment="Center" Margin="0,60,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>
-                <TextBox x:Name="RegisterPassword" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="0,90,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeRegisterPassword" />
-
-                <!-- nickname -->
-                <Label Content="Character nickname" HorizontalAlignment="Center" Margin="0,115,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>
-                <TextBox x:Name="RegisterNickname" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="0,145,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeRegisterNickname" />
-
-                <!-- side -->
-                <Label Content="Side" Foreground="#FFDDDDDD" HorizontalAlignment="Center" Margin="0,170,0,0" VerticalAlignment="Top" Width="200" Height="24.52"/>
-                <ComboBox x:Name="RegisterSide" HorizontalAlignment="Center" Margin="0,200,0,0" VerticalAlignment="Top" Width="200" SelectionChanged="OnChangeRegisterSide" Foreground="White" Background="#00404040">
-                    <ComboBoxItem Content="Bear" IsSelected="True"/>
-                    <ComboBoxItem Content="Usec" />
-                </ComboBox>
-
-                <!-- buttons -->
-                <Button x:Name="Register" Content="Create Profile" HorizontalAlignment="Center" Margin="0,262.398,0,0" VerticalAlignment="Top" Width="120" Height="30" Foreground="#FFDDDDDD" Background="#FF404040" BorderBrush="#FFABADB3" Click="OnLogin" Template="{DynamicResource ButtonTemplates}" />
-            </Grid>
-
-            <!-- account settings -->
-            <Grid x:Name="AccountSettingsGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="True">
-                <!-- player greeting -->
-                <Label x:Name="PlayerName" FontFamily="{DynamicResource Bender}" Content="Hello, {username}" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="270" Foreground="White" Height="36.8" FontSize="20"/>
-
-                <!-- buttons -->
-                <Button x:Name="ChangeEmail" Content="Change email" HorizontalAlignment="Right" Margin="0,59.8,152.048,0" VerticalAlignment="Top" Width="121.4" Height="25" Foreground="#FFDDDDDD" Background="#FF404040" BorderBrush="#FFABADB3" Click="OnChangeEmail" Template="{DynamicResource ButtonTemplates}" />
-                <Button x:Name="ChangePassword" Content="Change password" HorizontalAlignment="Right" Margin="0,92,153,0" VerticalAlignment="Top" Width="122" Height="25" Foreground="#FFDDDDDD" Background="#FF404040" BorderBrush="#FFABADB3" Click="OnChangePassword" Template="{DynamicResource ButtonTemplates}" />
-                <Button x:Name="ChangeNickname" Content="Change nickname" HorizontalAlignment="Right" Margin="0,123.8,152.602,0" VerticalAlignment="Top" Width="121.4" Height="25" Foreground="#FFDDDDDD" Background="#FF404040" BorderBrush="#FFABADB3" Click="OnChangeNickname" Template="{DynamicResource ButtonTemplates}" />
-                <Button x:Name="ChangeAppearance" Content="Change appearance" HorizontalAlignment="Right" Margin="0,155,153,0" VerticalAlignment="Top" Width="122" Height="25" Foreground="#FFDDDDDD" Background="#FF404040" BorderBrush="#FFABADB3" Click="OnChangeAppearance" Template="{DynamicResource ButtonTemplates}" />
-                <!-- delete account button here -->
-                <Button x:Name="Logout" Content="Logout" HorizontalAlignment="Right" Margin="0,187,153,0" VerticalAlignment="Top" Width="122" Height="25" Foreground="#FFDDDDDD" Background="#FF404040" BorderBrush="#FFABADB3" Click="OnLogout" Template="{DynamicResource ButtonTemplates}" />
-            </Grid>
 
             <!-- change email -->
             <!-- add textbox with change button -->
-            
+
             <!-- change password -->
             <!-- add textbox with change button -->
-            
+
             <!-- change nickname -->
             <!-- add textbox with change button -->
-            
-            <!-- change appearance -->
-            <Grid x:Name="ChangeAppearanceGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="true">
-                <!-- head -->
-                <ComboBox Name="ChangeHead" HorizontalAlignment="Left" Margin="44,29.512,0,0" VerticalAlignment="Top" Width="80">
-                    <ComboBoxItem Content="Head 1" IsSelected="True"/>
-                    <ComboBoxItem Content="Head 2"/>
-                </ComboBox>
-                <Label Content="Head" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="64,0,0,0" VerticalAlignment="Top" Width="43.04" Height="29.512"/>
-                <Image Name="HeadImage" Source="/data/images/character/head/bear_head.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="44,51.512,0,0" VerticalAlignment="Top" />
-
-                <!-- hands -->
-                <ComboBox Name="ChangeHands" HorizontalAlignment="Left" Margin="169,29.512,0,0" VerticalAlignment="Top" Width="80">
-                    <ComboBoxItem Content="Hands 1" IsSelected="True"/>
-                    <ComboBoxItem Content="Hands 2"/>
-                </ComboBox>
-                <Label Content="Hands" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="186.5,0,0,0" VerticalAlignment="Top" Width="43.04" Height="29.512"/>
-                <Image Name="HandsImage" Source="/data/images/character/hands/bear_hands_skin.png" HorizontalAlignment="Left" Height="95" Width="80"  Margin="169,51.512,0,0" VerticalAlignment="Top" />
-
-                <!-- body -->
-                <ComboBox Name="ChangeBody" HorizontalAlignment="Left" Margin="169,187.664,0,0" VerticalAlignment="Top" Width="80">
-                    <ComboBoxItem Content="Body 1" IsSelected="True"/>
-                    <ComboBoxItem Content="Body 2"/>
-                </ComboBox>
-                <Label Content="Body" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="189,158.162,0,0" VerticalAlignment="Top" Width="43.04" Height="29.502"/>
-                <Image Name="BodyImage" Source="/data/images/character/body/bear_body.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="169,210.82,0,0" VerticalAlignment="Top"/>
-
-                <!-- legs -->
-                <ComboBox Name="ChangeLegs" HorizontalAlignment="Left" Margin="44,187.664,0,0" VerticalAlignment="Top" Width="80">
-                    <ComboBoxItem Content="Legs 1" IsSelected="True"/>
-                    <ComboBoxItem Content="Legs 2"/>
-                </ComboBox>
-                <Label Content="Legs" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="66.5,158.162,0,0" VerticalAlignment="Top" Width="43.04" Height="29.502"/>
-                <Image Name="LegsImage" Source="/data/images/character/legs/bear_feet.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="44,210.82,0,0" VerticalAlignment="Top" />
-
-                <!-- buttons -->
-                <Button x:Name="ConfirmChangeAppearance" Content="Change" HorizontalAlignment="Right" Margin="0,314.398,106.391,0" VerticalAlignment="Top" Width="75" Height="25" Foreground="#FFDDDDDD" Background="#FF404040" BorderBrush="#FFABADB3" Click="OnAppearanceChange" Template="{DynamicResource ButtonTemplates}" />
-            </Grid>
 
             <!-- delete account -->
             <!-- show warning for account deletion with button to go back or proceed -->
-            
+
             <!-- logout -->
             <!-- show logout grid here with a message that the user logged out -->
-            
-            <!-- server general -->
-            <Grid x:Name="ServerGeneralGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="True">
-                <!-- port -->
-                <Label Content="Port" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>
-                <TextBox x:Name="Port" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="44.8,30.6,45.2,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangePort" />
+
+            <!-- Initial page to display -->
+            <Grid x:Name="IntroGrid" HorizontalAlignment="Center" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="true">
+                <Label Content="Text one" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
+                <Label Content="Text 2" HorizontalAlignment="Center" Margin="44.8,58.6,45.2,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
+                <Label Content="Text 3" HorizontalAlignment="Center" Margin="44.8,112.2,45.2,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
             </Grid>
 
-            <!-- bots grid -->
-            <Grid x:Name="ServerBotsGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" Margin="0,0,0,0" d:IsHidden="True">
+            <!-- login grid -->
+            <Grid x:Name="LoginGrid" HorizontalAlignment="Center" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="false">
+                <!-- email -->
+                <Label Content="Email" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
+                <TextBox x:Name="LoginEmail" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="44.8,30.6,45.2,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLoginEmail"  FontFamily="{DynamicResource Bender}"/>
+
+                <!-- password -->
+                <Label Content="Password" HorizontalAlignment="Center" Margin="44.8,58.6,45.2,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
+                <TextBox x:Name="LoginPassword" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="44.8,84.2,45.2,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLoginPassword"  FontFamily="{DynamicResource Bender}"/>
+
+                <!-- buttons -->
+                <Button x:Name="Login" Content="Login" HorizontalAlignment="Center" Margin="108,180,108,0" VerticalAlignment="Top" Width="74" Height="25" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnLogin" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource Bender}"/>
+            </Grid>
+
+            <Grid x:Name="RegisterGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="true">
+                <!-- email -->
+                <Label Content="Email" HorizontalAlignment="Center" Margin="45,11,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
+                <TextBox x:Name="RegisterEmail" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="0,35,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeRegisterEmail"  FontFamily="{DynamicResource Bender}"/>
+
+                <!-- password -->
+                <Label Content="Password" HorizontalAlignment="Center" Margin="45,66,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
+                <TextBox x:Name="RegisterPassword" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="0,90,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeRegisterPassword"  FontFamily="{DynamicResource Bender}"/>
+
+                <Label Content="Character nickname" HorizontalAlignment="Center" Margin="45,121,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
+                <TextBox x:Name="RegisterNickname" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="0,145,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeRegisterNickname"  FontFamily="{DynamicResource Bender}"/>
+
+                <Label Content="Side" Foreground="#FFDDDDDD" HorizontalAlignment="Center" Margin="45,175,45,0" VerticalAlignment="Top" Width="200" Height="25" FontFamily="{DynamicResource Bender}"/>
+                <ComboBox x:Name="RegisterSide" HorizontalAlignment="Center" Margin="0,200,0,0" VerticalAlignment="Top" Width="200" SelectionChanged="OnChangeRegisterSide" Foreground="White" Background="Black" FontFamily="{DynamicResource Bender}">
+                    <ComboBoxItem Content="Bear" IsSelected="True" Background="#ff404040"/>
+                    <ComboBoxItem Content="Usec" Background="#ff404040" />
+                </ComboBox>
+
+                <!-- buttons -->
+                <Button x:Name="Register" Content="Create Profile" HorizontalAlignment="Center" Margin="0,262.398,0,0" VerticalAlignment="Top" Width="120" Height="30" Foreground="#FFDDDDDD" Background="#00000000" BorderBrush="#FFABADB3" Click="OnLogin" Template="{DynamicResource ButtonTemplates}" FontFamily="{DynamicResource Bender}" />
+            </Grid>
+
+            <!-- Account / log in / main panel grid -->
+            <Grid x:Name="AccountSettingsGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="true">
+                <!-- player greeting -->
+                <Label x:Name="PlayerName" FontFamily="{DynamicResource Bender}" Content="Hello, {username}" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="270" Foreground="White" Height="36.8" FontSize="20"/>
+                <!-- buttons -->
+                <Button x:Name="ChangeEmail" Content="Change email" HorizontalAlignment="Right" Margin="0,59.8,152.048,0" VerticalAlignment="Top" Width="121.4" Height="25" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnChangeEmail" Template="{DynamicResource ButtonTemplates}" />
+                <Button x:Name="ChangePassword" Content="Change password" HorizontalAlignment="Right" Margin="0,92,153,0" VerticalAlignment="Top" Width="122" Height="25" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnChangePassword" Template="{DynamicResource ButtonTemplates}" />
+                <Button x:Name="ChangeNickname" Content="Change nickname" HorizontalAlignment="Right" Margin="0,123.8,152.602,0" VerticalAlignment="Top" Width="121.4" Height="25" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnChangeNickname" Template="{DynamicResource ButtonTemplates}" />
+                <Button x:Name="ChangeAppearance" Content="Change appearance" HorizontalAlignment="Right" Margin="0,155,153,0" VerticalAlignment="Top" Width="122" Height="25" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnChangeAppearance" Template="{DynamicResource ButtonTemplates}" />
+                <!-- delete account button here -->
+                <Button x:Name="Logout" Content="Logout" HorizontalAlignment="Right" Margin="0,187,153,0" VerticalAlignment="Top" Width="122" Height="25" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnLogout" Template="{DynamicResource ButtonTemplates}" />
+            </Grid>
+            <!-- Account / log in / Appeariance grid -->
+            <Grid x:Name="ChangeAppearanceGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="true">
+                <!-- head -->
+                <ComboBox x:Name="ChangeHead" HorizontalAlignment="Left" Margin="44,29.512,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource Bender}">
+                    <ComboBoxItem Content="Head 1" IsSelected="True"/>
+                    <ComboBoxItem Content="Head 2"/>
+                </ComboBox>
+                <Label Content="Head" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="64,6,0,0" VerticalAlignment="Top" Width="43" Height="24" FontFamily="{DynamicResource Bender}"/>
+                <Image x:Name="HeadImage" Source="/data/images/character/head/bear_head.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="44,51.512,0,0" VerticalAlignment="Top" />
+
+                <!-- hands -->
+                <ComboBox x:Name="ChangeHands" HorizontalAlignment="Left" Margin="169,29.512,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource Bender}">
+                    <ComboBoxItem Content="Hands 1" IsSelected="True"/>
+                    <ComboBoxItem Content="Hands 2"/>
+                </ComboBox>
+                <Label Content="Hands" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="186,6,0,0" VerticalAlignment="Top" Width="44" Height="24" FontFamily="{DynamicResource Bender}"/>
+                <Image x:Name="HandsImage" Source="/data/images/character/hands/bear_hands_skin.png" HorizontalAlignment="Left" Height="95" Width="80"  Margin="169,51.512,0,0" VerticalAlignment="Top" />
+
+                <!-- body -->
+                <ComboBox x:Name="ChangeBody" HorizontalAlignment="Left" Margin="169,187.664,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource Bender}">
+                    <ComboBoxItem Content="Body 1" IsSelected="True"/>
+                    <ComboBoxItem Content="Body 2"/>
+                </ComboBox>
+                <Label Content="Body" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="189,165,0,0" VerticalAlignment="Top" Width="43" Height="23" FontFamily="{DynamicResource Bender}"/>
+                <Image x:Name="BodyImage" Source="/data/images/character/body/bear_body.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="169,210.82,0,0" VerticalAlignment="Top"/>
+
+                <!-- legs -->
+                <ComboBox x:Name="ChangeLegs" HorizontalAlignment="Left" Margin="44,187.664,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource Bender}">
+                    <ComboBoxItem Content="Legs 1" IsSelected="True"/>
+                    <ComboBoxItem Content="Legs 2"/>
+                </ComboBox>
+                <Label Content="Legs" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="66,165,0,0" VerticalAlignment="Top" Width="44" Height="23" FontFamily="{DynamicResource Bender}"/>
+                <Image x:Name="LegsImage" Source="/data/images/character/legs/bear_feet.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="44,210.82,0,0" VerticalAlignment="Top" />
+
+                <!-- buttons -->
+                <Button x:Name="ConfirmChangeAppearance" Content="Change" HorizontalAlignment="Right" Margin="0,314.398,106.391,0" VerticalAlignment="Top" Width="75" Height="25" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnAppearanceChange" Template="{DynamicResource ButtonTemplates}" FontFamily="{DynamicResource Bender}" />
+            </Grid>
+            <!-- Server / general grid -->
+            <Grid x:Name="ServerGeneralGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="true">
+                <!-- backendurl -->
+                <Label x:Name="BackendURL" Content="BackendURL" HorizontalAlignment="Center" Margin="45,71,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
+                <TextBox x:Name="LoginBackendURL" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="45,95,45,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeClientBackendURL"  FontFamily="{DynamicResource Bender}"/>
+
+                <!-- port -->
+                <Label Content="Port" HorizontalAlignment="Center" Margin="45,15,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
+                <TextBox x:Name="Port" HorizontalAlignment="Center" VerticalContentAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="45,39,45,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangePort" FontFamily="{DynamicResource Bender}" />
+                <!-- additional info texts -->
+                <Label Content="Additional informations:" HorizontalAlignment="Center" Height="105" Margin="0,234,0,0" VerticalAlignment="Top" Width="245" Background="Transparent" Foreground="#FF909090" BorderBrush="#00A8ADB3" FontFamily="{DynamicResource Bender}"/>
+                <Label HorizontalAlignment="Center" Margin="22,250,22,0" VerticalAlignment="Top" Width="246" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}" FontSize="10" Height="68">
+                    <TextBlock Width="240" Height="58">- Make sure your BackendURL<LineBreak/> is not ended with "/" character<LineBreak/>- Port should be unlocked into your router settings<LineBreak/>to allow other PC's to conect</TextBlock>
+                </Label>
+            </Grid>
+            <!-- Server / bots grid -->
+            <Grid x:Name="ServerBotsGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" Margin="0,0,0,0" d:IsHidden="true">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- PMC war -->
-                <GroupBox Header=" PMC War" HorizontalAlignment="Left" Height="59.667" Margin="10,-0.005,0,0" VerticalAlignment="Top" Width="263.775" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" Template="{DynamicResource GroupBoxTemplate}">
+                <GroupBox Header=" PMC War" HorizontalAlignment="Left" Height="59.667" Margin="10,-0.005,0,0" VerticalAlignment="Top" Width="263.775" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" Template="{DynamicResource GroupBoxTemplate}" FontFamily="{DynamicResource Bender}">
                     <Grid HorizontalAlignment="Center" Height="36.666" VerticalAlignment="Top" Width="255" Margin="-1.5,0">
                         <!-- enable -->
-                        <Label Content="Enabled" HorizontalAlignment="Left" Margin="10,2.666,0,0" VerticalAlignment="Top" Width="72.6" Foreground="#FFDDDDDD"/>
-                        <CheckBox x:Name="PmcWarEnabled" HorizontalAlignment="Left" Margin="84.6,9.6,0,0" VerticalAlignment="Top" Foreground="#FFDDDDDD" BorderBrush="#FFABADB3" Width="26.405" RenderTransformOrigin="0.829,0.525" Height="18.666" Click="OnChangePmcWarEnabled" Background="#FF404040"/>
+                        <Label Content="Enabled" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" Width="73" Foreground="#FFDDDDDD"/>
+                        <CheckBox x:Name="PmcWarEnabled" HorizontalAlignment="Left" Margin="84.6,9.6,0,0" VerticalAlignment="Top" Foreground="#FFDDDDDD" BorderBrush="#FFABADB3" Width="26.405" RenderTransformOrigin="0.829,0.525" Height="18.666" Click="OnChangePmcWarEnabled" Background="#00404040"/>
 
                         <!-- side usec chance -->
-                        <Label Content="USEC chance" HorizontalAlignment="Left" Margin="119.005,3.066,0,0" VerticalAlignment="Top" Width="80.037" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="PmcWarUsecChance" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="37.733" Margin="207.042,5.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangePmcWarUsecChance" />
+                        <Label Content="USEC chance" HorizontalAlignment="Left" Margin="119,5,0,0" VerticalAlignment="Top" Width="80" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="PmcWarUsecChance" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="37.733" Margin="207.042,5.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangePmcWarUsecChance" TextAlignment="Center" />
                     </Grid>
                 </GroupBox>
 
                 <!-- bot limits -->
-                <GroupBox Header=" Limits" HorizontalAlignment="Left" Height="122.667" Margin="10,68.66,0,0" VerticalAlignment="Top" Width="263.775" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" Template="{DynamicResource GroupBoxTemplate}">
+                <GroupBox Header=" Limits" HorizontalAlignment="Left" Height="122.667" Margin="10,68.66,0,0" VerticalAlignment="Top" Width="263.775" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" Template="{DynamicResource GroupBoxTemplate}" FontFamily="{DynamicResource Bender}">
                     <Grid HorizontalAlignment="Center" Height="97.332" VerticalAlignment="Top" Width="255">
                         <!-- boss killa -->
-                        <Label Content="Killa" HorizontalAlignment="Left" Margin="10,5.666,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="LimitKilla" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="77,8.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeLimitKilla" />
+                        <Label Content="Killa" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="LimitKilla" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="77,8.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLimitKilla" TextAlignment="Center" />
 
                         <!-- boss bully -->
-                        <Label Content="Bully" HorizontalAlignment="Left" Margin="10,33.666,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="LimitBully" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="77,36.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeLimitBully" />
+                        <Label Content="Bully" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="LimitBully" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="77,36.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLimitBully" TextAlignment="Center" />
 
                         <!-- bully followers -->
-                        <Label Content="Followers" HorizontalAlignment="Left" Margin="10,61.666,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="LimitBullyFollowers" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="77,64.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeLimitBullyFollower" />
+                        <Label Content="Followers" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="LimitBullyFollowers" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="77,64.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLimitBullyFollower" TextAlignment="Center" />
 
                         <!-- marksman -->
-                        <Label Content="Marksman" HorizontalAlignment="Left" Margin="120.867,5.666,0,0" VerticalAlignment="Top" Width="68.8" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="LimitMarksman" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,8.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeLimitMarksman" />
+                        <Label Content="Marksman" HorizontalAlignment="Left" Margin="133,8,0,0" VerticalAlignment="Top" Width="69" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="LimitMarksman" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,8.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLimitMarksman" TextAlignment="Center" />
 
                         <!-- raiders -->
-                        <Label Content="Raider" HorizontalAlignment="Left" Margin="120.867,33.666,0,0" VerticalAlignment="Top" Width="68.8" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="LimitPmcBot" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,36.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeLimitPmcBot" />
+                        <Label Content="Raider" HorizontalAlignment="Left" Margin="133,36,0,0" VerticalAlignment="Top" Width="69" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="LimitPmcBot" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,36.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLimitPmcBot" TextAlignment="Center" />
 
                         <!-- scavs -->
-                        <Label Content="Scav" HorizontalAlignment="Left" Margin="120.867,61.666,0,0" VerticalAlignment="Top" Width="68.8" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="LimitScav" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,64.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeLimitScav" />
+                        <Label Content="Scav" HorizontalAlignment="Left" Margin="133,65,0,0" VerticalAlignment="Top" Width="69" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="LimitScav" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,64.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLimitScav" TextAlignment="Center" />
                     </Grid>
                 </GroupBox>
 
-                <GroupBox Header=" Spawn" HorizontalAlignment="Left" Height="138.741" Margin="10,197.325,0,0" VerticalAlignment="Top" Width="263.775" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" Template="{DynamicResource GroupBoxTemplate}">
+                <GroupBox Header=" Spawn" HorizontalAlignment="Left" Height="138.741" Margin="10,197.325,0,0" VerticalAlignment="Top" Width="263.775" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" Template="{DynamicResource GroupBoxTemplate}" FontFamily="{DynamicResource Bender}">
                     <Grid HorizontalAlignment="Center" Height="120" VerticalAlignment="Top" Width="255" Margin="0,0,0,0">
                         <!-- glasses -->
-                        <Label Content="Glasses" HorizontalAlignment="Left" Margin="10,3.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="SpawnGlasses" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,6.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeSpawnGlasses" />
+                        <Label Content="Glasses" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="SpawnGlasses" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,6.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeSpawnGlasses" TextAlignment="Center" />
 
                         <!-- face cover -->
-                        <Label Content="Face cover" HorizontalAlignment="Left" Margin="10,31.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="SpawnFaceCover" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,34.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeSpawnFaceCover" />
+                        <Label Content="Face cover" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="SpawnFaceCover" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,34.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeSpawnFaceCover" TextAlignment="Center" />
 
                         <!-- backpack -->
-                        <Label Content="Backpack" HorizontalAlignment="Left" Margin="10,59.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="SpawnBackpack" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,62.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeSpawnBackpack" />
+                        <Label Content="Backpack" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="SpawnBackpack" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,62.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeSpawnBackpack" TextAlignment="Center" />
 
                         <!-- armor vest -->
-                        <Label Content="Armor / vests" HorizontalAlignment="Left" Margin="119,3.666,0,0" VerticalAlignment="Top" Width="81.667" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="SpawnArmorVest" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,6.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeSpawnArmorVest" />
+                        <Label Content="Armor / vests" HorizontalAlignment="Left" Margin="124,6,0,0" VerticalAlignment="Top" Width="85" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="SpawnArmorVest" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,6.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeSpawnArmorVest" TextAlignment="Center" />
 
                         <!-- meds pockets -->
-                        <Label Content="Meds pockets" HorizontalAlignment="Left" Margin="119,31.666,0,0" VerticalAlignment="Top" Width="84.667" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="SpawnMedPocket" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,34.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeSpawnMedsPocket" />
+                        <Label Content="Meds pockets" HorizontalAlignment="Left" Margin="123,34,0,0" VerticalAlignment="Top" Width="85" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="SpawnMedPocket" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,34.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeSpawnMedsPocket" TextAlignment="Center" />
 
                         <!-- item pockets -->
-                        <Label Content="Item pockets" HorizontalAlignment="Left" Margin="119,59.666,0,0" VerticalAlignment="Top" Width="81.667" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="SpawnItemPocket" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,62.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeSpawnItemPocket" />
+                        <Label Content="Item pockets" HorizontalAlignment="Left" Margin="126,62,0,0" VerticalAlignment="Top" Width="82" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="SpawnItemPocket" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,62.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeSpawnItemPocket" TextAlignment="Center" />
 
                         <!-- headwear -->
-                        <Label Content="Headwear" HorizontalAlignment="Left" Margin="10,87.666,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="SpawnHeadwear" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,90.666,0,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeSpawnHeadwear" />
+                        <Label Content="Headwear" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="SpawnHeadwear" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,90.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeSpawnHeadwear" TextAlignment="Center" />
                     </Grid>
                 </GroupBox>
             </Grid>
-
-            <!-- settings grid -->
-            <Grid x:Name="SettingsGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="True">
+            <!-- Server / weather grid -->
+            <Grid x:Name="ServerWeatherGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="True">
+                <Label Content="Weather will goes there" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
+            </Grid>
+            <!-- settings grid-->
+            <Grid x:Name="SettingsGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="true">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+                <Label Content="/ Settings" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Foreground="White" Width="269" FontFamily="{DynamicResource Bender}"/>
 
-                <!-- game location -->
-                <Label Content="Client location" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>
-                <TextBox x:Name="ClientLocation" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="44.8,30.6,44.8,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeClientLocation" />
-
-                <!-- server location -->
-                <Label Content="Server location" HorizontalAlignment="Center" Margin="44.8,58.6,44.8,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>
-                <TextBox x:Name="ServerLocation" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="44.8,84.2,44.8,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeServerLocation" />
+                <GroupBox Header=" Client" HorizontalAlignment="Center" Height="150" Margin="20,33,20,0" VerticalAlignment="Top" Width="250" Foreground="White" BorderBrush="#FF404040" FontFamily="{DynamicResource Bender}">
+                    <Grid HorizontalAlignment="Center" Height="125" Margin="0,0,0,0" VerticalAlignment="Top" Width="240">
+                        <!-- client location -->
+                        <Label Content="Location" HorizontalAlignment="Center" Margin="20,-2,20,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="ClientLocation" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="46" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="220" 
+                                 Margin="0,23,0,0" Foreground="#FFDDDDDD" Background="#00000000" TextChanged="OnChangeClientLocation" />
+                        <!-- client filename -->
+                        <Label Content="Filename" HorizontalAlignment="Center" Margin="20,70,20,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="ClientFileName" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="220" 
+                                 Margin="0,95,0,0" Foreground="#FFDDDDDD" Background="#00000000" TextChanged="OnChangeClientFilename" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header=" Server" HorizontalAlignment="Center" Height="150" Margin="20,188,20,0" VerticalAlignment="Top" Width="250" Foreground="White" BorderBrush="#FF404040" FontFamily="{DynamicResource Bender}">
+                    <Grid HorizontalAlignment="Center" Height="125" Margin="0,0,0,0" VerticalAlignment="Top" Width="240">
+                        <!-- server location -->
+                        <Label Content="Location" HorizontalAlignment="Center" Margin="20,-2,20,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="ServerLocation" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="46" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="220" 
+                                 Margin="0,23,0,0" Foreground="#FFDDDDDD" Background="#00000000" TextChanged="OnChangeClientLocation" />
+                        <!-- server filename -->
+                        <Label Content="Filename" HorizontalAlignment="Center" Margin="20,70,20,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="ServerFileName" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="220" 
+                                 Margin="0,95,0,0" Foreground="#FFDDDDDD" Background="#00000000" TextChanged="OnChangeClientFilename" />
+                    </Grid>
+                </GroupBox>
             </Grid>
         </Grid>
     </Grid>
