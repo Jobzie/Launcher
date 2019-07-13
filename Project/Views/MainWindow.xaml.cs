@@ -13,7 +13,7 @@ namespace Launcher
     {
         private LauncherSettings laucherSettings = null;
         private ServerSettings serverSettings = null;
-        private Watcher gameWatcher = new Watcher("EscapeFromTarkov.exe");
+        private Watcher gameWatcher = new Watcher("EmuTarkov-Game.exe");
         private Watcher serverWatcher = new Watcher("EmuTarkov-Server.exe");
 
         public MainWindow()

@@ -4,7 +4,7 @@ namespace Launcher.Code.Settings
 {
     public class LauncherSettings : SettingsBase<LauncherConfig>
     {
-        public LauncherSettings() : base("./data/", "config.json")
+        public LauncherSettings() : base("./data/", "launcher.config.json")
         {
             // for calling base constructor
         }

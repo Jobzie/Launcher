@@ -5,7 +5,7 @@ namespace Launcher.Code.Settings
 {
     public class ServerSettings : SettingsBase<ServerConfig>
     {
-        public ServerSettings(string filepath) : base(filepath, "config.json")
+        public ServerSettings(string filepath) : base(filepath, "server.config.json")
         {
             // for calling base constructor
         }
