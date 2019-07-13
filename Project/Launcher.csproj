@@ -64,6 +64,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Code\Data\Profile.cs" />
+    <Compile Include="Code\Data\ProfileData.cs" />
+    <Compile Include="Code\Settings\ProfileSettings.cs" />
     <Compile Include="Views\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
