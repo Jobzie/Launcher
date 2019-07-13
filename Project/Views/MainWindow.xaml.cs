@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using Launcher.Code.Settings;
 using Launcher.Code.Starter;
@@ -13,6 +14,7 @@ namespace Launcher
     {
         private LauncherSettings laucherSettings = null;
         private ServerSettings serverSettings = null;
+		private ProfileSettings ProfileSettings = null;
         private Watcher clientWatcher = new Watcher("EmuTarkov-Client.exe");
         private Watcher serverWatcher = new Watcher("EmuTarkov-Server.exe");
 
@@ -47,8 +49,9 @@ namespace Launcher
         private void LoadAllSettings()
         {
             laucherSettings = new LauncherSettings();
-            serverSettings = new ServerSettings(System.IO.Path.Combine(laucherSettings.GetServerLocation(), "data"));
-        }
+            serverSettings = new ServerSettings(Path.Combine(laucherSettings.GetServerLocation(), "data"));
+			ProfileSettings = new ProfileSettings(Path.Combine(laucherSettings.GetServerLocation(), "data/profiles"));
+		}
 
         private void OnIntro(object sender, RoutedEventArgs e) {
             HideAllGrids();
