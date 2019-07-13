@@ -68,17 +68,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Code\Data\GameConfig.cs" />
+    <Compile Include="Code\Data\ClientConfig.cs" />
     <Compile Include="Code\Data\LauncherConfig.cs" />
     <Compile Include="Code\Data\LoginToken.cs" />
     <Compile Include="Code\Data\ServerConfig.cs" />
     <Compile Include="Code\Helper\JSON.cs" />
     <Compile Include="Code\Monitor\Watcher.cs" />
-    <Compile Include="Code\Settings\GameSettings.cs" />
+    <Compile Include="Code\Settings\ClientSettings.cs" />
     <Compile Include="Code\Settings\LauncherSettings.cs" />
     <Compile Include="Code\Settings\ServerSettings.cs" />
     <Compile Include="Code\Settings\SettingsBase.cs" />
-    <Compile Include="Code\Starter\GameStarter.cs" />
+    <Compile Include="Code\Starter\ClientStarter.cs" />
     <Compile Include="Code\Starter\ServerStarter.cs" />
     <Compile Include="Code\Starter\StarterBase.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
