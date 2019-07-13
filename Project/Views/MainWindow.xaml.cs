@@ -379,7 +379,7 @@ namespace Launcher
             ServerLocation.Text = laucherSettings.GetServerLocation();
         }
 
-        private void OnChangeGameLocation(object sender, TextChangedEventArgs e)
+        private void OnChangeClientLocation(object sender, TextChangedEventArgs e)
         {
             laucherSettings.SetClientLocation(ClientLocation.Text);
         }
