@@ -8,7 +8,7 @@ namespace Launcher.Code.Starter
 {
     public class GameStarter : StarterBase
     {
-        public GameStarter(string filepath, string backendURL, string email, string password) : base(filepath, "EscapeFromTarkov.exe")
+        public GameStarter(string filepath, string backendURL, string email, string password) : base(filepath, "EmuTarkov-Game.exe")
         {
             SetBackendURL(filepath, backendURL);
             GenerateToken(email, password);
