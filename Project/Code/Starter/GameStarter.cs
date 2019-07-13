@@ -12,7 +12,7 @@ namespace Launcher.Code.Starter
         {
             SetBackendURL(filepath, backendURL);
             GenerateToken(email, password);
-            Start();
+            base.Start();
         }
 
         private void SetBackendURL(string filepath, string backendURL)
