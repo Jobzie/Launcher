@@ -13,7 +13,7 @@ namespace Launcher
     {
         private LauncherSettings laucherSettings = null;
         private ServerSettings serverSettings = null;
-        private Watcher gameWatcher = new Watcher("EmuTarkov-Game.exe");
+        private Watcher clientWatcher = new Watcher("EmuTarkov-Client.exe");
         private Watcher serverWatcher = new Watcher("EmuTarkov-Server.exe");
 
         public MainWindow()
@@ -86,16 +86,16 @@ namespace Launcher
         #endregion
 
         #region APPLICATION_START
-        private void OnStartGame(object sender, RoutedEventArgs e)
+        private void OnStartClient(object sender, RoutedEventArgs e)
         {
             // allow only one instance to run
-            if (gameWatcher.IsProcessAlive())
+            if (clientWatcher.IsProcessAlive())
             {
                 // show error message
                 return;
             }
 
-            GameStarter starter = new GameStarter(GameLocation.Text, ClientBackendURL.Text, LoginEmail.Text, LoginPassword.Text);
+            ClientStarter starter = new ClientStarter(ClientLocation.Text, LoginBackendURL.Text, LoginEmail.Text, LoginPassword.Text);
         }
 
         private void OnStartServer(object sender, RoutedEventArgs e)
@@ -120,7 +120,7 @@ namespace Launcher
             // load the settings
             LoginEmail.Text = laucherSettings.GetEmail();
             LoginPassword.Text = laucherSettings.GetPassword();
-            ClientBackendURL.Text = laucherSettings.GetBackendURL();
+            LoginBackendURL.Text = laucherSettings.GetBackendURL();
         }
 
         private void OnChangeLoginEmail(object sender, TextChangedEventArgs e)
@@ -135,7 +135,7 @@ namespace Launcher
 
         private void OnChangeClientBackendURL(object sender, TextChangedEventArgs e)
         {
-            laucherSettings.SetBackendURL(ClientBackendURL.Text);
+            laucherSettings.SetBackendURL(LoginBackendURL.Text);
         }
 
         private void OnLogin(object sender, RoutedEventArgs e)
@@ -375,13 +375,13 @@ namespace Launcher
             LoadAllSettings();
 
             // load the settings
-            GameLocation.Text = laucherSettings.GetGameLocation();
+            ClientLocation.Text = laucherSettings.GetClientLocation();
             ServerLocation.Text = laucherSettings.GetServerLocation();
         }
 
         private void OnChangeGameLocation(object sender, TextChangedEventArgs e)
         {
-            laucherSettings.SetGameLocation(GameLocation.Text);
+            laucherSettings.SetClientLocation(ClientLocation.Text);
         }
 
         private void OnChangeServerLocation(object sender, TextChangedEventArgs e)

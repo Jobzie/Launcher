@@ -109,7 +109,7 @@
 
         <!-- start buttons -->
         <Button FontFamily="{DynamicResource Bender}" Content="Start Server" HorizontalAlignment="Left" Margin="579.801,394.467,0,0" VerticalAlignment="Top" Width="110" Height="35" Click="OnStartServer" FontSize="16" Background="#FF404040" Foreground="White" BorderBrush="#FFABADB3"  Template="{DynamicResource ButtonTemplates}"/>
-        <Button FontFamily="{DynamicResource Bender}" Content="Start Game" HorizontalAlignment="Left" Margin="463.801,394.467,0,0" VerticalAlignment="Top" Width="110" Height="35" Click="OnStartGame" FontSize="16" Background="#FF404040" Foreground="White" BorderBrush="#FFABADB3"  Template="{DynamicResource ButtonTemplates}"/>
+        <Button FontFamily="{DynamicResource Bender}" Content="Start Client" HorizontalAlignment="Left" Margin="463.801,394.467,0,0" VerticalAlignment="Top" Width="110" Height="35" Click="OnStartClient" FontSize="16" Background="#FF404040" Foreground="White" BorderBrush="#FFABADB3"  Template="{DynamicResource ButtonTemplates}"/>
 
         <!-- app grid -->
         <Grid x:Name="AppGrid" HorizontalAlignment="right" Height="340" Width="290" VerticalAlignment="Top" RenderTransformOrigin="3.188,1.039" Margin="0,30,0,0">
@@ -128,7 +128,7 @@
 
                 <!-- backendurl -->
                 <Label x:Name="BackendURL" Content="BackendURL" HorizontalAlignment="Center" Margin="44.8,112.2,45.2,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>
-                <TextBox x:Name="ClientBackendURL" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="44.8,137.8,45.2,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeClientBackendURL" />
+                <TextBox x:Name="LoginBackendURL" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="44.8,137.8,45.2,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeClientBackendURL" />
 
                 <!-- buttons -->
                 <Button x:Name="Login" Content="Login" HorizontalAlignment="Center" Margin="0,262.398,0,0" VerticalAlignment="Top" Width="75" Height="25" Foreground="#FFDDDDDD" Background="#FF404040" BorderBrush="#FFABADB3" Click="OnLogin" Template="{DynamicResource ButtonTemplates}" />
@@ -322,7 +322,7 @@
 
                 <!-- game location -->
                 <Label Content="Game location" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>
-                <TextBox x:Name="GameLocation" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="44.8,30.6,44.8,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
+                <TextBox x:Name="ClientLocation" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="44.8,30.6,44.8,0" Foreground="#FFDDDDDD" Background="#FF404040" TextChanged="OnChangeGameLocation" />
 
                 <!-- server location -->
                 <Label Content="Server location" HorizontalAlignment="Center" Margin="44.8,58.6,44.8,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>

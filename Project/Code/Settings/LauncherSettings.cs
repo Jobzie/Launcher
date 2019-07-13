@@ -31,14 +31,14 @@ namespace Launcher.Code.Settings
             base.SaveSettings();
         }
 
-        public string GetGameLocation()
+        public string GetClientLocation()
         {
-            return base.config.gameLocation;
+            return base.config.clientLocation;
         }
 
-        public void SetGameLocation(string value)
+        public void SetClientLocation(string value)
         {
-            base.config.gameLocation = value;
+            base.config.clientLocation = value;
             base.SaveSettings();
         }
 

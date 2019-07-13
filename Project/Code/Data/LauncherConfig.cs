@@ -4,7 +4,7 @@
     {
         public string email = "user1@emutarkov.com";
         public string password = "password";
-        public string gameLocation = @"C:\Games\EmuTakov\Game";
+        public string clientLocation = @"C:\Games\EmuTakov\Game";
         public string serverLocation = @"C:\Ganes\EmuTarkov\Server";
         public string backendURL = "http://localhost:1337";
     }
