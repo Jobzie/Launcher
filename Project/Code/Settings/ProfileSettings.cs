@@ -2,118 +2,133 @@
 
 namespace Launcher.Code.Settings
 {
-	public class ProfileSettings : SettingsBase<ProfileData>
-	{
-		public ProfileSettings(string filepath) : base(filepath, "profiles.json")
-		{
-			// for calling base constructor
-		}
+    public class ProfileSettings : SettingsBase<ProfileData>
+    {
+        public ProfileSettings(string filepath) : base(filepath, "profiles.json", true) // last parameter is for object oriented return
+        {
+            // for calling base constructor
+        }
 
-		public int GetProfile(string email, string password)
-		{
-			foreach (Profile profile in base.config.profiles)
-			{
-				if (profile.email == email && profile.password == password)
-				{
-					return profile.id;
-				}
-			}
+        public bool ListExists() {
+                return (base.configObject.Count > 0) ? true : false;
+        }
+        public bool CheckLoginApprove(string email, string password)
+        {
+            foreach (ProfileData profile in base.configObject)
+            {
+                if (profile.email == email && profile.password == password)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
-			return base.config.profiles.Count;
-		}
+        public int GetProfile(string email, string password)
+        {
+            foreach (ProfileData profile in base.configObject)
+            {
+                if (profile.email == email && profile.password == password)
+                {
+                    return profile.id;
+                }
+            }
 
-		public void AddProfile(string email, string password, string side)
-		{
-			Profile profile = new Profile();
-			profile.email = email;
-			profile.password = password;
+            return base.configObject.Count;
+        }
 
-			// profile exist
-			if (GetProfile(email, password) < base.config.profiles.Count)
-			{
-				return;
-			}
+        public void AddProfile(string email, string password, string side)
+        {
+            ProfileData profile = new ProfileData();
+            profile.email = email;
+            profile.password = password;
 
-			// add the profile
-			base.config.profiles.Add(profile);
-			base.SaveSettings();
+            // profile exist
+            if (GetProfile(email, password) < base.configObject.Count)
+            {
+                return;
+            }
 
-			// TODO: create character with side
-		}
+            // add the profile
+            base.configObject.Add(profile);
+            base.SaveSettings();
 
-		public void RemoveProfile(string email, string password)
-		{
-			int profileID = GetProfile(email, password);
+            // TODO: create character with side
+        }
 
-			// profile doesn't exist
-			if (profileID >= base.config.profiles.Count)
-			{
-				return;
-			}
+        public void RemoveProfile(string email, string password)
+        {
+            int profileID = GetProfile(email, password);
 
-			// remove the profile
-			base.config.profiles.Remove(base.config.profiles[profileID]);
-			base.SaveSettings();
-		}
+            // profile doesn't exist
+            if (profileID >= base.configObject.Count)
+            {
+                return;
+            }
 
-		public void ChangeProfileEmail(string email, string password, string newEmail)
-		{
-			int profileID = GetProfile(email, password);
+            // remove the profile
+            base.configObject.Remove(base.configObject[profileID]);
+            base.SaveSettings();
+        }
 
-			// profile doesn't exist
-			if (profileID >= base.config.profiles.Count)
-			{
-				return;
-			}
+        public void ChangeProfileEmail(string email, string password, string newEmail)
+        {
+            int profileID = GetProfile(email, password);
 
-			// change the profile email
-			base.config.profiles[profileID].email = newEmail;
-			base.SaveSettings();
-		}
+            // profile doesn't exist
+            if (profileID >= base.configObject.Count)
+            {
+                return;
+            }
 
-		public void ChangeProfilePassword(string email, string password, string newPassword)
-		{
-			int profileID = GetProfile(email, password);
+            // change the profile email
+            base.configObject[profileID].email = newEmail;
+            base.SaveSettings();
+        }
 
-			// profile doesn't exist
-			if (profileID >= base.config.profiles.Count)
-			{
-				return;
-			}
+        public void ChangeProfilePassword(string email, string password, string newPassword)
+        {
+            int profileID = GetProfile(email, password);
 
-			// change the profile password
-			base.config.profiles[profileID].password = newPassword;
-			base.SaveSettings();
-		}
+            // profile doesn't exist
+            if (profileID >= base.configObject.Count)
+            {
+                return;
+            }
 
-		public void ChangeProfileNickname(string email, string password, string nickname)
-		{
-			int profileID = GetProfile(email, password);
+            // change the profile password
+            base.configObject[profileID].password = newPassword;
+            base.SaveSettings();
+        }
 
-			// profile doesn't exist
-			if (profileID >= base.config.profiles.Count)
-			{
-				return;
-			}
+        public void ChangeProfileNickname(string email, string password, string nickname)
+        {
+            int profileID = GetProfile(email, password);
 
-			// change the profile nickname
-			// code here
-			base.SaveSettings();
-		}
+            // profile doesn't exist
+            if (profileID >= base.configObject.Count)
+            {
+                return;
+            }
 
-		public void ChangeProfileAppearance(string email, string password, string body, string hands, string head, string legs)
-		{
-			int profileID = GetProfile(email, password);
+            // change the profile nickname
+            // code here
+            base.SaveSettings();
+        }
 
-			// profile doesn't exist
-			if (profileID >= base.config.profiles.Count)
-			{
-				return;
-			}
+        public void ChangeProfileAppearance(string email, string password, string body, string hands, string head, string legs)
+        {
+            int profileID = GetProfile(email, password);
 
-			// change the profile appearance
-			// code here
-			base.SaveSettings();
-		}
-	}
+            // profile doesn't exist
+            if (profileID >= base.configObject.Count)
+            {
+                return;
+            }
+
+            // change the profile appearance
+            // code here
+            base.SaveSettings();
+        }
+    }
 }

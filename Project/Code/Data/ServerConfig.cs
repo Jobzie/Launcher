@@ -7,7 +7,7 @@
 
         public class ServerSettings
         {
-            public string backendUrl = "http://127.0.0.1:1337";
+            public string backendUrl = "http://127.0.0.1";
             public string IP = "127.0.0.1";
             public int port = 1337;
         }

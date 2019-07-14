@@ -1,9 +1,11 @@
-﻿using System.IO;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using Launcher.Code.Settings;
 using Launcher.Code.Starter;
 using Launcher.Code.Monitor;
+using Launcher.Code.Helper;
+using Launcher.Code.Data;
+using System.IO;
 
 namespace Launcher
 {
@@ -14,16 +16,36 @@ namespace Launcher
     {
         private LauncherSettings laucherSettings = null;
         private ServerSettings serverSettings = null;
-		private ProfileSettings ProfileSettings = null;
+        private ProfileSettings ProfileSettings = null;
         private Watcher clientWatcher = new Watcher("EmuTarkov-Client.exe");
         private Watcher serverWatcher = new Watcher("EmuTarkov-Server.exe");
-
+        private ErrorHandler ErrorHandler = new ErrorHandler();
+        private bool LoggedIn = false;
         public MainWindow()
         {
             InitializeComponent();
-            OnAccount(null, null);
+            OnIntro(null, null);
+            ErrorGrid.Visibility = Visibility.Hidden;
+            LoadAllSettings();
+
+            // prepare for some errors to display if something goes wrong
+            CheckAllErrors();
+
         }
 
+        private void CheckAllErrors() {
+            string check_client_file = laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe";
+            if (!File.Exists(check_client_file))
+            {
+                ErrorHandler.AddError(111, "Cannot find client at this location.");
+            }
+            string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
+            if (!File.Exists(check_server_file))
+            {
+                ErrorHandler.AddError(112, "Cannot find server at this location.");
+            }
+            DisplayErrors();
+        }
         private void HideAllGrids()
         {
             IntroGrid.Visibility = Visibility.Hidden;
@@ -32,9 +54,9 @@ namespace Launcher
             RegisterGrid.Visibility = Visibility.Hidden;
             AccountSettingsGrid.Visibility = Visibility.Hidden;
             // AccountGrid.Visibility = Visibility.Hidden;
-            // ChangeEmailGrid.Visibility = Visibility.Hidden;
-            // ChangePasswordGrid.Visibility = Visibility.Hidden;
-            // ChangeNicknameGrid.Visibility = Visibility.Hidden;
+            ChangeEmailGrid.Visibility = Visibility.Hidden;
+            ChangePasswordGrid.Visibility = Visibility.Hidden;
+            ChangeNicknameGrid.Visibility = Visibility.Hidden;
             ChangeAppearanceGrid.Visibility = Visibility.Hidden;
 
             // server
@@ -49,9 +71,21 @@ namespace Launcher
         private void LoadAllSettings()
         {
             laucherSettings = new LauncherSettings();
-            serverSettings = new ServerSettings(Path.Combine(laucherSettings.GetServerLocation(), "data"));
-			ProfileSettings = new ProfileSettings(Path.Combine(laucherSettings.GetServerLocation(), "data/profiles"));
-		}
+            serverSettings = new ServerSettings(System.IO.Path.Combine(laucherSettings.GetServerLocation(), "data"));
+            ProfileSettings = new ProfileSettings(Path.Combine(laucherSettings.GetServerLocation(), "data/profiles"));
+        }
+
+        private void DisplayErrors() {
+            string errText = ErrorHandler.ReturnErrorAsText();
+            int StringErrLines = ErrorHandler.StringErrLines(errText);
+            ErrorText.Height = (double)(StringErrLines*14);
+            ErrorGrid.Height = ErrorText.Height + 20;
+            ErrorText.Text = errText;
+            if(ErrorHandler.isAnyErrors())
+                ErrorGrid.Visibility = Visibility.Visible;
+            else
+                ErrorGrid.Visibility = Visibility.Hidden;
+        }
 
         private void OnIntro(object sender, RoutedEventArgs e) {
             HideAllGrids();
@@ -63,8 +97,16 @@ namespace Launcher
         private void OnAccount(object sender, RoutedEventArgs e)
         {
             HideAllGrids();
-            LoginGrid.Visibility = Visibility.Visible;
-            LoadLoginSettings();
+            if (LoggedIn)
+            {
+                AccountSettingsGrid.Visibility = Visibility.Visible;
+                LoadAccountSettings();
+            }
+            else
+            {
+                LoginGrid.Visibility = Visibility.Visible;
+                LoadLoginSettings();
+            }
         }
 
         private void OnServerGeneral(object sender, RoutedEventArgs e)
@@ -83,7 +125,10 @@ namespace Launcher
 
         private void OnServerWeather(object sender, RoutedEventArgs e)
         {
-            // code here
+            HideAllGrids();
+            ServerWeatherGrid.Visibility = Visibility.Visible;
+
+            // need more code here :)
         }
 
         private void OnSettings(object sender, RoutedEventArgs e)
@@ -97,26 +142,50 @@ namespace Launcher
         #region APPLICATION_START
         private void OnStartClient(object sender, RoutedEventArgs e)
         {
-            // allow only one instance to run
-            if (clientWatcher.IsProcessAlive())
+            string check_client_file = laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe";
+            if (!File.Exists(check_client_file))
             {
-                // show error message
-                return;
+                ErrorHandler.AddError(111, "Cannot find client at this location.");
             }
-
-            ClientStarter starter = new ClientStarter(ClientLocation.Text, LoginBackendURL.Text, LoginEmail.Text, LoginPassword.Text);
+            else
+            {
+                ErrorHandler.RemoveError(111, "Cannot find client at this location.");
+                // allow only one instance to run
+                if (clientWatcher.IsProcessAlive())
+                {
+                    ErrorHandler.AddError(201, "Client is already running");
+                }
+                else
+                {
+                    ErrorHandler.RemoveError(201, "Client is already running");
+                    ClientStarter starter = new ClientStarter(ClientLocation.Text, LoginBackendURL.Text, LoginEmail.Text, LoginPassword.Text, ClientFileName.Text);
+                }
+            }
+            DisplayErrors();
         }
 
         private void OnStartServer(object sender, RoutedEventArgs e)
         {
-            // allow only one instance to run
-            if (serverWatcher.IsProcessAlive())
+            string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
+            if (!File.Exists(check_server_file))
             {
-                // show error message
-                return;
+                ErrorHandler.AddError(112, "Cannot find server at this location.");
             }
-
-            ServerStarter starter = new ServerStarter(ServerLocation.Text);
+            else
+            {
+                ErrorHandler.RemoveError(112, "Cannot find server at this location.");
+                // allow only one instance to run
+                if (serverWatcher.IsProcessAlive())
+                {
+                    ErrorHandler.AddError(201, "Server is already running");
+                }
+                else
+                {
+                    ErrorHandler.RemoveError(201, "Client is already running");
+                    ServerStarter starter = new ServerStarter(ServerLocation.Text, ServerFileName.Text);
+                }
+            }
+            DisplayErrors();
         }
         #endregion
 
@@ -149,12 +218,27 @@ namespace Launcher
 
         private void OnLogin(object sender, RoutedEventArgs e)
         {
-            // check if login is valid
-
-            // show account panel
-            HideAllGrids();
-            AccountSettingsGrid.Visibility = Visibility.Visible;
-            LoadAccountSettings();
+            if (ProfileSettings.ListExists())
+            {
+                if (ProfileSettings.CheckLoginApprove(LoginEmail.Text, LoginPassword.Text))
+                {
+                    HideAllGrids();
+                    AccountSettingsGrid.Visibility = Visibility.Visible;
+                    LoadAccountSettings();
+                    ErrorHandler.RemoveError(100, "No Such User");
+                    LoggedIn = true;
+                }
+                else
+                {
+                    ErrorHandler.AddError(100,"No Such User");
+                }
+                ErrorHandler.RemoveError(101, "Unable to find proper file; Check Server location.");
+            }
+            else
+            {
+                ErrorHandler.AddError(101, "Unable to find proper file; Check Server location.");
+            }
+            DisplayErrors();
         }
         #endregion
 
@@ -189,22 +273,26 @@ namespace Launcher
         private void LoadAccountSettings()
         {
             // load the settings
-            PlayerName.Content = "Hello, " + "EmuTarkov user";  // replace this with the actual player nickname!
+            string Nickname = "EmuTarkov user";
+            PlayerName.Content = "Hello, " + Nickname;  // replace this with the actual player nickname!
         }
 
         private void OnChangeEmail(object sender, RoutedEventArgs e)
         {
-            // code here
+            HideAllGrids();
+            ChangeEmailGrid.Visibility = Visibility.Visible;
         }
 
         private void OnChangePassword(object sender, RoutedEventArgs e)
         {
-            // code here
+            HideAllGrids();
+            ChangePasswordGrid.Visibility = Visibility.Visible;
         }
 
         private void OnChangeNickname(object sender, RoutedEventArgs e)
         {
-            // code here
+            HideAllGrids();
+            ChangeNicknameGrid.Visibility = Visibility.Visible;
         }
 
         private void OnChangeAppearance(object sender, RoutedEventArgs e)
@@ -217,7 +305,7 @@ namespace Launcher
         private void OnLogout(object sender, RoutedEventArgs e)
         {
             // logout user
-            
+            LoggedIn = false;
             // show account panel
             HideAllGrids();
             LoginGrid.Visibility = Visibility.Visible;
@@ -395,19 +483,43 @@ namespace Launcher
         private void OnChangeClientLocation(object sender, TextChangedEventArgs e)
         {
             laucherSettings.SetClientLocation(ClientLocation.Text);
+            string check_client_file = laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe";
+            if (!File.Exists(check_client_file))
+                ErrorHandler.AddError(111, "Cannot find client at this location.");
+            else
+                ErrorHandler.RemoveError(111, "Cannot find client at this location.");
+            DisplayErrors();
         }
         private void OnChangeClientFilename(object sender, TextChangedEventArgs e)
         {
             laucherSettings.SetClientFilename(ClientFileName.Text);
+            string check_client_file = laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe";
+            if (!File.Exists(check_client_file))
+                ErrorHandler.AddError(111, "Cannot find client at this location.");
+            else
+                ErrorHandler.RemoveError(111, "Cannot find client at this location.");
+            DisplayErrors();
         }
 
         private void OnChangeServerLocation(object sender, TextChangedEventArgs e)
         {
             laucherSettings.SetServerLocation(ServerLocation.Text);
+            string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
+            if (!File.Exists(check_server_file))
+                ErrorHandler.AddError(112, "Cannot find server at this location.");
+            else
+                ErrorHandler.RemoveError(112, "Cannot find server at this location.");
+            DisplayErrors();
         }
         private void OnChangeServerFilename(object sender, TextChangedEventArgs e)
         {
             laucherSettings.SetServerFilename(ServerFileName.Text);
+            string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
+            if (!File.Exists(check_server_file))
+                ErrorHandler.AddError(112, "Cannot find server at this location.");
+            else
+                ErrorHandler.RemoveError(112, "Cannot find server at this location.");
+            DisplayErrors();
         }
         #endregion
     }

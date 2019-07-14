@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using Newtonsoft.Json;
 
 namespace Launcher.Code.Helper
@@ -18,7 +19,17 @@ namespace Launcher.Code.Helper
 
             return data;
         }
+        public static List<T> LoadObject<T>(string filepath) {
+            List<T> data;
 
+            using (StreamReader sr = new StreamReader(filepath))
+            {
+                string json = sr.ReadToEnd();
+                data = JsonConvert.DeserializeObject<List<T>>(json);
+            }
+
+            return data;
+        }
         public static string Read(string filepath)
         {
             string data = "";

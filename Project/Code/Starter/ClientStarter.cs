@@ -8,7 +8,7 @@ namespace Launcher.Code.Starter
 {
     public class ClientStarter : StarterBase
     {
-        public ClientStarter(string filepath, string backendURL, string email, string password) : base(filepath, "EmuTarkov-Client.exe")
+        public ClientStarter(string filepath, string backendURL, string email, string password, string filename) : base(filepath, filename + ".exe")
         {
             SetBackendURL(filepath, backendURL);
             GenerateToken(email, password);

@@ -91,7 +91,7 @@
                         <ColumnDefinition Width="80"/>
                     </Grid.ColumnDefinitions>
                     <Path x:Name="GlyphPanel" Data="F1M10,1.2L4.7,9.1 4.5,9.1 0,5.2 1.3,3.5 4.3,6.1 8.3,0 10,1.2z" Fill="#FF212121" FlowDirection="LeftToRight" Margin="3" Visibility="Collapsed" VerticalAlignment="Center"/>
-                    <ContentPresenter ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Grid.Column="1" Height="20" ContentStringFormat="{TemplateBinding HeaderStringFormat}"  ContentSource="Header" Margin="8,5,5,10" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                    <ContentPresenter ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Grid.Column="1" ContentStringFormat="{TemplateBinding HeaderStringFormat}"  ContentSource="Header" Margin="5" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                 </Grid>
             </Border>
             <ControlTemplate.Triggers>
@@ -124,11 +124,11 @@
         <Image x:Name="BgAlpha" Source="pack://application:,,,/Resources/Images/bg_alpha.png" HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="730"/>
 
         <!-- menu bar -->
-        <DockPanel Margin="428.838,-1.509,-2.338,418.998">
-            <Menu DockPanel.Dock="Top" HorizontalAlignment="Left" Height="24" Margin="0,0,4,0" Foreground="#FFDDDDDD" Background="#00000000">
-                <MenuItem Header="#" FontSize="12" Foreground="#FFDDDDDD" Background="{x:Null}" Click="OnIntro" Height="24" FontFamily="{DynamicResource Bender}" />
-                <MenuItem Header="Account" FontSize="12" Foreground="#FFDDDDDD" Background="{x:Null}" Click="OnAccount" Height="24" FontFamily="{DynamicResource Bender}" />
-                <MenuItem Header="Server" FontSize="12" Foreground="#FFDDDDDD" Background="#ff202020" FontFamily="{DynamicResource Bender}">
+        <DockPanel Margin="429,-2,-2,423">
+            <Menu DockPanel.Dock="Top" HorizontalAlignment="Left" Height="25" Margin="0,0,4,0" Foreground="#FFDDDDDD" Background="#00000000">
+                <MenuItem Header="#" FontSize="12" BorderBrush="#ff404040" Foreground="#FFDDDDDD" Background="{x:Null}" Click="OnIntro" Height="25" FontFamily="{DynamicResource Bender}" BorderThickness="0,0,1,0" />
+                <MenuItem Header="Account" FontSize="12" BorderBrush="#ff404040" Foreground="#FFDDDDDD" Background="{x:Null}" Click="OnAccount" FontFamily="{DynamicResource Bender}" BorderThickness="0,0,1,0" />
+                <MenuItem Header="Server" FontSize="12" BorderBrush="#ff404040" Foreground="#FFDDDDDD" Background="#00202020" FontFamily="{DynamicResource Bender}" BorderThickness="0,0,1,0">
                     <MenuItem Header="General" FontSize="12" Foreground="#FFDDDDDD" Background="#FF202020" Click="OnServerGeneral" FontFamily="{DynamicResource Bender}" Template="{DynamicResource SubMenuItemTemplate}" />
                     <MenuItem Header="Bots" FontSize="12" Foreground="#FFDDDDDD" Background="#FF202020" Click="OnServerBots" FontFamily="{DynamicResource Bender}" Template="{DynamicResource SubMenuItemTemplate}" />
                     <MenuItem Header="Weather" FontSize="12" Foreground="#FFDDDDDD" Background="#FF202020" Click="OnServerWeather" FontFamily="{DynamicResource Bender}" Template="{DynamicResource SubMenuItemTemplate}" />
@@ -162,23 +162,25 @@
 
             <!-- Initial page to display -->
             <Grid x:Name="IntroGrid" HorizontalAlignment="Center" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="true">
-                <Label Content="Text one" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
-                <Label Content="Text 2" HorizontalAlignment="Center" Margin="44.8,58.6,45.2,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
-                <Label Content="Text 3" HorizontalAlignment="Center" Margin="44.8,112.2,45.2,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
+                <Label Content="Just EmuTarkov - Launcher" HorizontalAlignment="Center" Margin="21,10,69,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}" FontSize="14"/>
+                <Label HorizontalAlignment="Center" Margin="10,60,10,0" VerticalAlignment="Top" Width="270" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}" Height="71">
+                    <TextBlock Width="240" Height="58" HorizontalAlignment="Center">An application to launch Escape From Tarkov<LineBreak/> game and play it without connecting to <LineBreak/>online services</TextBlock>
+                </Label>
+                <Label Content="More info at: justemutarkov.github.io" HorizontalAlignment="Center" Margin="21,284,45,0" VerticalAlignment="Top" Width="224" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
             </Grid>
 
             <!-- login grid -->
-            <Grid x:Name="LoginGrid" HorizontalAlignment="Center" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="false">
+            <Grid x:Name="LoginGrid" HorizontalAlignment="Center" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="true">
                 <!-- email -->
-                <Label Content="Email" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
-                <TextBox x:Name="LoginEmail" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="44.8,30.6,45.2,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLoginEmail"  FontFamily="{DynamicResource Bender}"/>
+                <Label Content="Email" HorizontalAlignment="Center" Margin="45,42,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
+                <TextBox x:Name="LoginEmail" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="45,68,45,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLoginEmail"  FontFamily="{DynamicResource Bender}"/>
 
                 <!-- password -->
-                <Label Content="Password" HorizontalAlignment="Center" Margin="44.8,58.6,45.2,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
-                <TextBox x:Name="LoginPassword" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="44.8,84.2,45.2,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLoginPassword"  FontFamily="{DynamicResource Bender}"/>
+                <Label Content="Password" HorizontalAlignment="Center" Margin="45,96,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
+                <TextBox x:Name="LoginPassword" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="45,121,45,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLoginPassword"  FontFamily="{DynamicResource Bender}"/>
 
                 <!-- buttons -->
-                <Button x:Name="Login" Content="Login" HorizontalAlignment="Center" Margin="108,180,108,0" VerticalAlignment="Top" Width="74" Height="25" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnLogin" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource Bender}"/>
+                <Button x:Name="Login" Content="Login" HorizontalAlignment="Center" Margin="95,169,95,0" VerticalAlignment="Top" Width="100" Height="40" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnLogin" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource Bender}" BorderThickness="1" FontSize="16"/>
             </Grid>
 
             <Grid x:Name="RegisterGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="true">
@@ -215,8 +217,20 @@
                 <!-- delete account button here -->
                 <Button x:Name="Logout" Content="Logout" HorizontalAlignment="Right" Margin="0,187,153,0" VerticalAlignment="Top" Width="122" Height="25" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnLogout" Template="{DynamicResource ButtonTemplates}" />
             </Grid>
-            <!-- Account / log in / Appeariance grid -->
-            <Grid x:Name="ChangeAppearanceGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="true">
+                <!-- Account / ChangeEmail grid -->
+                <Grid x:Name="ChangeEmailGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="True">
+                    <Label Content="Change Email will goes there" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
+                </Grid>
+                <!-- Account / ChangePassword grid -->
+                <Grid x:Name="ChangePasswordGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="True">
+                    <Label Content="Change Password will goes there" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
+                </Grid>
+                <!-- Account / ChangeNick grid -->
+                <Grid x:Name="ChangeNicknameGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="True">
+                    <Label Content="Change Nickname will goes there" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
+                </Grid>
+                <!-- Account / log in / Appeariance grid -->
+                <Grid x:Name="ChangeAppearanceGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="true">
                 <!-- head -->
                 <ComboBox x:Name="ChangeHead" HorizontalAlignment="Left" Margin="44,29.512,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource Bender}">
                     <ComboBoxItem Content="Head 1" IsSelected="True"/>
@@ -352,7 +366,7 @@
                 <Label Content="Weather will goes there" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
             </Grid>
             <!-- settings grid-->
-            <Grid x:Name="SettingsGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="true">
+            <Grid x:Name="SettingsGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="false">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
@@ -366,8 +380,9 @@
                                  Margin="0,23,0,0" Foreground="#FFDDDDDD" Background="#00000000" TextChanged="OnChangeClientLocation" />
                         <!-- client filename -->
                         <Label Content="Filename" HorizontalAlignment="Center" Margin="20,70,20,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="ClientFileName" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="220" 
-                                 Margin="0,95,0,0" Foreground="#FFDDDDDD" Background="#00000000" TextChanged="OnChangeClientFilename" />
+                        <Label Content=".exe" HorizontalAlignment="Center" Margin="170,95,0,0" VerticalAlignment="Top" Width="50" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="ClientFileName" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="170" 
+                                 Margin="0,95,50,0" Foreground="#FFDDDDDD" Background="#00000000" TextChanged="OnChangeClientFilename" />
                     </Grid>
                 </GroupBox>
                 <GroupBox Header=" Server" HorizontalAlignment="Center" Height="150" Margin="20,188,20,0" VerticalAlignment="Top" Width="250" Foreground="White" BorderBrush="#FF404040" FontFamily="{DynamicResource Bender}">
@@ -375,14 +390,20 @@
                         <!-- server location -->
                         <Label Content="Location" HorizontalAlignment="Center" Margin="20,-2,20,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>
                         <TextBox x:Name="ServerLocation" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="46" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="220" 
-                                 Margin="0,23,0,0" Foreground="#FFDDDDDD" Background="#00000000" TextChanged="OnChangeClientLocation" />
+                                 Margin="0,23,0,0" Foreground="#FFDDDDDD" Background="#00000000" TextChanged="OnChangeServerLocation" />
                         <!-- server filename -->
                         <Label Content="Filename" HorizontalAlignment="Center" Margin="20,70,20,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>
-                        <TextBox x:Name="ServerFileName" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="220" 
-                                 Margin="0,95,0,0" Foreground="#FFDDDDDD" Background="#00000000" TextChanged="OnChangeClientFilename" />
+                        <Label Content=".exe" HorizontalAlignment="Center" Margin="170,95,0,0" VerticalAlignment="Top" Width="50" Foreground="#FFDDDDDD"/>
+                        <TextBox x:Name="ServerFileName" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="170" 
+                                 Margin="0,95,50,0" Foreground="#FFDDDDDD" Background="#00000000" TextChanged="OnChangeServerFilename" />
                     </Grid>
                 </GroupBox>
             </Grid>
+        </Grid>
+        <Grid x:Name="ErrorGrid" HorizontalAlignment="Left" Height="34" Margin="23,25,0,0" VerticalAlignment="Top" Width="381" Background="#7F000000">
+            <Image HorizontalAlignment="Left" Source="../data/images/error/icon_error.png" Height="30" Margin="9,3,0,0" VerticalAlignment="Top" Width="30"/>
+            <!-- error goes here below add new line if needed "&#x0a;" 66-67(font:11) and 62(font:12) chars is new line for making responsive height or error log [Info for Maoci] -->
+            <TextBlock x:Name="ErrorText" HorizontalAlignment="Left" Margin="45,10,0,0" TextWrapping="Wrap" Text="No Errors" VerticalAlignment="Top" Height="14" Width="326" FontFamily="{DynamicResource Bender}" FontSize="12" Foreground="#FFD11111"/>
         </Grid>
     </Grid>
 </Window>

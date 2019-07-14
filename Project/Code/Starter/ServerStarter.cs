@@ -2,7 +2,7 @@
 {
     class ServerStarter : StarterBase
     {
-        public ServerStarter(string filepath) : base(filepath, "EmuTarkov-Server.exe")
+        public ServerStarter(string filepath, string filename) : base(filepath, filename + ".exe")
         {
             base.Start();
         }
