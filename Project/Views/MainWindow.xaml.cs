@@ -6,6 +6,8 @@ using Launcher.Code.Monitor;
 using Launcher.Code.Helper;
 using Launcher.Code.Data;
 using System.IO;
+using System;
+using System.Windows.Media.Imaging;
 
 namespace Launcher
 {
@@ -313,23 +315,6 @@ namespace Launcher
         }
         #endregion
 
-        #region ACCOUNT_CHANGE_APPEARANCE
-        private void LoadAppearanceSettings()
-        {
-            // code here
-        }
-
-        private void OnAppearanceChange(object sender, RoutedEventArgs e)
-        {
-            // send changes to the server
-
-            // show account panel
-            HideAllGrids();
-            AccountSettingsGrid.Visibility = Visibility.Visible;
-            LoadAccountSettings();
-        }
-        #endregion
-
         #region SERVER_GENERAL
         private void LoadServerGeneralSettings()
         {
@@ -521,6 +506,65 @@ namespace Launcher
                 ErrorHandler.RemoveError(112, "Cannot find server at this location.");
             DisplayErrors();
         }
+        #endregion
+
+        #region ACCOUNT_CHANGE_APPEARANCE
+
+        private string[] Head = { "bear_head", "bear_head_1", "head_boss_killa", "usec_head", "usec_head_1", "wild_dealmaker_head", "wild_head", "wild_head_1", "wild_head_2", "wild_head_3" };
+        private string[] Hand = { "bear_hands_skin", "usec_hands_skin", "wild_body_1_firsthands", "wild_body_2_firsthands", "wild_body_3_firsthands", "wild_body_firsthands" };
+        private string[] Legs = { "bear_feet", "bear_feet_1", "pant_boss_killa", "pants_wild_scavelite", "usec_feet", "wild_dealmaker_feet", "wild_feet", "wild_feet_1", "wild_feet_2", "wild_security_feet_1" };
+        private string[] Body = { "bear_body", "top_boss_killa", "top_wild_scavelite", "usec_body", "wild_body", "wild_body_1", "wild_body_2", "wild_body_3", "wild_dealmaker_body", "wild_security_body_1", "wild_security_body_2" };
+        private void LoadAppearanceSettings()
+        {
+            // code here
+        }
+
+        private void OnAppearanceChange(object sender, RoutedEventArgs e)
+        {
+            // send changes to the server
+            // show account panel
+            HideAllGrids();
+            AccountSettingsGrid.Visibility = Visibility.Visible;
+            LoadAccountSettings();
+        }
+        #region Select Change EVENTS
+        private void ChangeHead_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string s = (e.AddedItems[0] as ComboBoxItem).Content as string;
+            s = s.Replace("Head ", "");
+            Int32.TryParse(s, out int i);
+            string item = Head[i - 1];
+            if(HeadImage != null)
+                HeadImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/head/" + item + ".png"));
+        }
+        private void ChangeLegs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string s = (e.AddedItems[0] as ComboBoxItem).Content as string;
+            s = s.Replace("Legs ", "");
+            Int32.TryParse(s, out int i);
+            string item = Legs[i - 1];
+            if (LegsImage != null)
+                LegsImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/legs/" + item + ".png"));
+        }
+        private void ChangeBody_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string s = (e.AddedItems[0] as ComboBoxItem).Content as string;
+            s = s.Replace("Body ", "");
+            Int32.TryParse(s, out int i);
+            string item = Body[i - 1];
+            if (BodyImage != null)
+                BodyImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/body/" + item + ".png"));
+        }
+        private void ChangeHands_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string s = (e.AddedItems[0] as ComboBoxItem).Content as string;
+            s = s.Replace("Hands ", "");
+            Int32.TryParse(s, out int i);
+            string item = Hand[i - 1];
+            if (HandsImage != null)
+                HandsImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/hands/" + item + ".png"));
+        }
+        #endregion
         #endregion
     }
 }

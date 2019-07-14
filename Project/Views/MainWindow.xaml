@@ -230,38 +230,67 @@
                     <Label Content="Change Nickname will goes there" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
                 </Grid>
                 <!-- Account / log in / Appeariance grid -->
-                <Grid x:Name="ChangeAppearanceGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="true">
+            <Grid x:Name="ChangeAppearanceGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="false">
                 <!-- head -->
-                <ComboBox x:Name="ChangeHead" HorizontalAlignment="Left" Margin="44,29.512,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource Bender}">
+                <ComboBox x:Name="ChangeHead" HorizontalAlignment="Left" Margin="44,29.512,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource Bender}" SelectionChanged="ChangeHead_SelectionChanged">
                     <ComboBoxItem Content="Head 1" IsSelected="True"/>
                     <ComboBoxItem Content="Head 2"/>
+                    <ComboBoxItem Content="Head 3"/>
+                    <ComboBoxItem Content="Head 4"/>
+                    <ComboBoxItem Content="Head 5"/>
+                    <ComboBoxItem Content="Head 6"/>
+                    <ComboBoxItem Content="Head 7"/>
+                    <ComboBoxItem Content="Head 8"/>
+                    <ComboBoxItem Content="Head 9"/>
+                    <ComboBoxItem Content="Head 10"/>
                 </ComboBox>
                 <Label Content="Head" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="64,6,0,0" VerticalAlignment="Top" Width="43" Height="24" FontFamily="{DynamicResource Bender}"/>
-                <Image x:Name="HeadImage" Source="/data/images/character/head/bear_head.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="44,51.512,0,0" VerticalAlignment="Top" />
+                <Image x:Name="HeadImage" Source="pack://application:,,,/Resources/Images/character/head/bear_head.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="44,51.512,0,0" VerticalAlignment="Top" />
 
                 <!-- hands -->
-                <ComboBox x:Name="ChangeHands" HorizontalAlignment="Left" Margin="169,29.512,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource Bender}">
+                <ComboBox x:Name="ChangeHands" HorizontalAlignment="Left" Margin="169,29.512,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource Bender}" SelectionChanged="ChangeHands_SelectionChanged">
                     <ComboBoxItem Content="Hands 1" IsSelected="True"/>
                     <ComboBoxItem Content="Hands 2"/>
+                    <ComboBoxItem Content="Hands 3"/>
+                    <ComboBoxItem Content="Hands 4"/>
+                    <ComboBoxItem Content="Hands 5"/>
+                    <ComboBoxItem Content="Hands 6"/>
                 </ComboBox>
                 <Label Content="Hands" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="186,6,0,0" VerticalAlignment="Top" Width="44" Height="24" FontFamily="{DynamicResource Bender}"/>
-                <Image x:Name="HandsImage" Source="/data/images/character/hands/bear_hands_skin.png" HorizontalAlignment="Left" Height="95" Width="80"  Margin="169,51.512,0,0" VerticalAlignment="Top" />
+                <Image x:Name="HandsImage" Source="pack://application:,,,/Resources/Images/character/hands/bear_hands_skin.png" HorizontalAlignment="Left" Height="95" Width="80"  Margin="169,51.512,0,0" VerticalAlignment="Top" />
 
                 <!-- body -->
-                <ComboBox x:Name="ChangeBody" HorizontalAlignment="Left" Margin="169,187.664,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource Bender}">
+                <ComboBox x:Name="ChangeBody" HorizontalAlignment="Left" Margin="169,187.664,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource Bender}" SelectionChanged="ChangeBody_SelectionChanged">
                     <ComboBoxItem Content="Body 1" IsSelected="True"/>
                     <ComboBoxItem Content="Body 2"/>
+                    <ComboBoxItem Content="Body 3"/>
+                    <ComboBoxItem Content="Body 4"/>
+                    <ComboBoxItem Content="Body 5"/>
+                    <ComboBoxItem Content="Body 6"/>
+                    <ComboBoxItem Content="Body 7"/>
+                    <ComboBoxItem Content="Body 8"/>
+                    <ComboBoxItem Content="Body 9"/>
+                    <ComboBoxItem Content="Body 10"/>
+                    <ComboBoxItem Content="Body 11"/>
                 </ComboBox>
                 <Label Content="Body" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="189,165,0,0" VerticalAlignment="Top" Width="43" Height="23" FontFamily="{DynamicResource Bender}"/>
-                <Image x:Name="BodyImage" Source="/data/images/character/body/bear_body.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="169,210.82,0,0" VerticalAlignment="Top"/>
+                <Image x:Name="BodyImage" Source="pack://application:,,,/Resources/Images/character/body/bear_body.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="169,210.82,0,0" VerticalAlignment="Top"/>
 
                 <!-- legs -->
-                <ComboBox x:Name="ChangeLegs" HorizontalAlignment="Left" Margin="44,187.664,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource Bender}">
+                <ComboBox x:Name="ChangeLegs" HorizontalAlignment="Left" Margin="44,187.664,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource Bender}" SelectionChanged="ChangeLegs_SelectionChanged">
                     <ComboBoxItem Content="Legs 1" IsSelected="True"/>
                     <ComboBoxItem Content="Legs 2"/>
+                    <ComboBoxItem Content="Legs 3"/>
+                    <ComboBoxItem Content="Legs 4"/>
+                    <ComboBoxItem Content="Legs 5"/>
+                    <ComboBoxItem Content="Legs 6"/>
+                    <ComboBoxItem Content="Legs 7"/>
+                    <ComboBoxItem Content="Legs 8"/>
+                    <ComboBoxItem Content="Legs 9"/>
+                    <ComboBoxItem Content="Legs 10"/>
                 </ComboBox>
                 <Label Content="Legs" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="66,165,0,0" VerticalAlignment="Top" Width="44" Height="23" FontFamily="{DynamicResource Bender}"/>
-                <Image x:Name="LegsImage" Source="/data/images/character/legs/bear_feet.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="44,210.82,0,0" VerticalAlignment="Top" />
+                <Image x:Name="LegsImage" Source="pack://application:,,,/Resources/Images/character/legs/bear_feet.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="44,210.82,0,0" VerticalAlignment="Top" />
 
                 <!-- buttons -->
                 <Button x:Name="ConfirmChangeAppearance" Content="Change" HorizontalAlignment="Right" Margin="0,314.398,106.391,0" VerticalAlignment="Top" Width="75" Height="25" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnAppearanceChange" Template="{DynamicResource ButtonTemplates}" FontFamily="{DynamicResource Bender}" />
@@ -366,7 +395,7 @@
                 <Label Content="Weather will goes there" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
             </Grid>
             <!-- settings grid-->
-            <Grid x:Name="SettingsGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="false">
+            <Grid x:Name="SettingsGrid" HorizontalAlignment="Left" Height="342.233" VerticalAlignment="Top" Width="290" d:IsHidden="true">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
