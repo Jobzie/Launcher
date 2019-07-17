@@ -8,11 +8,13 @@ namespace Launcher.Code.Starter
     {
         private string filepath = "";
         private string executable = "";
+        private string arguments = "";
 
-        protected StarterBase(string filepath, string executable)
+        protected StarterBase(string filepath, string executable, string arguments = "")
         {
             this.filepath = filepath;
             this.executable = executable;
+            this.arguments = arguments;
         }
 
         protected void Start()
@@ -21,6 +23,8 @@ namespace Launcher.Code.Starter
             process.FileName = Path.Combine(filepath, executable);
             process.UseShellExecute = false;
             process.WorkingDirectory = filepath;
+            if(arguments != "")
+                process.Arguments = arguments;
 
             if (File.Exists(process.FileName))
             {

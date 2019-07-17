@@ -8,8 +8,9 @@ namespace Launcher.Code.Starter
 {
     public class ClientStarter : StarterBase
     {
-        public ClientStarter(string filepath, string backendURL, string email, string password, string filename) : base(filepath, filename + ".exe")
+        public ClientStarter(string filepath, string backendURL, string email, string password, string filename, string arguments = "") : base(filepath, filename + ".exe", arguments)
         {
+            
             SetBackendURL(filepath, backendURL);
             GenerateToken(email, password);
             base.Start();

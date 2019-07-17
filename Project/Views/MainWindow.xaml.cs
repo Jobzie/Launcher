@@ -8,6 +8,7 @@ using Launcher.Code.Data;
 using System.IO;
 using System;
 using System.Windows.Media.Imaging;
+using System.Text;
 
 namespace Launcher
 {
@@ -75,6 +76,9 @@ namespace Launcher
             laucherSettings = new LauncherSettings();
             serverSettings = new ServerSettings(System.IO.Path.Combine(laucherSettings.GetServerLocation(), "data"));
             ProfileSettings = new ProfileSettings(Path.Combine(laucherSettings.GetServerLocation(), "data/profiles"));
+            LoginBackendURL.Text = laucherSettings.GetBackendURL();
+            Port.Text = serverSettings.GetServerPort();
+
         }
 
         private void DisplayErrors() {
@@ -141,6 +145,20 @@ namespace Launcher
         }
         #endregion
 
+        private string CreateArguments() {
+            string ret = "";
+            if (LoggedIn) {
+                string login = LoginEmail.Text;
+                string password = LoginPassword.Text;
+                string hashedLoginData = "{ email: " + login + ", password: " + password + ", remember: true, timestamp: " + DateTime.Now.ToFileTime() + "}";
+                int ProfileID = ProfileSettings.GetProfile(login, password);
+                // < Convert.ToBase64String(Encoding.UTF8.GetBytes("l.o.g.i.n")) == bC5vLmcuaS5u >
+                ret += "-bC5vLmcuaS5u=" + Convert.ToBase64String(Encoding.UTF8.GetBytes(hashedLoginData)) + " -token=" + ProfileID.ToString();
+            }
+            ret += (ScreenMode.SelectedIndex != 0) ? " -screenmode=" + ((ScreenMode.SelectedItem as ComboBoxItem).Content as string) : "";
+            return ret;
+        }
+
         #region APPLICATION_START
         private void OnStartClient(object sender, RoutedEventArgs e)
         {
@@ -160,7 +178,7 @@ namespace Launcher
                 else
                 {
                     ErrorHandler.RemoveError(201, "Client is already running");
-                    ClientStarter starter = new ClientStarter(ClientLocation.Text, LoginBackendURL.Text, LoginEmail.Text, LoginPassword.Text, ClientFileName.Text);
+                    ClientStarter starter = new ClientStarter(ClientLocation.Text, LoginBackendURL.Text, LoginEmail.Text, LoginPassword.Text, ClientFileName.Text, CreateArguments());
                 }
             }
             DisplayErrors();
@@ -200,7 +218,6 @@ namespace Launcher
             // load the settings
             LoginEmail.Text = laucherSettings.GetEmail();
             LoginPassword.Text = laucherSettings.GetPassword();
-            LoginBackendURL.Text = laucherSettings.GetBackendURL();
         }
 
         private void OnChangeLoginEmail(object sender, TextChangedEventArgs e)
@@ -213,10 +230,7 @@ namespace Launcher
             laucherSettings.SetPassword(LoginPassword.Text);
         }
 
-        private void OnChangeClientBackendURL(object sender, TextChangedEventArgs e)
-        {
-            laucherSettings.SetBackendURL(LoginBackendURL.Text);
-        }
+
 
         private void OnLogin(object sender, RoutedEventArgs e)
         {
@@ -267,6 +281,11 @@ namespace Launcher
 
         private void OnRegister(object sender, RoutedEventArgs e)
         {
+            /*
+             profiles stored in: Serverdirectory /data/profiles/
+             folders are id's
+             profiles.json holds profile main data
+             */
             // code here
         }
         #endregion
@@ -323,11 +342,17 @@ namespace Launcher
 
             // load the settings
             Port.Text = serverSettings.GetServerPort();
+            LoginBackendURL.Text = laucherSettings.GetBackendURL();
         }
 
         private void OnChangePort(object sender, RoutedEventArgs e)
         {
             serverSettings.SetServerPort(Port.Text);
+        }
+
+        private void OnChangeBackendURL(object sender, TextChangedEventArgs e)
+        {
+            laucherSettings.SetBackendURL(LoginBackendURL.Text);
         }
         #endregion
 
@@ -340,7 +365,6 @@ namespace Launcher
             LoadBotsLimitSettings();
             LoadBotsSpawnSettings();
         }
-        #endregion
 
         #region BOTS_PMCWAR
         private void LoadBotsPmcWarSettings()
@@ -449,6 +473,7 @@ namespace Launcher
             serverSettings.SetBotsSpawnItemPocket(SpawnItemPocket.Text);
         }
         #endregion
+        #endregion
 
         #region LAUNCHER_SETTINGS
         private void LoadLauncherSettings()
@@ -532,8 +557,8 @@ namespace Launcher
         {
             string s = (e.AddedItems[0] as ComboBoxItem).Content as string;
             s = s.Replace("Head ", "");
-            Int32.TryParse(s, out int i);
-            string item = Head[i - 1];
+            Int32.TryParse(s, out int i10);
+            string item = Head[i10 - 1];
             if(HeadImage != null)
                 HeadImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/head/" + item + ".png"));
         }
@@ -541,8 +566,8 @@ namespace Launcher
         {
             string s = (e.AddedItems[0] as ComboBoxItem).Content as string;
             s = s.Replace("Legs ", "");
-            Int32.TryParse(s, out int i);
-            string item = Legs[i - 1];
+            Int32.TryParse(s, out int i11);
+            string item = Legs[i11 - 1];
             if (LegsImage != null)
                 LegsImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/legs/" + item + ".png"));
         }
@@ -550,8 +575,8 @@ namespace Launcher
         {
             string s = (e.AddedItems[0] as ComboBoxItem).Content as string;
             s = s.Replace("Body ", "");
-            Int32.TryParse(s, out int i);
-            string item = Body[i - 1];
+            Int32.TryParse(s, out int i12);
+            string item = Body[i12 - 1];
             if (BodyImage != null)
                 BodyImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/body/" + item + ".png"));
         }
@@ -559,8 +584,8 @@ namespace Launcher
         {
             string s = (e.AddedItems[0] as ComboBoxItem).Content as string;
             s = s.Replace("Hands ", "");
-            Int32.TryParse(s, out int i);
-            string item = Hand[i - 1];
+            Int32.TryParse(s, out int i13);
+            string item = Hand[i13 - 1];
             if (HandsImage != null)
                 HandsImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/hands/" + item + ".png"));
         }
