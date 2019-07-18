@@ -4,7 +4,7 @@ namespace Launcher.Code.Settings
 {
     public class ProfileSettings : SettingsBase<ProfileData>
     {
-        public ProfileSettings(string filepath) : base(filepath, "profiles.json", true) // last parameter is for object oriented return
+        public ProfileSettings(string filepath, string filename = "profiles.json") : base(filepath, filename, true) // last parameter is for object oriented return
         {
             // for calling base constructor
         }

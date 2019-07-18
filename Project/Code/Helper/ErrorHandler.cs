@@ -2,6 +2,7 @@
 using Launcher.Code.Settings;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Controls;
 
 namespace Launcher.Code.Helper
 {
@@ -13,12 +14,18 @@ namespace Launcher.Code.Helper
         {
             // just to make handle
         }
+        
+        // check if any errors remaining (bool)
         public bool isAnyErrors() {
             if (storeErrors.Count > 0)
                 return true;
             else
                 return false;
         }
+        // determine how big the errors string is /width and height/
+        // calculated lines
+        // [lines * (fontSize + 2)] = base height of the textbox
+        // [aboveCalc + 20] = base height of the error box
         public int StringErrLines(string s) {
             string[] arrString = s.Split("\n".ToCharArray());
             int lines = arrString.Length;
@@ -26,12 +33,10 @@ namespace Launcher.Code.Helper
                 if (arrString[i].Length > 62)
                     lines++;
             }
-            // calculated lines
-            // [lines * (fontSize + 2)] = base height of the textbox
-            // [aboveCalc + 20] = base height of the error box
             lines--;
             return lines;
         }
+        // return errors as Prepared String with newline indicators "\n"
         public string ReturnErrorAsText() {
             string endString = "";
             foreach (Errors err in storeErrors)
@@ -40,7 +45,7 @@ namespace Launcher.Code.Helper
             }
             return endString;
         }
-
+        // add new error if happend /without multiply added errors
         public void AddError(int code, string text) {
             foreach (Errors e in storeErrors) {
                 if(e.code == code)
@@ -51,8 +56,16 @@ namespace Launcher.Code.Helper
             error.text = text;
             storeErrors.Add(error);
         }
-
-        public void RemoveError(int code, string text) {
+        public void AddError(Errors err) {
+            foreach (Errors e in storeErrors)
+            {
+                if (e.code == err.code)
+                    return;// do not add it multiply times
+            }
+            storeErrors.Add(err);
+        }
+        // remove error if not happening /remove it by error code
+        public void RemoveError(int code) {
             foreach (Errors e in storeErrors)
             {
                 if (e.code == code)
@@ -62,47 +75,48 @@ namespace Launcher.Code.Helper
                 }
             }
         }
-
-
-       /* public void ErrorCheck() {
-           foreach(Errors e in storeErrors)
-           {
-                serverSettings = new ServerSettings(System.IO.Path.Combine(laucherSettings.GetServerLocation(), "data"));
-                laucherSettings = new LauncherSettings();
-                ProfileSettings = new ProfileSettings(Path.Combine(laucherSettings.GetServerLocation(), "data/profiles"));
-
-                switch (e.code) {
-                    case 100: // is profile loaded properly
-                       //we not remove login failed messages
-                        break;
-                    case 101:
-                        if (ProfileSettings.ListExists())
-                            storeErrors.Remove(e);
-                        break;
+        // yea i know its primitive solution ...
+        public void RemoveError(Errors err) {
+            foreach (Errors e in storeErrors)
+            {
+                if (e.code == err.code)
+                {
+                    storeErrors.Remove(e);
+                    return;
+                }
+            }
+        }
+        //prevent from starting server if destinition is unknown
+        public void ButtonDisplayer(Button btn_Start_Client, Button btn_Start_Server) {
+            bool err_111=false, err_112=false;
+            /*
+             111 = client error
+             112 - server error
+             */
+            foreach (Errors err in storeErrors)
+            {
+                switch (err.code) {
                     case 111:
-                        string check_client_file = laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe";
-                        if (File.Exists(check_client_file))
-                            storeErrors.Remove(e);
+                        err_111 = true;
+                        btn_Start_Client.Visibility = System.Windows.Visibility.Hidden;
+
                         break;
                     case 112:
-                        string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
-                        if (File.Exists(check_server_file))
-                            storeErrors.Remove(e);
-                        break;
-                    case 103:
-                        break;
-                    case 104:
-                        break;
+                        err_112 = true;
+                        btn_Start_Server.Visibility = System.Windows.Visibility.Hidden;
 
+                        break;
+                    default:
+                        btn_Start_Client.Visibility = System.Windows.Visibility.Visible;
+                        btn_Start_Server.Visibility = System.Windows.Visibility.Visible;
+                        break;
                 }
-
-
             }
+                if (!err_111)
+                    btn_Start_Client.Visibility = System.Windows.Visibility.Visible;
+                if (!err_112)
+                    btn_Start_Server.Visibility = System.Windows.Visibility.Visible;
 
-
-
-        }*/
-
-
+        }
     }
 }

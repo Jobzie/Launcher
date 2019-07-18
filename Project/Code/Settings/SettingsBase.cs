@@ -36,11 +36,13 @@ namespace Launcher.Code.Settings
             }
         }
 
-        public virtual void SaveSettings()
+        public virtual void SaveSettings(string filepath0 = "")
         {
-            if (File.Exists(filepath))
+            if (filepath0 == "")
+                filepath0 = filepath;
+            if (File.Exists(filepath0))
             {
-                JSON.Save<T>(filepath, config);
+                JSON.Save<T>(filepath0, config);
             }
         }
     }

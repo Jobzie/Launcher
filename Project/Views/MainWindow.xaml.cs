@@ -19,11 +19,13 @@ namespace Launcher
     {
         private LauncherSettings laucherSettings = null;
         private ServerSettings serverSettings = null;
+        private LoginToken LoginToken = new LoginToken();
         private ProfileSettings ProfileSettings = null;
+        private ProfileCharacters Characters = null;
         private Watcher clientWatcher = new Watcher("EmuTarkov-Client.exe");
         private Watcher serverWatcher = new Watcher("EmuTarkov-Server.exe");
         private ErrorHandler ErrorHandler = new ErrorHandler();
-        private bool LoggedIn = false;
+        private ErrorTypes ErrorType = new ErrorTypes();
         public MainWindow()
         {
             InitializeComponent();
@@ -35,17 +37,17 @@ namespace Launcher
             CheckAllErrors();
 
         }
-
+        #region Help Functions
         private void CheckAllErrors() {
             string check_client_file = laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe";
             if (!File.Exists(check_client_file))
             {
-                ErrorHandler.AddError(111, "Cannot find client at this location.");
+                ErrorHandler.AddError(ErrorType.error_Client_noLocation);
             }
             string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
             if (!File.Exists(check_server_file))
             {
-                ErrorHandler.AddError(112, "Cannot find server at this location.");
+                ErrorHandler.AddError(ErrorType.error_Server_noLocation);
             }
             DisplayErrors();
         }
@@ -87,15 +89,46 @@ namespace Launcher
             ErrorText.Height = (double)(StringErrLines*14);
             ErrorGrid.Height = ErrorText.Height + 20;
             ErrorText.Text = errText;
-            if(ErrorHandler.isAnyErrors())
+            ErrorHandler.ButtonDisplayer(btn_Start_Client, btn_Start_Server);
+            if (ErrorHandler.isAnyErrors())
                 ErrorGrid.Visibility = Visibility.Visible;
             else
                 ErrorGrid.Visibility = Visibility.Hidden;
         }
 
+        private void Set_LoginToken(string login, string pass, bool toggle = false, int timestamp = 0)
+        {
+            LoginToken.email = login;
+            LoginToken.password = pass;
+            LoginToken.toggle = toggle;
+            LoginToken.timestamp = timestamp;
+        }
+        private void Clear_LoginToken()
+        {
+            LoginToken.email = "";
+            LoginToken.password = "";
+            LoginToken.toggle = false;
+            LoginToken.timestamp = 0;
+        }
+        #endregion
         private void OnIntro(object sender, RoutedEventArgs e) {
             HideAllGrids();
             IntroGrid.Visibility = Visibility.Visible;
+        }
+        private string CreateArguments()
+        {
+            // < Convert.ToBase64String(Encoding.UTF8.GetBytes("l.o.g.i.n")) == bC5vLmcuaS5u >
+            string ret = "";
+            if (LoginToken.toggle)
+            {
+                string login = LoginToken.email;
+                string password = LoginToken.password;
+                string hashedLoginData = "{ email: " + login + ", password: " + password + ", remember: true, timestamp: " + DateTime.Now.ToFileTime() + "}";
+                int ProfileID = ProfileSettings.GetProfile(login, password);
+                ret += "-bC5vLmcuaS5u=" + Convert.ToBase64String(Encoding.UTF8.GetBytes(hashedLoginData)) + " -token=" + ProfileID.ToString();
+            }
+            ret += (ScreenMode.SelectedIndex != 0) ? " -screenmode=" + ((ScreenMode.SelectedItem as ComboBoxItem).Content as string) : "";
+            return ret;
         }
 
         #region MENU_BAR
@@ -103,7 +136,7 @@ namespace Launcher
         private void OnAccount(object sender, RoutedEventArgs e)
         {
             HideAllGrids();
-            if (LoggedIn)
+            if (LoginToken.toggle)
             {
                 AccountSettingsGrid.Visibility = Visibility.Visible;
                 LoadAccountSettings();
@@ -145,39 +178,25 @@ namespace Launcher
         }
         #endregion
 
-        private string CreateArguments() {
-            string ret = "";
-            if (LoggedIn) {
-                string login = LoginEmail.Text;
-                string password = LoginPassword.Text;
-                string hashedLoginData = "{ email: " + login + ", password: " + password + ", remember: true, timestamp: " + DateTime.Now.ToFileTime() + "}";
-                int ProfileID = ProfileSettings.GetProfile(login, password);
-                // < Convert.ToBase64String(Encoding.UTF8.GetBytes("l.o.g.i.n")) == bC5vLmcuaS5u >
-                ret += "-bC5vLmcuaS5u=" + Convert.ToBase64String(Encoding.UTF8.GetBytes(hashedLoginData)) + " -token=" + ProfileID.ToString();
-            }
-            ret += (ScreenMode.SelectedIndex != 0) ? " -screenmode=" + ((ScreenMode.SelectedItem as ComboBoxItem).Content as string) : "";
-            return ret;
-        }
-
         #region APPLICATION_START
         private void OnStartClient(object sender, RoutedEventArgs e)
         {
             string check_client_file = laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe";
             if (!File.Exists(check_client_file))
             {
-                ErrorHandler.AddError(111, "Cannot find client at this location.");
+                ErrorHandler.AddError(ErrorType.error_Client_noLocation);
             }
             else
             {
-                ErrorHandler.RemoveError(111, "Cannot find client at this location.");
+                ErrorHandler.RemoveError(ErrorType.error_Client_noLocation);
                 // allow only one instance to run
                 if (clientWatcher.IsProcessAlive())
                 {
-                    ErrorHandler.AddError(201, "Client is already running");
+                    ErrorHandler.AddError(ErrorType.error_ClientAlreadyRunning);
                 }
                 else
                 {
-                    ErrorHandler.RemoveError(201, "Client is already running");
+                    ErrorHandler.RemoveError(ErrorType.error_ClientAlreadyRunning);
                     ClientStarter starter = new ClientStarter(ClientLocation.Text, LoginBackendURL.Text, LoginEmail.Text, LoginPassword.Text, ClientFileName.Text, CreateArguments());
                 }
             }
@@ -189,19 +208,19 @@ namespace Launcher
             string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
             if (!File.Exists(check_server_file))
             {
-                ErrorHandler.AddError(112, "Cannot find server at this location.");
+                ErrorHandler.AddError(ErrorType.error_Client_noLocation);
             }
             else
             {
-                ErrorHandler.RemoveError(112, "Cannot find server at this location.");
+                ErrorHandler.RemoveError(ErrorType.error_Server_noLocation);
                 // allow only one instance to run
                 if (serverWatcher.IsProcessAlive())
                 {
-                    ErrorHandler.AddError(201, "Server is already running");
+                    ErrorHandler.AddError(ErrorType.error_ServerAlreadyRunning);
                 }
                 else
                 {
-                    ErrorHandler.RemoveError(201, "Client is already running");
+                    ErrorHandler.RemoveError(ErrorType.error_ServerAlreadyRunning);
                     ServerStarter starter = new ServerStarter(ServerLocation.Text, ServerFileName.Text);
                 }
             }
@@ -230,29 +249,30 @@ namespace Launcher
             laucherSettings.SetPassword(LoginPassword.Text);
         }
 
-
-
         private void OnLogin(object sender, RoutedEventArgs e)
         {
             if (ProfileSettings.ListExists())
             {
                 if (ProfileSettings.CheckLoginApprove(LoginEmail.Text, LoginPassword.Text))
                 {
+                    //LoggedProfile = new ProfileSettings(Path.Combine(laucherSettings.GetServerLocation(), "data/profiles/" + ProfileSettings.GetProfile(LoginEmail.Text, LoginPassword.Text).ToString()));
+                    Set_LoginToken(LoginEmail.Text, LoginPassword.Text, true, 0);
+                    Characters = new ProfileCharacters(System.IO.Path.Combine(laucherSettings.GetServerLocation() + "/data/profiles/" + ProfileSettings.GetProfile(LoginToken.email, LoginToken.password)));
                     HideAllGrids();
                     AccountSettingsGrid.Visibility = Visibility.Visible;
                     LoadAccountSettings();
-                    ErrorHandler.RemoveError(100, "No Such User");
-                    LoggedIn = true;
+                    ErrorHandler.RemoveError(ErrorType.error_noUserLikeThis);
+                    //LoggedIn = true;
                 }
                 else
                 {
-                    ErrorHandler.AddError(100,"No Such User");
+                    ErrorHandler.AddError(ErrorType.error_noUserLikeThis);
                 }
-                ErrorHandler.RemoveError(101, "Unable to find proper file; Check Server location.");
+                ErrorHandler.RemoveError(ErrorType.error_Server_noLocation);
             }
             else
             {
-                ErrorHandler.AddError(101, "Unable to find proper file; Check Server location.");
+                ErrorHandler.AddError(ErrorType.error_Server_noLocation);
             }
             DisplayErrors();
         }
@@ -294,7 +314,7 @@ namespace Launcher
         private void LoadAccountSettings()
         {
             // load the settings
-            string Nickname = "EmuTarkov user";
+            string Nickname = Characters.GetNickname();
             PlayerName.Content = "Hello, " + Nickname;  // replace this with the actual player nickname!
         }
 
@@ -326,7 +346,7 @@ namespace Launcher
         private void OnLogout(object sender, RoutedEventArgs e)
         {
             // logout user
-            LoggedIn = false;
+            Clear_LoginToken();
             // show account panel
             HideAllGrids();
             LoginGrid.Visibility = Visibility.Visible;
@@ -350,7 +370,7 @@ namespace Launcher
             serverSettings.SetServerPort(Port.Text);
         }
 
-        private void OnChangeBackendURL(object sender, TextChangedEventArgs e)
+        private void OnChangeClientBackendURL(object sender, TextChangedEventArgs e)
         {
             laucherSettings.SetBackendURL(LoginBackendURL.Text);
         }
@@ -365,6 +385,7 @@ namespace Launcher
             LoadBotsLimitSettings();
             LoadBotsSpawnSettings();
         }
+        #endregion
 
         #region BOTS_PMCWAR
         private void LoadBotsPmcWarSettings()
@@ -473,7 +494,6 @@ namespace Launcher
             serverSettings.SetBotsSpawnItemPocket(SpawnItemPocket.Text);
         }
         #endregion
-        #endregion
 
         #region LAUNCHER_SETTINGS
         private void LoadLauncherSettings()
@@ -497,7 +517,7 @@ namespace Launcher
             if (!File.Exists(check_client_file))
                 ErrorHandler.AddError(111, "Cannot find client at this location.");
             else
-                ErrorHandler.RemoveError(111, "Cannot find client at this location.");
+                ErrorHandler.RemoveError(111);
             DisplayErrors();
         }
         private void OnChangeClientFilename(object sender, TextChangedEventArgs e)
@@ -507,7 +527,7 @@ namespace Launcher
             if (!File.Exists(check_client_file))
                 ErrorHandler.AddError(111, "Cannot find client at this location.");
             else
-                ErrorHandler.RemoveError(111, "Cannot find client at this location.");
+                ErrorHandler.RemoveError(111);
             DisplayErrors();
         }
 
@@ -518,7 +538,7 @@ namespace Launcher
             if (!File.Exists(check_server_file))
                 ErrorHandler.AddError(112, "Cannot find server at this location.");
             else
-                ErrorHandler.RemoveError(112, "Cannot find server at this location.");
+                ErrorHandler.RemoveError(112);
             DisplayErrors();
         }
         private void OnChangeServerFilename(object sender, TextChangedEventArgs e)
@@ -528,7 +548,7 @@ namespace Launcher
             if (!File.Exists(check_server_file))
                 ErrorHandler.AddError(112, "Cannot find server at this location.");
             else
-                ErrorHandler.RemoveError(112, "Cannot find server at this location.");
+                ErrorHandler.RemoveError(112);
             DisplayErrors();
         }
         #endregion
@@ -541,6 +561,40 @@ namespace Launcher
         private string[] Body = { "bear_body", "top_boss_killa", "top_wild_scavelite", "usec_body", "wild_body", "wild_body_1", "wild_body_2", "wild_body_3", "wild_dealmaker_body", "wild_security_body_1", "wild_security_body_2" };
         private void LoadAppearanceSettings()
         {
+            string[][] bodyParts = { Head, Hand, Body, Legs };
+            string[] loadParts = { Characters.GetCharacterCustomizationPart("Head"),
+                                Characters.GetCharacterCustomizationPart("Hands"),
+                                Characters.GetCharacterCustomizationPart("Body"),
+                                Characters.GetCharacterCustomizationPart("Feet")};
+            for (int p_las_i = 0; p_las_i < loadParts.Length; p_las_i++) {
+                for (int p_las_i2 = 0; p_las_i2 < bodyParts[p_las_i].Length; p_las_i2++) {
+                    if (bodyParts[p_las_i][p_las_i2] == loadParts[p_las_i]) {
+                        switch (p_las_i) {
+                            case 0:
+                                ChangeHead.SelectedIndex = p_las_i2;
+                                if (HeadImage != null)
+                                    HeadImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/head/" + loadParts[p_las_i] + ".png"));
+
+                                break;
+                            case 1:
+                                ChangeHands.SelectedIndex = p_las_i2;
+                                if (HandsImage != null)
+                                    HandsImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/hands/" + loadParts[p_las_i] + ".png"));
+                                break;
+                            case 2:
+                                ChangeBody.SelectedIndex = p_las_i2;
+                                if (BodyImage != null)
+                                    BodyImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/body/" + loadParts[p_las_i] + ".png"));
+                                break;
+                            case 3:
+                                ChangeLegs.SelectedIndex = p_las_i2;
+                                if (LegsImage != null)
+                                    LegsImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/legs/" + loadParts[p_las_i] + ".png"));
+                                break;
+                        }
+                    }
+                }
+            }
             // code here
         }
 
@@ -548,6 +602,32 @@ namespace Launcher
         {
             // send changes to the server
             // show account panel
+            string[] changed = {
+                (ChangeHead.SelectedItem as ComboBoxItem).Content.ToString().Replace("Head ", ""),
+                (ChangeHands.SelectedItem as ComboBoxItem).Content.ToString().Replace("Hands ", ""),
+                (ChangeBody.SelectedItem as ComboBoxItem).Content.ToString().Replace("Body ", ""),
+                (ChangeLegs.SelectedItem as ComboBoxItem).Content.ToString().Replace("Legs ", "") };
+            string[] type = { "Head", "Hands", "Body", "Feet" };
+            string returnVar = "";
+            for (int i = 0; i < type.Length; i++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        returnVar = "assets/content/characters/character/prefabs/" + Head[Int32.Parse(changed[i]) - 1] + ".bundle";
+                        break;
+                    case 1:
+                        returnVar = "assets/content/characters/character/prefabs/" + Hand[Int32.Parse(changed[i]) - 1] + ".bundle";
+                        break;
+                    case 2:
+                        returnVar = "assets/content/characters/character/prefabs/" + Body[Int32.Parse(changed[i]) - 1] + ".bundle";
+                        break;
+                    case 3:
+                        returnVar = "assets/content/characters/character/prefabs/" + Legs[Int32.Parse(changed[i]) - 1] + ".bundle";
+                        break;
+                }
+                Characters.SaveCharacterCustomization(type[i], returnVar);
+            }
             HideAllGrids();
             AccountSettingsGrid.Visibility = Visibility.Visible;
             LoadAccountSettings();
@@ -590,6 +670,28 @@ namespace Launcher
                 HandsImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/hands/" + item + ".png"));
         }
         #endregion
+
         #endregion
+
+        private void OnSaveProfile_Nickname(object sender, RoutedEventArgs e)
+        {
+            if (NewNickname.Text != "" && NewNickname.Text != Characters.GetNickname()) {
+                Characters.ChangeNickname(NewNickname.Text);
+                Characters.ReloadProfiles();
+                HideAllGrids();
+                LoadAccountSettings();
+                AccountSettingsGrid.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void OnSaveProfile_Email(object sender, RoutedEventArgs e)
+        {
+            ProfileSettings.ChangeProfileEmail(LoginToken.email, LoginToken.password, NewEmail.Text);
+        }
+
+        private void OnSaveProfile_Password(object sender, RoutedEventArgs e)
+        {
+            ProfileSettings.ChangeProfilePassword(LoginToken.email, LoginToken.password, NewPassword.Text);
+        }
     }
 }
