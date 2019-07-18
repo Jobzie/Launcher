@@ -88,21 +88,21 @@ namespace Launcher.Code.Helper
         }
         //prevent from starting server if destinition is unknown
         public void ButtonDisplayer(Button btn_Start_Client, Button btn_Start_Server) {
-            bool err_111=false, err_112=false;
+            bool err_101=false, err_102=false;
             /*
-             111 = client error
-             112 - server error
+             101 = client error
+             102 - server error
              */
             foreach (Errors err in storeErrors)
             {
                 switch (err.code) {
-                    case 111:
-                        err_111 = true;
+                    case 101:
+                        err_101 = true;
                         btn_Start_Client.Visibility = System.Windows.Visibility.Hidden;
 
                         break;
-                    case 112:
-                        err_112 = true;
+                    case 102:
+                        err_102 = true;
                         btn_Start_Server.Visibility = System.Windows.Visibility.Hidden;
 
                         break;
@@ -112,9 +112,9 @@ namespace Launcher.Code.Helper
                         break;
                 }
             }
-                if (!err_111)
+                if (!err_101)
                     btn_Start_Client.Visibility = System.Windows.Visibility.Visible;
-                if (!err_112)
+                if (!err_102)
                     btn_Start_Server.Visibility = System.Windows.Visibility.Visible;
 
         }

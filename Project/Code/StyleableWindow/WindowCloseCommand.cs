@@ -15,13 +15,12 @@ namespace WpfStyleableWindow.StyleableWindow
         {
             return true;
         }
-
+        #pragma warning disable 0067
         public event EventHandler CanExecuteChanged;
-
+        #pragma warning restore 0067
         public void Execute(object parameter)
         {
             var window = parameter as Window;
-
             if (window != null)
             {
                 window.Close();

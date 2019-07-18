@@ -515,9 +515,9 @@ namespace Launcher
             laucherSettings.SetClientLocation(ClientLocation.Text);
             string check_client_file = laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe";
             if (!File.Exists(check_client_file))
-                ErrorHandler.AddError(111, "Cannot find client at this location.");
+                ErrorHandler.AddError(ErrorType.error_Client_noLocation);
             else
-                ErrorHandler.RemoveError(111);
+                ErrorHandler.RemoveError(ErrorType.error_Client_noLocation);
             DisplayErrors();
         }
         private void OnChangeClientFilename(object sender, TextChangedEventArgs e)
@@ -525,9 +525,9 @@ namespace Launcher
             laucherSettings.SetClientFilename(ClientFileName.Text);
             string check_client_file = laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe";
             if (!File.Exists(check_client_file))
-                ErrorHandler.AddError(111, "Cannot find client at this location.");
+                ErrorHandler.AddError(ErrorType.error_Client_noLocation);
             else
-                ErrorHandler.RemoveError(111);
+                ErrorHandler.RemoveError(ErrorType.error_Client_noLocation);
             DisplayErrors();
         }
 
@@ -536,9 +536,9 @@ namespace Launcher
             laucherSettings.SetServerLocation(ServerLocation.Text);
             string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
             if (!File.Exists(check_server_file))
-                ErrorHandler.AddError(112, "Cannot find server at this location.");
+                ErrorHandler.AddError(ErrorType.error_Server_noLocation);
             else
-                ErrorHandler.RemoveError(112);
+                ErrorHandler.RemoveError(ErrorType.error_Server_noLocation);
             DisplayErrors();
         }
         private void OnChangeServerFilename(object sender, TextChangedEventArgs e)
@@ -546,9 +546,9 @@ namespace Launcher
             laucherSettings.SetServerFilename(ServerFileName.Text);
             string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
             if (!File.Exists(check_server_file))
-                ErrorHandler.AddError(112, "Cannot find server at this location.");
+                ErrorHandler.AddError(ErrorType.error_Server_noLocation);
             else
-                ErrorHandler.RemoveError(112);
+                ErrorHandler.RemoveError(ErrorType.error_Server_noLocation);
             DisplayErrors();
         }
         #endregion
@@ -617,7 +617,20 @@ namespace Launcher
                         returnVar = "assets/content/characters/character/prefabs/" + Head[Int32.Parse(changed[i]) - 1] + ".bundle";
                         break;
                     case 1:
-                        returnVar = "assets/content/characters/character/prefabs/" + Hand[Int32.Parse(changed[i]) - 1] + ".bundle";
+                        switch (Hand[Int32.Parse(changed[i]) - 1]) {
+                            case "bear_hands_skin":
+                                returnVar = "assets/content/hands/bear/" + Hand[Int32.Parse(changed[i]) - 1] + ".bundle";
+                                break;
+                            case "usec_hands_skin":
+                                returnVar = "assets/content/hands/usec/" + Hand[Int32.Parse(changed[i]) - 1] + ".bundle";
+                                break;
+                            case "wild_body_1_firsthands":
+                            case "wild_body_2_firsthands":
+                            case "wild_body_3_firsthands":
+                            case "wild_body_firsthands":
+                                returnVar = "assets/content/hands/wild/" + Hand[Int32.Parse(changed[i]) - 1] + ".bundle";
+                                break;
+                        }
                         break;
                     case 2:
                         returnVar = "assets/content/characters/character/prefabs/" + Body[Int32.Parse(changed[i]) - 1] + ".bundle";

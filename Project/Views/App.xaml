@@ -84,8 +84,8 @@
                                     sw:ShowSystemMenuBehavior.RightButtonShow="true">
                         </Label>
                         <StackPanel Grid.Column="2" Orientation="Horizontal">
-                            <Button DockPanel.Dock="Right" Width="20" Style="{StaticResource WindowButton}" Command="{StaticResource MinimizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"> [ _ ] </Button>
-                            <Button DockPanel.Dock="Right" Width="20" Style="{StaticResource WindowButton}" Command="{StaticResource CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"> [ X ] </Button>
+                            <Button DockPanel.Dock="Right" Width="20" Style="{StaticResource WindowButton}" Command="{StaticResource MinimizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">ᐯ</Button>
+                            <Button DockPanel.Dock="Right" Width="20" Style="{StaticResource WindowButton}" Command="{StaticResource CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">╳</Button>
                         </StackPanel>
                     </Grid>
                     <Border Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
