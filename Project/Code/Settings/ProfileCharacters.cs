@@ -72,6 +72,12 @@ namespace Launcher.Code.Settings
         }
         public void ChangeNickname(string newName, int profType = 1) {
             profile_content.data[profType].Info.Nickname = newName;
+            profile_content.data[profType].Info.LowerNickname = newName.Replace(" ","").ToLower();
+            saveProfile();
+        }
+
+        public void ChangeSide(string newSide, int profType = 1) {
+            profile_content.data[profType].Info.Side = newSide;
             saveProfile();
         }
 

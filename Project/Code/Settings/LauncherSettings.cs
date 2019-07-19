@@ -75,15 +75,26 @@ namespace Launcher.Code.Settings
         }
         #endregion
         #region BACKEND URL
-        public string GetBackendURL()
-        {
-            return base.config.backendURL;
-        }
-
-        public void SetBackendURL(string value)
-        {
-            base.config.backendURL = value;
+        public void SavePort(int value) {
+            base.config.port = value;
             base.SaveSettings();
+        }
+        public string LoadPort() {
+            return base.config.port.ToString();
+        }
+        public void SaveIP(string value) {
+            base.config.ip = value;
+            base.SaveSettings();
+        }
+        public string LoadIP() {
+            return base.config.ip;
+        }
+        public string PrepareBackendURL(bool secured = false)
+        {
+            if (secured)
+                return "https://" + LoadIP() + ":" + LoadPort();
+            else
+                return "http://" + LoadIP() + ":" + LoadPort();
         }
         #endregion
     }

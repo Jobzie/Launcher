@@ -67,6 +67,7 @@
     <Compile Include="Code\Data\Errors.cs" />
     <Compile Include="Code\Data\ProfileData.cs" />
     <Compile Include="Code\Helper\ErrorHandler.cs" />
+    <Compile Include="Code\Helper\Tools.cs" />
     <Compile Include="Code\Settings\ProfileCharacters.cs" />
     <Compile Include="Code\Settings\ProfileSettings.cs" />
     <Compile Include="Code\StyleableWindow\ControlDoubleClickBehavior.cs" />
@@ -121,6 +122,8 @@
     <Content Include="data\launcher.config.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\Data\characterDefault.json" />
+    <Resource Include="Resources\Data\purchasesDefault.json" />
     <Resource Include="Resources\Fonts\Bender-Light.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

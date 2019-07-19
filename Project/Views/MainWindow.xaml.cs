@@ -17,6 +17,7 @@ namespace Launcher
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Tools Tools = new Tools();
         private LauncherSettings laucherSettings = null;
         private ServerSettings serverSettings = null;
         private LoginToken LoginToken = new LoginToken();
@@ -78,8 +79,8 @@ namespace Launcher
             laucherSettings = new LauncherSettings();
             serverSettings = new ServerSettings(System.IO.Path.Combine(laucherSettings.GetServerLocation(), "data"));
             ProfileSettings = new ProfileSettings(Path.Combine(laucherSettings.GetServerLocation(), "data/profiles"));
-            LoginBackendURL.Text = laucherSettings.GetBackendURL();
-            Port.Text = serverSettings.GetServerPort();
+            BackendIP.Text = laucherSettings.LoadIP();
+            Port.Text = laucherSettings.LoadPort();
 
         }
 
@@ -110,11 +111,6 @@ namespace Launcher
             LoginToken.toggle = false;
             LoginToken.timestamp = 0;
         }
-        #endregion
-        private void OnIntro(object sender, RoutedEventArgs e) {
-            HideAllGrids();
-            IntroGrid.Visibility = Visibility.Visible;
-        }
         private string CreateArguments()
         {
             // < Convert.ToBase64String(Encoding.UTF8.GetBytes("l.o.g.i.n")) == bC5vLmcuaS5u >
@@ -129,6 +125,12 @@ namespace Launcher
             }
             ret += (ScreenMode.SelectedIndex != 0) ? " -screenmode=" + ((ScreenMode.SelectedItem as ComboBoxItem).Content as string) : "";
             return ret;
+        }
+        #endregion
+
+        private void OnIntro(object sender, RoutedEventArgs e) {
+            HideAllGrids();
+            IntroGrid.Visibility = Visibility.Visible;
         }
 
         #region MENU_BAR
@@ -197,7 +199,7 @@ namespace Launcher
                 else
                 {
                     ErrorHandler.RemoveError(ErrorType.error_ClientAlreadyRunning);
-                    ClientStarter starter = new ClientStarter(ClientLocation.Text, LoginBackendURL.Text, LoginEmail.Text, LoginPassword.Text, ClientFileName.Text, CreateArguments());
+                    ClientStarter starter = new ClientStarter(ClientLocation.Text, laucherSettings.PrepareBackendURL(), LoginEmail.Text, LoginPassword.Text, ClientFileName.Text, CreateArguments());
                 }
             }
             DisplayErrors();
@@ -279,34 +281,40 @@ namespace Launcher
         #endregion
 
         #region ACCOUNT_REGISTER
-        private void OnChangeRegisterEmail(object sender, TextChangedEventArgs e)
-        {
-            // code here
-        }
-
-        private void OnChangeRegisterPassword(object sender, TextChangedEventArgs e)
-        {
-            // code here
-        }
-
-        private void OnChangeRegisterNickname(object sender, TextChangedEventArgs e)
-        {
-            // code here
-        }
-
-        private void OnChangeRegisterSide(object sender, SelectionChangedEventArgs e)
-        {
-            // code here
-        }
-
         private void OnRegister(object sender, RoutedEventArgs e)
         {
-            /*
-             profiles stored in: Serverdirectory /data/profiles/
-             folders are id's
-             profiles.json holds profile main data
-             */
-            // code here
+            HideAllGrids();
+            RegisterGrid.Visibility = Visibility.Visible;
+        }
+
+
+        private void OnCreateProfile(object sender, RoutedEventArgs e) {
+            //grab data
+            string email = RegisterEmail.Text;
+            string password = RegisterPassword.Text;
+            string nickname = RegisterNickname.Text;
+            string side = RegisterSide.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem: ", "");
+            //Create account
+            ProfileSettings.AddProfile(email, password);
+            //create folder
+            int ID = ProfileSettings.GetProfile(email, password);
+            string path = laucherSettings.GetServerLocation() + "/data/profiles/" + ID + "";
+                string charactersJSON = "/character.json";
+                string purchasesJSON = "/purchases.json";
+            Directory.CreateDirectory(Path.GetDirectoryName(path + charactersJSON));
+            Directory.CreateDirectory(Path.GetDirectoryName(path + purchasesJSON));
+            //put contents into created files
+            Uri charactersDefault = new Uri("pack://application:,,,/Resources/Data/characterDefault.json");
+            Uri purchasesDefault  = new Uri("pack://application:,,,/Resources/Data/purchasesDefault.json");
+            Tools.SaveFileStream(charactersDefault, path + charactersJSON);
+            Tools.SaveFileStream(purchasesDefault, path + purchasesJSON);
+            //edit character and release it
+            ProfileCharacters tempCharacter = new ProfileCharacters(path);
+            tempCharacter.ChangeNickname(nickname);
+            tempCharacter.ChangeSide(side);
+            tempCharacter = null;//remove temp characters data
+            HideAllGrids();
+            LoginGrid.Visibility = Visibility.Visible;
         }
         #endregion
 
@@ -317,32 +325,192 @@ namespace Launcher
             string Nickname = Characters.GetNickname();
             PlayerName.Content = "Hello, " + Nickname;  // replace this with the actual player nickname!
         }
-
+        #region Email/Login
         private void OnChangeEmail(object sender, RoutedEventArgs e)
         {
             HideAllGrids();
             ChangeEmailGrid.Visibility = Visibility.Visible;
         }
-
+        private void OnSaveProfile_Email(object sender, RoutedEventArgs e)
+        {
+            ProfileSettings.ChangeProfileEmail(LoginToken.email, LoginToken.password, NewEmail.Text);
+        }
+        #endregion
+        #region Password
         private void OnChangePassword(object sender, RoutedEventArgs e)
         {
             HideAllGrids();
             ChangePasswordGrid.Visibility = Visibility.Visible;
         }
-
+        private void OnSaveProfile_Password(object sender, RoutedEventArgs e)
+        {
+            ProfileSettings.ChangeProfilePassword(LoginToken.email, LoginToken.password, NewPassword.Text);
+        }
+        #endregion
+        #region Nickname
         private void OnChangeNickname(object sender, RoutedEventArgs e)
         {
             HideAllGrids();
             ChangeNicknameGrid.Visibility = Visibility.Visible;
         }
-
+        private void OnSaveProfile_Nickname(object sender, RoutedEventArgs e)
+        {
+            if (NewNickname.Text != "" && NewNickname.Text != Characters.GetNickname())
+            {
+                Characters.ChangeNickname(NewNickname.Text);
+                Characters.ReloadProfiles();
+                HideAllGrids();
+                LoadAccountSettings();
+                AccountSettingsGrid.Visibility = Visibility.Visible;
+            }
+        }
+        #endregion
+        #region Appearance
         private void OnChangeAppearance(object sender, RoutedEventArgs e)
         {
             HideAllGrids();
             ChangeAppearanceGrid.Visibility = Visibility.Visible;
             LoadAppearanceSettings();
         }
+        #region ACCOUNT_CHANGE_APPEARANCE
 
+        private string[] Head = { "bear_head", "bear_head_1", "head_boss_killa", "usec_head", "usec_head_1", "wild_dealmaker_head", "wild_head", "wild_head_1", "wild_head_2", "wild_head_3" };
+        private string[] Hand = { "bear_hands_skin", "usec_hands_skin", "wild_body_1_firsthands", "wild_body_2_firsthands", "wild_body_3_firsthands", "wild_body_firsthands" };
+        private string[] Legs = { "bear_feet", "bear_feet_1", "pant_boss_killa", "pants_wild_scavelite", "usec_feet", "wild_dealmaker_feet", "wild_feet", "wild_feet_1", "wild_feet_2", "wild_security_feet_1" };
+        private string[] Body = { "bear_body", "top_boss_killa", "top_wild_scavelite", "usec_body", "wild_body", "wild_body_1", "wild_body_2", "wild_body_3", "wild_dealmaker_body", "wild_security_body_1", "wild_security_body_2" };
+        private void LoadAppearanceSettings()
+        {
+            string[][] bodyParts = { Head, Hand, Body, Legs };
+            string[] loadParts = { Characters.GetCharacterCustomizationPart("Head"),
+                                Characters.GetCharacterCustomizationPart("Hands"),
+                                Characters.GetCharacterCustomizationPart("Body"),
+                                Characters.GetCharacterCustomizationPart("Feet")};
+            for (int p_las_i = 0; p_las_i < loadParts.Length; p_las_i++)
+            {
+                for (int p_las_i2 = 0; p_las_i2 < bodyParts[p_las_i].Length; p_las_i2++)
+                {
+                    if (bodyParts[p_las_i][p_las_i2] == loadParts[p_las_i])
+                    {
+                        switch (p_las_i)
+                        {
+                            case 0:
+                                ChangeHead.SelectedIndex = p_las_i2;
+                                if (HeadImage != null)
+                                    HeadImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/head/" + loadParts[p_las_i] + ".png"));
+
+                                break;
+                            case 1:
+                                ChangeHands.SelectedIndex = p_las_i2;
+                                if (HandsImage != null)
+                                    HandsImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/hands/" + loadParts[p_las_i] + ".png"));
+                                break;
+                            case 2:
+                                ChangeBody.SelectedIndex = p_las_i2;
+                                if (BodyImage != null)
+                                    BodyImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/body/" + loadParts[p_las_i] + ".png"));
+                                break;
+                            case 3:
+                                ChangeLegs.SelectedIndex = p_las_i2;
+                                if (LegsImage != null)
+                                    LegsImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/legs/" + loadParts[p_las_i] + ".png"));
+                                break;
+                        }
+                    }
+                }
+            }
+            // code here
+        }
+
+        private void OnAppearanceChange(object sender, RoutedEventArgs e)
+        {
+            // send changes to the server
+            // show account panel
+            string[] changed = {
+                (ChangeHead.SelectedItem as ComboBoxItem).Content.ToString().Replace("Head ", ""),
+                (ChangeHands.SelectedItem as ComboBoxItem).Content.ToString().Replace("Hands ", ""),
+                (ChangeBody.SelectedItem as ComboBoxItem).Content.ToString().Replace("Body ", ""),
+                (ChangeLegs.SelectedItem as ComboBoxItem).Content.ToString().Replace("Legs ", "") };
+            string[] type = { "Head", "Hands", "Body", "Feet" };
+            string returnVar = "";
+            for (int i = 0; i < type.Length; i++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        returnVar = "assets/content/characters/character/prefabs/" + Head[Int32.Parse(changed[i]) - 1] + ".bundle";
+                        break;
+                    case 1:
+                        switch (Hand[Int32.Parse(changed[i]) - 1])
+                        {
+                            case "bear_hands_skin":
+                                returnVar = "assets/content/hands/bear/" + Hand[Int32.Parse(changed[i]) - 1] + ".bundle";
+                                break;
+                            case "usec_hands_skin":
+                                returnVar = "assets/content/hands/usec/" + Hand[Int32.Parse(changed[i]) - 1] + ".bundle";
+                                break;
+                            case "wild_body_1_firsthands":
+                            case "wild_body_2_firsthands":
+                            case "wild_body_3_firsthands":
+                            case "wild_body_firsthands":
+                                returnVar = "assets/content/hands/wild/" + Hand[Int32.Parse(changed[i]) - 1] + ".bundle";
+                                break;
+                        }
+                        break;
+                    case 2:
+                        returnVar = "assets/content/characters/character/prefabs/" + Body[Int32.Parse(changed[i]) - 1] + ".bundle";
+                        break;
+                    case 3:
+                        returnVar = "assets/content/characters/character/prefabs/" + Legs[Int32.Parse(changed[i]) - 1] + ".bundle";
+                        break;
+                }
+                Characters.SaveCharacterCustomization(type[i], returnVar);
+            }
+            HideAllGrids();
+            AccountSettingsGrid.Visibility = Visibility.Visible;
+            LoadAccountSettings();
+        }
+        #region Select Change EVENTS
+        private void ChangeHead_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string s = (e.AddedItems[0] as ComboBoxItem).Content as string;
+            s = s.Replace("Head ", "");
+            Int32.TryParse(s, out int i10);
+            string item = Head[i10 - 1];
+            if (HeadImage != null)
+                HeadImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/head/" + item + ".png"));
+        }
+        private void ChangeLegs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string s = (e.AddedItems[0] as ComboBoxItem).Content as string;
+            s = s.Replace("Legs ", "");
+            Int32.TryParse(s, out int i11);
+            string item = Legs[i11 - 1];
+            if (LegsImage != null)
+                LegsImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/legs/" + item + ".png"));
+        }
+        private void ChangeBody_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string s = (e.AddedItems[0] as ComboBoxItem).Content as string;
+            s = s.Replace("Body ", "");
+            Int32.TryParse(s, out int i12);
+            string item = Body[i12 - 1];
+            if (BodyImage != null)
+                BodyImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/body/" + item + ".png"));
+        }
+        private void ChangeHands_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string s = (e.AddedItems[0] as ComboBoxItem).Content as string;
+            s = s.Replace("Hands ", "");
+            Int32.TryParse(s, out int i13);
+            string item = Hand[i13 - 1];
+            if (HandsImage != null)
+                HandsImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/hands/" + item + ".png"));
+        }
+        #endregion
+
+        #endregion
+        #endregion
+        #region Logout
         private void OnLogout(object sender, RoutedEventArgs e)
         {
             // logout user
@@ -353,6 +521,7 @@ namespace Launcher
             LoadLoginSettings();
         }
         #endregion
+        #endregion
 
         #region SERVER_GENERAL
         private void LoadServerGeneralSettings()
@@ -362,17 +531,19 @@ namespace Launcher
 
             // load the settings
             Port.Text = serverSettings.GetServerPort();
-            LoginBackendURL.Text = laucherSettings.GetBackendURL();
+            BackendIP.Text = laucherSettings.LoadIP();
         }
 
         private void OnChangePort(object sender, RoutedEventArgs e)
         {
+            laucherSettings.SavePort(Int32.Parse(Port.Text));
             serverSettings.SetServerPort(Port.Text);
+            //serverSettings.SetServerPort(Port.Text);
         }
 
-        private void OnChangeClientBackendURL(object sender, TextChangedEventArgs e)
+        private void OnChangeBackendIP(object sender, TextChangedEventArgs e)
         {
-            laucherSettings.SetBackendURL(LoginBackendURL.Text);
+            laucherSettings.SaveIP(BackendIP.Text);
         }
         #endregion
 
@@ -553,158 +724,5 @@ namespace Launcher
         }
         #endregion
 
-        #region ACCOUNT_CHANGE_APPEARANCE
-
-        private string[] Head = { "bear_head", "bear_head_1", "head_boss_killa", "usec_head", "usec_head_1", "wild_dealmaker_head", "wild_head", "wild_head_1", "wild_head_2", "wild_head_3" };
-        private string[] Hand = { "bear_hands_skin", "usec_hands_skin", "wild_body_1_firsthands", "wild_body_2_firsthands", "wild_body_3_firsthands", "wild_body_firsthands" };
-        private string[] Legs = { "bear_feet", "bear_feet_1", "pant_boss_killa", "pants_wild_scavelite", "usec_feet", "wild_dealmaker_feet", "wild_feet", "wild_feet_1", "wild_feet_2", "wild_security_feet_1" };
-        private string[] Body = { "bear_body", "top_boss_killa", "top_wild_scavelite", "usec_body", "wild_body", "wild_body_1", "wild_body_2", "wild_body_3", "wild_dealmaker_body", "wild_security_body_1", "wild_security_body_2" };
-        private void LoadAppearanceSettings()
-        {
-            string[][] bodyParts = { Head, Hand, Body, Legs };
-            string[] loadParts = { Characters.GetCharacterCustomizationPart("Head"),
-                                Characters.GetCharacterCustomizationPart("Hands"),
-                                Characters.GetCharacterCustomizationPart("Body"),
-                                Characters.GetCharacterCustomizationPart("Feet")};
-            for (int p_las_i = 0; p_las_i < loadParts.Length; p_las_i++) {
-                for (int p_las_i2 = 0; p_las_i2 < bodyParts[p_las_i].Length; p_las_i2++) {
-                    if (bodyParts[p_las_i][p_las_i2] == loadParts[p_las_i]) {
-                        switch (p_las_i) {
-                            case 0:
-                                ChangeHead.SelectedIndex = p_las_i2;
-                                if (HeadImage != null)
-                                    HeadImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/head/" + loadParts[p_las_i] + ".png"));
-
-                                break;
-                            case 1:
-                                ChangeHands.SelectedIndex = p_las_i2;
-                                if (HandsImage != null)
-                                    HandsImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/hands/" + loadParts[p_las_i] + ".png"));
-                                break;
-                            case 2:
-                                ChangeBody.SelectedIndex = p_las_i2;
-                                if (BodyImage != null)
-                                    BodyImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/body/" + loadParts[p_las_i] + ".png"));
-                                break;
-                            case 3:
-                                ChangeLegs.SelectedIndex = p_las_i2;
-                                if (LegsImage != null)
-                                    LegsImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/legs/" + loadParts[p_las_i] + ".png"));
-                                break;
-                        }
-                    }
-                }
-            }
-            // code here
-        }
-
-        private void OnAppearanceChange(object sender, RoutedEventArgs e)
-        {
-            // send changes to the server
-            // show account panel
-            string[] changed = {
-                (ChangeHead.SelectedItem as ComboBoxItem).Content.ToString().Replace("Head ", ""),
-                (ChangeHands.SelectedItem as ComboBoxItem).Content.ToString().Replace("Hands ", ""),
-                (ChangeBody.SelectedItem as ComboBoxItem).Content.ToString().Replace("Body ", ""),
-                (ChangeLegs.SelectedItem as ComboBoxItem).Content.ToString().Replace("Legs ", "") };
-            string[] type = { "Head", "Hands", "Body", "Feet" };
-            string returnVar = "";
-            for (int i = 0; i < type.Length; i++)
-            {
-                switch (i)
-                {
-                    case 0:
-                        returnVar = "assets/content/characters/character/prefabs/" + Head[Int32.Parse(changed[i]) - 1] + ".bundle";
-                        break;
-                    case 1:
-                        switch (Hand[Int32.Parse(changed[i]) - 1]) {
-                            case "bear_hands_skin":
-                                returnVar = "assets/content/hands/bear/" + Hand[Int32.Parse(changed[i]) - 1] + ".bundle";
-                                break;
-                            case "usec_hands_skin":
-                                returnVar = "assets/content/hands/usec/" + Hand[Int32.Parse(changed[i]) - 1] + ".bundle";
-                                break;
-                            case "wild_body_1_firsthands":
-                            case "wild_body_2_firsthands":
-                            case "wild_body_3_firsthands":
-                            case "wild_body_firsthands":
-                                returnVar = "assets/content/hands/wild/" + Hand[Int32.Parse(changed[i]) - 1] + ".bundle";
-                                break;
-                        }
-                        break;
-                    case 2:
-                        returnVar = "assets/content/characters/character/prefabs/" + Body[Int32.Parse(changed[i]) - 1] + ".bundle";
-                        break;
-                    case 3:
-                        returnVar = "assets/content/characters/character/prefabs/" + Legs[Int32.Parse(changed[i]) - 1] + ".bundle";
-                        break;
-                }
-                Characters.SaveCharacterCustomization(type[i], returnVar);
-            }
-            HideAllGrids();
-            AccountSettingsGrid.Visibility = Visibility.Visible;
-            LoadAccountSettings();
-        }
-        #region Select Change EVENTS
-        private void ChangeHead_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string s = (e.AddedItems[0] as ComboBoxItem).Content as string;
-            s = s.Replace("Head ", "");
-            Int32.TryParse(s, out int i10);
-            string item = Head[i10 - 1];
-            if(HeadImage != null)
-                HeadImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/head/" + item + ".png"));
-        }
-        private void ChangeLegs_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string s = (e.AddedItems[0] as ComboBoxItem).Content as string;
-            s = s.Replace("Legs ", "");
-            Int32.TryParse(s, out int i11);
-            string item = Legs[i11 - 1];
-            if (LegsImage != null)
-                LegsImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/legs/" + item + ".png"));
-        }
-        private void ChangeBody_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string s = (e.AddedItems[0] as ComboBoxItem).Content as string;
-            s = s.Replace("Body ", "");
-            Int32.TryParse(s, out int i12);
-            string item = Body[i12 - 1];
-            if (BodyImage != null)
-                BodyImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/body/" + item + ".png"));
-        }
-        private void ChangeHands_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string s = (e.AddedItems[0] as ComboBoxItem).Content as string;
-            s = s.Replace("Hands ", "");
-            Int32.TryParse(s, out int i13);
-            string item = Hand[i13 - 1];
-            if (HandsImage != null)
-                HandsImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/character/hands/" + item + ".png"));
-        }
-        #endregion
-
-        #endregion
-
-        private void OnSaveProfile_Nickname(object sender, RoutedEventArgs e)
-        {
-            if (NewNickname.Text != "" && NewNickname.Text != Characters.GetNickname()) {
-                Characters.ChangeNickname(NewNickname.Text);
-                Characters.ReloadProfiles();
-                HideAllGrids();
-                LoadAccountSettings();
-                AccountSettingsGrid.Visibility = Visibility.Visible;
-            }
-        }
-
-        private void OnSaveProfile_Email(object sender, RoutedEventArgs e)
-        {
-            ProfileSettings.ChangeProfileEmail(LoginToken.email, LoginToken.password, NewEmail.Text);
-        }
-
-        private void OnSaveProfile_Password(object sender, RoutedEventArgs e)
-        {
-            ProfileSettings.ChangeProfilePassword(LoginToken.email, LoginToken.password, NewPassword.Text);
-        }
     }
 }
