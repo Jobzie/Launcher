@@ -153,16 +153,6 @@ namespace Launcher.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap bg_error {
-            get {
-                object obj = ResourceManager.GetObject("bg_error", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap head_boss_killa {
             get {
                 object obj = ResourceManager.GetObject("head_boss_killa", resourceCulture);

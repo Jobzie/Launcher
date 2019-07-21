@@ -22,6 +22,15 @@ namespace Launcher.Code.Helper
             else
                 return false;
         }
+
+        public bool isError(int code) {
+            foreach (Errors e in storeErrors)
+            {
+                if (e.code == code)
+                    return true;// do not add it multiply times
+            }
+            return false;
+        }
         // determine how big the errors string is /width and height/
         // calculated lines
         // [lines * (fontSize + 2)] = base height of the textbox

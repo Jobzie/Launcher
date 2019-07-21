@@ -19,7 +19,9 @@ namespace Launcher.Code.Monitor
             monitor.AutoReset = true;
             monitor.Enabled = true;
         }
-
+        public void ChangeAppName(string newName) {
+            this.executable = newName;
+        }
         private void OnUpdate(Object source, ElapsedEventArgs e)
         {
             processAlive = IsProcessAlive();

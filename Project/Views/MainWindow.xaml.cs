@@ -1,14 +1,19 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using Launcher.Code.Settings;
-using Launcher.Code.Starter;
-using Launcher.Code.Monitor;
-using Launcher.Code.Helper;
-using Launcher.Code.Data;
-using System.IO;
-using System;
-using System.Windows.Media.Imaging;
-using System.Text;
+﻿#region  using;
+    using System;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Threading;
+    using System.Windows.Media.Animation;
+    using System.Windows.Media.Imaging;
+    using System.IO;
+    using System.Text;
+    using System.Collections.Generic;
+    using Launcher.Code.Settings;
+    using Launcher.Code.Starter;
+    using Launcher.Code.Monitor;
+    using Launcher.Code.Helper;
+    using Launcher.Code.Data;
+#endregion
 
 namespace Launcher
 {
@@ -17,86 +22,164 @@ namespace Launcher
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Tools Tools = new Tools();
-        private LauncherSettings laucherSettings = null;
-        private ServerSettings serverSettings = null;
-        private LoginToken LoginToken = new LoginToken();
-        private ProfileSettings ProfileSettings = null;
-        private ProfileCharacters Characters = null;
-        private Watcher clientWatcher = new Watcher("EmuTarkov-Client.exe");
-        private Watcher serverWatcher = new Watcher("EmuTarkov-Server.exe");
-        private ErrorHandler ErrorHandler = new ErrorHandler();
-        private ErrorTypes ErrorType = new ErrorTypes();
+        #region Initials - Global variables
+            private Tools Tools = new Tools();
+            #region Background change Variables
+                private DispatcherTimer _tmr = new DispatcherTimer();
+                private int _intCurrentImageIndex = 0;
+                private List<BitmapImage> _lstImages = new List<BitmapImage>();
+            #endregion
+            #region WATCHER - Main Vars
+                private Watcher clientWatcher = new Watcher("EmuTarkov-Client.exe");
+                private Watcher serverWatcher = new Watcher("EmuTarkov-Server.exe");
+            #endregion
+            #region ERROR - Main Vars
+                private ErrorHandler ErrorHandler = new ErrorHandler();
+                private ErrorTypes ErrorType = new ErrorTypes();
+            #endregion
+            #region SETTINGS - Main Vars
+                private LauncherSettings laucherSettings = null;
+                private ServerSettings serverSettings = null;
+            #endregion
+            #region PROFILE_DATA - Main Vars
+                private LoginToken LoginToken = new LoginToken();
+                private ProfileSettings ProfileSettings = null;
+                private ProfileCharacters Characters = null;
+            #endregion
+        #endregion
         public MainWindow()
         {
             InitializeComponent();
             OnIntro(null, null);
             ErrorGrid.Visibility = Visibility.Hidden;
-            LoadAllSettings();
-
-            // prepare for some errors to display if something goes wrong
-            CheckAllErrors();
-
-        }
-        #region Help Functions
-        private void CheckAllErrors() {
-            string check_client_file = laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe";
-            if (!File.Exists(check_client_file))
-            {
-                ErrorHandler.AddError(ErrorType.error_Client_noLocation);
-            }
-            string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
-            if (!File.Exists(check_server_file))
-            {
-                ErrorHandler.AddError(ErrorType.error_Server_noLocation);
-            }
-            DisplayErrors();
-        }
-        private void HideAllGrids()
-        {
-            IntroGrid.Visibility = Visibility.Hidden;
-            // account
-            LoginGrid.Visibility = Visibility.Hidden;
-            RegisterGrid.Visibility = Visibility.Hidden;
-            AccountSettingsGrid.Visibility = Visibility.Hidden;
-            // AccountGrid.Visibility = Visibility.Hidden;
-            ChangeEmailGrid.Visibility = Visibility.Hidden;
-            ChangePasswordGrid.Visibility = Visibility.Hidden;
-            ChangeNicknameGrid.Visibility = Visibility.Hidden;
-            ChangeAppearanceGrid.Visibility = Visibility.Hidden;
-
-            // server
-            ServerGeneralGrid.Visibility = Visibility.Hidden;
-            ServerBotsGrid.Visibility = Visibility.Hidden;
-            ServerWeatherGrid.Visibility = Visibility.Hidden;
-
-            // launcher
-            SettingsGrid.Visibility = Visibility.Hidden;
-        }
-
-        private void LoadAllSettings()
-        {
             laucherSettings = new LauncherSettings();
-            serverSettings = new ServerSettings(System.IO.Path.Combine(laucherSettings.GetServerLocation(), "data"));
-            ProfileSettings = new ProfileSettings(Path.Combine(laucherSettings.GetServerLocation(), "data/profiles"));
-            BackendIP.Text = laucherSettings.LoadIP();
-            Port.Text = laucherSettings.LoadPort();
+            #region background iniciator
+            string[] files = Directory.GetFiles("./data/images/background/");
+            for(int f_i = 0; f_i < files.Length; f_i++)
+            {
+                _lstImages.Add(new BitmapImage(new Uri(files[f_i].Replace("./data", "pack://siteoforigin:,,,/data"))));
+            }
 
+            Bg1.Source = _lstImages[_intCurrentImageIndex];
+            _tmr.Interval = new TimeSpan(0, 1, 0);
+            _tmr.Tick += new EventHandler(Timer_Tick);
+            _tmr.Start();
+            #endregion
+            CheckAllErrors();
+            LoadAllSettings();
+            #region allow external links to be execute in webbrowser
+            creatorsWebpage.RequestNavigate += (sender, e) =>
+            {
+                 System.Diagnostics.Process.Start(e.Uri.ToString());
+            };
+            #endregion
         }
 
-        private void DisplayErrors() {
-            string errText = ErrorHandler.ReturnErrorAsText();
-            int StringErrLines = ErrorHandler.StringErrLines(errText);
-            ErrorText.Height = (double)(StringErrLines*14);
-            ErrorGrid.Height = ErrorText.Height + 20;
-            ErrorText.Text = errText;
-            ErrorHandler.ButtonDisplayer(btn_Start_Client, btn_Start_Server);
-            if (ErrorHandler.isAnyErrors())
-                ErrorGrid.Visibility = Visibility.Visible;
+        #region TIMER
+        void Timer_Tick(object sender, EventArgs e)
+        {
+            Image imgSet;
+            Image imgOther;
+            Storyboard sb;
+            if ((int)Bg1.GetValue(Panel.ZIndexProperty) == 1)
+            {
+                imgSet = Bg2;
+                imgOther = Bg1;
+                sb = (Storyboard)this.FindResource("bg2_bg1");
+            }
             else
-                ErrorGrid.Visibility = Visibility.Hidden;
+            {
+                imgSet = Bg1;
+                imgOther = Bg2;
+                sb = (Storyboard)this.FindResource("bg1_bg2");
+            }
+            if (_intCurrentImageIndex + 1 >= _lstImages.Count)
+                _intCurrentImageIndex = 0;
+            else
+                _intCurrentImageIndex++;
+            imgSet.Source = _lstImages[_intCurrentImageIndex];
+            imgSet.SetValue(Panel.ZIndexProperty, 1);
+            imgOther.SetValue(Panel.ZIndexProperty, 0);
+            DoubleAnimation da = (DoubleAnimation)sb.Children[1];
+            da.From = this.ActualHeight * -1;
+            sb.Begin();
         }
+        #endregion
 
+        #region FUNCTIONS - not used in FORM
+        #region Initial error checks
+            private void CheckAllErrors() {
+                string check_client_file = laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe";
+                if (!File.Exists(check_client_file))
+                {
+                    ErrorHandler.AddError(ErrorType.error_Client_noLocation);
+                }
+                string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
+                if (!File.Exists(check_server_file))
+                {
+                    ErrorHandler.AddError(ErrorType.error_Server_noLocation);
+                }
+                DisplayErrors();
+            }
+        #endregion
+
+        #region Grid - Hider - Hides user interfaces
+            private void HideAllGrids()
+            {
+                IntroGrid.Visibility = Visibility.Hidden;
+                // account
+                LoginGrid.Visibility = Visibility.Hidden;
+                RegisterGrid.Visibility = Visibility.Hidden;
+                AccountSettingsGrid.Visibility = Visibility.Hidden;
+                // AccountGrid.Visibility = Visibility.Hidden;
+                ChangeEmailGrid.Visibility = Visibility.Hidden;
+                ChangePasswordGrid.Visibility = Visibility.Hidden;
+                ChangeNicknameGrid.Visibility = Visibility.Hidden;
+                ChangeAppearanceGrid.Visibility = Visibility.Hidden;
+
+                // server
+                ServerGeneralGrid.Visibility = Visibility.Hidden;
+                ServerBotsGrid.Visibility = Visibility.Hidden;
+                ServerWeatherGrid.Visibility = Visibility.Hidden;
+
+                // launcher
+                SettingsGrid.Visibility = Visibility.Hidden;
+            }
+        #endregion
+
+        #region LOAD - SETTINGS
+            private void LoadAllSettings()
+            {
+                laucherSettings = new LauncherSettings();
+                serverSettings = new ServerSettings(System.IO.Path.Combine(laucherSettings.GetServerLocation(), "data"));
+                if(!ErrorHandler.isError(102))
+                    ProfileSettings = new ProfileSettings(Path.Combine(laucherSettings.GetServerLocation(), "data/profiles"));
+                BackendIP.Text = laucherSettings.LoadIP();
+                Port.Text = laucherSettings.LoadPort();
+
+            }
+        #endregion
+
+        #region ERROR DISPLAYER - recheck errors / display them as text / start button show|hide
+            private void DisplayErrors() {
+                string errText = ErrorHandler.ReturnErrorAsText();
+                int StringErrLines = ErrorHandler.StringErrLines(errText);
+                ErrorText.Height = (double)(StringErrLines*14);
+                ErrorGrid.Height = ErrorText.Height + 20;
+                ErrorText.Text = errText;
+                ErrorHandler.ButtonDisplayer(btn_Start_Client, btn_Start_Server);
+                if (ErrorHandler.isAnyErrors())
+                    ErrorGrid.Visibility = Visibility.Visible;
+                else
+                {
+                    ErrorGrid.Visibility = Visibility.Hidden;
+                    LoadAllSettings();
+                }
+            
+            }
+        #endregion
+
+        #region LOGIN - TOKEN_CREATOR - AUTOLOGIN HANDLER
         private void Set_LoginToken(string login, string pass, bool toggle = false, int timestamp = 0)
         {
             LoginToken.email = login;
@@ -127,14 +210,16 @@ namespace Launcher
             return ret;
         }
         #endregion
+        #endregion
 
+        #region START_PAGE
         private void OnIntro(object sender, RoutedEventArgs e) {
             HideAllGrids();
             IntroGrid.Visibility = Visibility.Visible;
         }
+        #endregion
 
         #region MENU_BAR
-        // TODO: Check if user is logged in
         private void OnAccount(object sender, RoutedEventArgs e)
         {
             HideAllGrids();
@@ -180,7 +265,7 @@ namespace Launcher
         }
         #endregion
 
-        #region APPLICATION_START
+        #region APPLICATION_START - START BUTTONS HANDLER
         private void OnStartClient(object sender, RoutedEventArgs e)
         {
             string check_client_file = laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe";
@@ -230,7 +315,7 @@ namespace Launcher
         }
         #endregion
 
-        #region ACCOUNT_LOGIN
+        #region ACCOUNT_LOGIN - Handling Account Login Page
         private void LoadLoginSettings()
         {
             // reload config files
@@ -280,13 +365,12 @@ namespace Launcher
         }
         #endregion
 
-        #region ACCOUNT_REGISTER
+        #region ACCOUNT_REGISTER - Handling Profile creator page
         private void OnRegister(object sender, RoutedEventArgs e)
         {
             HideAllGrids();
             RegisterGrid.Visibility = Visibility.Visible;
         }
-
 
         private void OnCreateProfile(object sender, RoutedEventArgs e) {
             //grab data
@@ -318,7 +402,7 @@ namespace Launcher
         }
         #endregion
 
-        #region ACCOUNT_SETTINGS
+        #region ACCOUNT_SETTINGS - Handling Page buttons after logged in
         private void LoadAccountSettings()
         {
             // load the settings
@@ -523,7 +607,7 @@ namespace Launcher
         #endregion
         #endregion
 
-        #region SERVER_GENERAL
+        #region SERVER_GENERAL - Hangling General settings for server
         private void LoadServerGeneralSettings()
         {
             // reload config files
@@ -547,181 +631,193 @@ namespace Launcher
         }
         #endregion
 
-        #region SERVER_BOTS
-        private void LoadServerBotsSettings()
-        {
-            // reload config files
-            LoadAllSettings();
-            LoadBotsPmcWarSettings();
-            LoadBotsLimitSettings();
-            LoadBotsSpawnSettings();
-        }
-        #endregion
+        #region SERVER_BOTS - Handling bots settings inputs/buttons
+            private void LoadServerBotsSettings()
+            {
+                // reload config files
+                LoadAllSettings();
+                LoadBotsPmcWarSettings();
+                LoadBotsLimitSettings();
+                LoadBotsSpawnSettings();
+      
+            }
+        
+            #region BOTS_PMCWAR
+                private void LoadBotsPmcWarSettings()
+                {
+                    PmcWarEnabled.IsChecked = serverSettings.GetBotsPmcWarEnabled();
+                    PmcWarUsecChance.Text = serverSettings.GetBotsPmcWarUsecChance();
+                }
 
-        #region BOTS_PMCWAR
-        private void LoadBotsPmcWarSettings()
-        {
-            PmcWarEnabled.IsChecked = serverSettings.GetBotsPmcWarEnabled();
-            PmcWarUsecChance.Text = serverSettings.GetBotsPmcWarUsecChance();
-        }
+                private void OnChangePmcWarEnabled(object sender, RoutedEventArgs e)
+                {
+                    serverSettings.SetBotsPmcWarEnabled((bool)PmcWarEnabled.IsChecked);
+                }
 
-        private void OnChangePmcWarEnabled(object sender, RoutedEventArgs e)
-        {
-            serverSettings.SetBotsPmcWarEnabled((bool)PmcWarEnabled.IsChecked);
-        }
+                private void OnChangePmcWarUsecChance(object sender, TextChangedEventArgs e)
+                {
+                    serverSettings.SetBotsPmcWarUsecChance(PmcWarUsecChance.Text);
+                }
+            #endregion
 
-        private void OnChangePmcWarUsecChance(object sender, TextChangedEventArgs e)
-        {
-            serverSettings.SetBotsPmcWarUsecChance(PmcWarUsecChance.Text);
-        }
-        #endregion
+            #region BOTS_LIMIT
+                private void LoadBotsLimitSettings()
+                {
+                    LimitKilla.Text = serverSettings.GetBotsLimitKilla();
+                    LimitBully.Text = serverSettings.GetBotsLimitBully();
+                    LimitBullyFollowers.Text = serverSettings.GetBotsLimitBullyFollowers();
+                    LimitMarksman.Text = serverSettings.GetBotsLimitMarksman();
+                    LimitPmcBot.Text = serverSettings.GetBotsLimitPmcBot();
+                    LimitScav.Text = serverSettings.GetBotsLimitScav();
+                }
 
-        #region BOTS_LIMIT
-        private void LoadBotsLimitSettings()
-        {
-            LimitKilla.Text = serverSettings.GetBotsLimitKilla();
-            LimitBully.Text = serverSettings.GetBotsLimitBully();
-            LimitBullyFollowers.Text = serverSettings.GetBotsLimitBullyFollowers();
-            LimitMarksman.Text = serverSettings.GetBotsLimitMarksman();
-            LimitPmcBot.Text = serverSettings.GetBotsLimitPmcBot();
-            LimitScav.Text = serverSettings.GetBotsLimitScav();
-        }
+                private void OnChangeLimitKilla(object sender, TextChangedEventArgs e)
+                {
+                    serverSettings.SetBotsLimitKilla(LimitKilla.Text);
+                }
 
-        private void OnChangeLimitKilla(object sender, TextChangedEventArgs e)
-        {
-            serverSettings.SetBotsLimitKilla(LimitKilla.Text);
-        }
+                private void OnChangeLimitBully(object sender, TextChangedEventArgs e)
+                {
+                    serverSettings.SetBotsLimitBully(LimitBully.Text);
+                }
 
-        private void OnChangeLimitBully(object sender, TextChangedEventArgs e)
-        {
-            serverSettings.SetBotsLimitBully(LimitBully.Text);
-        }
+                private void OnChangeLimitBullyFollower(object sender, TextChangedEventArgs e)
+                {
+                    serverSettings.SetBotsLimitBullyFollowers(LimitBullyFollowers.Text);
+                }
 
-        private void OnChangeLimitBullyFollower(object sender, TextChangedEventArgs e)
-        {
-            serverSettings.SetBotsLimitBullyFollowers(LimitBullyFollowers.Text);
-        }
+                private void OnChangeLimitMarksman(object sender, TextChangedEventArgs e)
+                {
+                    serverSettings.SetBotsLimitMarksman(LimitMarksman.Text);
+                }
 
-        private void OnChangeLimitMarksman(object sender, TextChangedEventArgs e)
-        {
-            serverSettings.SetBotsLimitMarksman(LimitMarksman.Text);
-        }
+                private void OnChangeLimitPmcBot(object sender, TextChangedEventArgs e)
+                {
+                    serverSettings.SetBotsLimitPmcBot(LimitPmcBot.Text);
+                }
 
-        private void OnChangeLimitPmcBot(object sender, TextChangedEventArgs e)
-        {
-            serverSettings.SetBotsLimitPmcBot(LimitPmcBot.Text);
-        }
+                private void OnChangeLimitScav(object sender, TextChangedEventArgs e)
+                {
+                    serverSettings.SetBotsLimitScav(LimitScav.Text);
+                }
+            #endregion
 
-        private void OnChangeLimitScav(object sender, TextChangedEventArgs e)
-        {
-            serverSettings.SetBotsLimitScav(LimitScav.Text);
-        }
-        #endregion
+            #region BOTS_SPAWN
+                private void LoadBotsSpawnSettings()
+                {
+                    SpawnGlasses.Text = serverSettings.GetBotsSpawnGlasses();
+                    SpawnFaceCover.Text = serverSettings.GetBotsSpawnFaceCover();
+                    SpawnHeadwear.Text = serverSettings.GetBotsSpawnHeadwear();
+                    SpawnBackpack.Text = serverSettings.GetBotsSpawnBackpack();
+                    SpawnArmorVest.Text = serverSettings.GetBotsSpawnArmorVest();
+                    SpawnMedPocket.Text = serverSettings.GetBotsSpawnMedPocket();
+                    SpawnItemPocket.Text = serverSettings.GetBotsSpawnItemPocket();
+                }
 
-        #region BOTS_SPAWN
-        private void LoadBotsSpawnSettings()
-        {
-            SpawnGlasses.Text = serverSettings.GetBotsSpawnGlasses();
-            SpawnFaceCover.Text = serverSettings.GetBotsSpawnFaceCover();
-            SpawnHeadwear.Text = serverSettings.GetBotsSpawnHeadwear();
-            SpawnBackpack.Text = serverSettings.GetBotsSpawnBackpack();
-            SpawnArmorVest.Text = serverSettings.GetBotsSpawnArmorVest();
-            SpawnMedPocket.Text = serverSettings.GetBotsSpawnMedPocket();
-            SpawnItemPocket.Text = serverSettings.GetBotsSpawnItemPocket();
-        }
+                private void OnChangeSpawnGlasses(object sender, TextChangedEventArgs e)
+                {
+                    serverSettings.SetBotsSpawnGlasses(SpawnGlasses.Text);
+                }
 
-        private void OnChangeSpawnGlasses(object sender, TextChangedEventArgs e)
-        {
-            serverSettings.SetBotsSpawnGlasses(SpawnGlasses.Text);
-        }
+                private void OnChangeSpawnFaceCover(object sender, TextChangedEventArgs e)
+                {
+                    serverSettings.SetBotsSpawnFaceCover(SpawnFaceCover.Text);
+                }
 
-        private void OnChangeSpawnFaceCover(object sender, TextChangedEventArgs e)
-        {
-            serverSettings.SetBotsSpawnFaceCover(SpawnFaceCover.Text);
-        }
+                private void OnChangeSpawnHeadwear(object sender, TextChangedEventArgs e)
+                {
+                    serverSettings.SetBotsSpawnHeadwear(SpawnHeadwear.Text);
+                }
 
-        private void OnChangeSpawnHeadwear(object sender, TextChangedEventArgs e)
-        {
-            serverSettings.SetBotsSpawnHeadwear(SpawnHeadwear.Text);
-        }
+                private void OnChangeSpawnBackpack(object sender, TextChangedEventArgs e)
+                {
+                    serverSettings.SetBotsSpawnBackpack(SpawnBackpack.Text);
+                }
 
-        private void OnChangeSpawnBackpack(object sender, TextChangedEventArgs e)
-        {
-            serverSettings.SetBotsSpawnBackpack(SpawnBackpack.Text);
-        }
+                private void OnChangeSpawnArmorVest(object sender, TextChangedEventArgs e)
+                {
+                    serverSettings.SetBotsSpawnArmorVest(SpawnArmorVest.Text);
+                }
 
-        private void OnChangeSpawnArmorVest(object sender, TextChangedEventArgs e)
-        {
-            serverSettings.SetBotsSpawnArmorVest(SpawnArmorVest.Text);
-        }
+                private void OnChangeSpawnMedsPocket(object sender, TextChangedEventArgs e)
+                {
+                    serverSettings.SetBotsSpawnMedPocket(SpawnMedPocket.Text);
+                }
 
-        private void OnChangeSpawnMedsPocket(object sender, TextChangedEventArgs e)
-        {
-            serverSettings.SetBotsSpawnMedPocket(SpawnMedPocket.Text);
-        }
-
-        private void OnChangeSpawnItemPocket(object sender, TextChangedEventArgs e)
-        {
-            serverSettings.SetBotsSpawnItemPocket(SpawnItemPocket.Text);
-        }
+                private void OnChangeSpawnItemPocket(object sender, TextChangedEventArgs e)
+                {
+                    serverSettings.SetBotsSpawnItemPocket(SpawnItemPocket.Text);
+                }
+            #endregion
         #endregion
 
         #region LAUNCHER_SETTINGS
-        private void LoadLauncherSettings()
-        {
-            // reload config files
-            LoadAllSettings();
+            private void LoadLauncherSettings()
+            {
+                // reload config files
+                LoadAllSettings();
 
-            // load the settings
-                //load locations
-            ClientLocation.Text = laucherSettings.GetClientLocation();
-            ServerLocation.Text = laucherSettings.GetServerLocation();
-                //load filenames
-            ClientFileName.Text = laucherSettings.GetClientFilename();
-            ServerFileName.Text = laucherSettings.GetServerFilename();
-        }
+                // load the settings
+                    //load locations
+                ClientLocation.Text = laucherSettings.GetClientLocation();
+                ServerLocation.Text = laucherSettings.GetServerLocation();
+                    //load filenames
+                ClientFileName.Text = laucherSettings.GetClientFilename();
+                ServerFileName.Text = laucherSettings.GetServerFilename();
+            }
 
-        private void OnChangeClientLocation(object sender, TextChangedEventArgs e)
-        {
-            laucherSettings.SetClientLocation(ClientLocation.Text);
-            string check_client_file = laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe";
-            if (!File.Exists(check_client_file))
-                ErrorHandler.AddError(ErrorType.error_Client_noLocation);
-            else
-                ErrorHandler.RemoveError(ErrorType.error_Client_noLocation);
-            DisplayErrors();
-        }
-        private void OnChangeClientFilename(object sender, TextChangedEventArgs e)
-        {
-            laucherSettings.SetClientFilename(ClientFileName.Text);
-            string check_client_file = laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe";
-            if (!File.Exists(check_client_file))
-                ErrorHandler.AddError(ErrorType.error_Client_noLocation);
-            else
-                ErrorHandler.RemoveError(ErrorType.error_Client_noLocation);
-            DisplayErrors();
-        }
+            #region CLIENT INPUTS CHANGED
+                private void OnChangeClientLocation(object sender, TextChangedEventArgs e)
+                {
+                    laucherSettings.SetClientLocation(ClientLocation.Text);
+                    string check_client_file = laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe";
+                    if (!File.Exists(check_client_file))
+                        ErrorHandler.AddError(ErrorType.error_Client_noLocation);
+                    else
+                        ErrorHandler.RemoveError(ErrorType.error_Client_noLocation);
+                    DisplayErrors();
+                }
+                private void OnChangeClientFilename(object sender, TextChangedEventArgs e)
+                {
+                    laucherSettings.SetClientFilename(ClientFileName.Text);
+                    string check_client_file = laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe";
+                    if (!File.Exists(check_client_file))
+                        ErrorHandler.AddError(ErrorType.error_Client_noLocation);
+                    else
+                    {
+                        clientWatcher.ChangeAppName(laucherSettings.GetClientFilename());
+                        ErrorHandler.RemoveError(ErrorType.error_Client_noLocation);
+                    }
+                    DisplayErrors();
+                }
+            #endregion
 
-        private void OnChangeServerLocation(object sender, TextChangedEventArgs e)
-        {
-            laucherSettings.SetServerLocation(ServerLocation.Text);
-            string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
-            if (!File.Exists(check_server_file))
-                ErrorHandler.AddError(ErrorType.error_Server_noLocation);
-            else
-                ErrorHandler.RemoveError(ErrorType.error_Server_noLocation);
-            DisplayErrors();
-        }
-        private void OnChangeServerFilename(object sender, TextChangedEventArgs e)
-        {
-            laucherSettings.SetServerFilename(ServerFileName.Text);
-            string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
-            if (!File.Exists(check_server_file))
-                ErrorHandler.AddError(ErrorType.error_Server_noLocation);
-            else
-                ErrorHandler.RemoveError(ErrorType.error_Server_noLocation);
-            DisplayErrors();
-        }
+            #region SERVER INPUTS CHANGED
+                private void OnChangeServerLocation(object sender, TextChangedEventArgs e)
+                {
+                    laucherSettings.SetServerLocation(ServerLocation.Text);
+                    string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
+                    if (!File.Exists(check_server_file))
+                        ErrorHandler.AddError(ErrorType.error_Server_noLocation);
+                    else
+                        ErrorHandler.RemoveError(ErrorType.error_Server_noLocation);
+                    DisplayErrors();
+                }
+                private void OnChangeServerFilename(object sender, TextChangedEventArgs e)
+                {
+                    laucherSettings.SetServerFilename(ServerFileName.Text);
+                    string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
+                    if (!File.Exists(check_server_file))
+                        ErrorHandler.AddError(ErrorType.error_Server_noLocation);
+                    else
+                    {
+                        serverWatcher.ChangeAppName(laucherSettings.GetServerFilename());
+                        ErrorHandler.RemoveError(ErrorType.error_Server_noLocation);
+                    }
+                    DisplayErrors();
+                }
+            #endregion
+
         #endregion
 
     }

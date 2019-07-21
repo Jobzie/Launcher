@@ -55,7 +55,7 @@ namespace WpfStyleableWindow.StyleableWindow
 
             if (thumb != null)
             {
-                //thumb.DragDelta += DragTopRight;
+                thumb.DragDelta += DragTopRight;
             }
         }
 
@@ -79,7 +79,7 @@ namespace WpfStyleableWindow.StyleableWindow
 
             if (thumb != null)
             {
-                //thumb.DragDelta += DragBottomRight;
+                thumb.DragDelta += DragBottomRight;
             }
         }
 
@@ -103,7 +103,7 @@ namespace WpfStyleableWindow.StyleableWindow
 
             if (thumb != null)
             {
-               // thumb.DragDelta += DragBottomLeft;
+               thumb.DragDelta += DragBottomLeft;
             }
         }
 
@@ -127,7 +127,7 @@ namespace WpfStyleableWindow.StyleableWindow
 
             if (thumb != null)
             {
-               // thumb.DragDelta += DragLeft;
+               thumb.DragDelta += DragLeft;
             }
         }
 
@@ -151,7 +151,7 @@ namespace WpfStyleableWindow.StyleableWindow
 
             if (thumb != null)
             {
-                //thumb.DragDelta += DragRight;
+                thumb.DragDelta += DragRight;
             }
         }
 
@@ -175,7 +175,7 @@ namespace WpfStyleableWindow.StyleableWindow
 
             if (thumb != null)
             {
-                //thumb.DragDelta += DragTop;
+                thumb.DragDelta += DragTop;
             }
         }
 
@@ -199,7 +199,7 @@ namespace WpfStyleableWindow.StyleableWindow
 
             if (thumb != null)
             {
-               // thumb.DragDelta += DragBottom;
+               thumb.DragDelta += DragBottom;
             }
         }
 
@@ -262,13 +262,13 @@ namespace WpfStyleableWindow.StyleableWindow
 
             if (window != null)
             {
-               /* var verticalChange = window.SafeHeightChange(e.VerticalChange,false);
+               var verticalChange = window.SafeHeightChange(e.VerticalChange,false);
                 var horizontalChange = window.SafeWidthChange(e.HorizontalChange,false);
 
                 window.Width -= horizontalChange;
                 window.Left += horizontalChange;
                 window.Height -= verticalChange;
-                window.Top += verticalChange;*/
+                window.Top += verticalChange;
             }
         }
 
@@ -279,12 +279,12 @@ namespace WpfStyleableWindow.StyleableWindow
 
             if (window != null)
             {
-               /* var verticalChange = window.SafeHeightChange(e.VerticalChange, false);
+                var verticalChange = window.SafeHeightChange(e.VerticalChange, false);
                 var horizontalChange = window.SafeWidthChange(e.HorizontalChange);
 
                 window.Width += horizontalChange;
                 window.Height -= verticalChange;
-                window.Top += verticalChange;*/
+                window.Top += verticalChange;
             }
         }
 

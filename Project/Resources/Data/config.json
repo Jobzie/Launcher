@@ -1,0 +1,10 @@
+﻿{
+  "email": "user1@jet.com",
+  "password": "password",
+  "clientLocation": "C:\\Games\\EmuTarkov\\Game",
+  "serverLocation": "C:\\Games\\EmuTarkov\\Server",
+  "clientFilename": "EscapeFromTarkov",
+  "serverFilename": "EmuTarkov-Server",
+  "port": 1337,
+  "ip": "localhost"
+}

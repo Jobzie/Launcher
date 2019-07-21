@@ -78,11 +78,12 @@
                                     Foreground="{StaticResource WindowForeColor}"                                           
                                     FontSize="12"
                                     FontFamily="{DynamicResource Bender}"
-                                    sw:ControlDoubleClickBehavior.ExecuteCommand="{StaticResource MaximizeCommand}"
-                                    sw:ControlDoubleClickBehavior.ExecuteCommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                                    sw:WindowDragBehavior.LeftMouseButtonDrag="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                                     sw:ShowSystemMenuBehavior.TargetWindow="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                                     sw:ShowSystemMenuBehavior.RightButtonShow="true">
                         </Label>
+                        <!-- sw:ControlDoubleClickBehavior.ExecuteCommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" -->
+
                         <StackPanel Grid.Column="2" Orientation="Horizontal">
                             <Button DockPanel.Dock="Right" Width="20" Style="{StaticResource WindowButton}" Command="{StaticResource MinimizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">—</Button>
                             <Button DockPanel.Dock="Right" Width="20" Style="{StaticResource WindowButton}" Command="{StaticResource CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">X</Button>
