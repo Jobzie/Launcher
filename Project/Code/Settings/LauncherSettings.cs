@@ -41,6 +41,10 @@ namespace Launcher.Code.Settings
         {
             return base.config.clientFilename;
         }
+        public int GetScreenMode()
+        {
+            return base.config.screenMode;
+        }
         public void SetClientLocation(string value)
         {
             base.config.clientLocation = value;
@@ -51,6 +55,11 @@ namespace Launcher.Code.Settings
             base.config.clientFilename = value;
             base.SaveSettings();
         }
+        public void SetScreenMode(int value) {
+            base.config.screenMode = value;
+            base.SaveSettings();
+        }
+
         #endregion
         #region SERVER DATA
         public string GetServerLocation()

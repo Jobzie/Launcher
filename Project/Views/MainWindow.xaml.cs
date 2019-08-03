@@ -13,6 +13,7 @@
     using Launcher.Code.Monitor;
     using Launcher.Code.Helper;
     using Launcher.Code.Data;
+using Newtonsoft.Json;
 #endregion
 
 namespace Launcher
@@ -156,12 +157,17 @@ namespace Launcher
                     ProfileSettings = new ProfileSettings(Path.Combine(laucherSettings.GetServerLocation(), "data/profiles"));
                 BackendIP.Text = laucherSettings.LoadIP();
                 Port.Text = laucherSettings.LoadPort();
+                ScreenMode.SelectedIndex = laucherSettings.GetScreenMode();
+            if (!ErrorHandler.isError(101))
+                clientWatcher.ChangeAppName(laucherSettings.GetClientFilename());
+            if (!ErrorHandler.isError(102))
+                serverWatcher.ChangeAppName(laucherSettings.GetServerFilename());
 
-            }
+        }
         #endregion
 
         #region ERROR DISPLAYER - recheck errors / display them as text / start button show|hide
-            private void DisplayErrors() {
+        private void DisplayErrors() {
                 string errText = ErrorHandler.ReturnErrorAsText();
                 int StringErrLines = ErrorHandler.StringErrLines(errText);
                 ErrorText.Height = (double)(StringErrLines*14);
@@ -206,7 +212,8 @@ namespace Launcher
                 int ProfileID = ProfileSettings.GetProfile(login, password);
                 ret += "-bC5vLmcuaS5u=" + Convert.ToBase64String(Encoding.UTF8.GetBytes(hashedLoginData)) + " -token=" + ProfileID.ToString();
             }
-            ret += (ScreenMode.SelectedIndex != 0) ? " -screenmode=" + ((ScreenMode.SelectedItem as ComboBoxItem).Content as string) : "";
+            string mode = ((ScreenMode.SelectedItem as ComboBoxItem).Content as string).ToLowerInvariant();
+            ret += (ScreenMode.SelectedIndex != 0) ? " -screenmode=" + ((ScreenMode.SelectedIndex != 2) ? mode + " -popupwindow": mode) : "";
             return ret;
         }
         #endregion
@@ -284,7 +291,7 @@ namespace Launcher
                 else
                 {
                     ErrorHandler.RemoveError(ErrorType.error_ClientAlreadyRunning);
-                    ClientStarter starter = new ClientStarter(ClientLocation.Text, laucherSettings.PrepareBackendURL(), LoginEmail.Text, LoginPassword.Text, ClientFileName.Text, CreateArguments());
+                    ClientStarter starter = new ClientStarter(laucherSettings.GetClientLocation(), laucherSettings.PrepareBackendURL(), laucherSettings.GetEmail(), laucherSettings.GetPassword(), laucherSettings.GetClientFilename(), CreateArguments());
                 }
             }
             DisplayErrors();
@@ -308,7 +315,7 @@ namespace Launcher
                 else
                 {
                     ErrorHandler.RemoveError(ErrorType.error_ServerAlreadyRunning);
-                    ServerStarter starter = new ServerStarter(ServerLocation.Text, ServerFileName.Text);
+                    ServerStarter starter = new ServerStarter(laucherSettings.GetServerLocation(), laucherSettings.GetServerFilename());
                 }
             }
             DisplayErrors();
@@ -396,6 +403,7 @@ namespace Launcher
             ProfileCharacters tempCharacter = new ProfileCharacters(path);
             tempCharacter.ChangeNickname(nickname);
             tempCharacter.ChangeSide(side);
+            tempCharacter.SetProfileID(ID);
             tempCharacter = null;//remove temp characters data
             HideAllGrids();
             LoginGrid.Visibility = Visibility.Visible;
@@ -761,6 +769,7 @@ namespace Launcher
                     //load locations
                 ClientLocation.Text = laucherSettings.GetClientLocation();
                 ServerLocation.Text = laucherSettings.GetServerLocation();
+                ScreenMode.SelectedIndex = laucherSettings.GetScreenMode();
                     //load filenames
                 ClientFileName.Text = laucherSettings.GetClientFilename();
                 ServerFileName.Text = laucherSettings.GetServerFilename();
@@ -792,8 +801,8 @@ namespace Launcher
                 }
             #endregion
 
-            #region SERVER INPUTS CHANGED
-                private void OnChangeServerLocation(object sender, TextChangedEventArgs e)
+        #region SERVER INPUTS CHANGED
+        private void OnChangeServerLocation(object sender, TextChangedEventArgs e)
                 {
                     laucherSettings.SetServerLocation(ServerLocation.Text);
                     string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
@@ -816,9 +825,46 @@ namespace Launcher
                     }
                     DisplayErrors();
                 }
-            #endregion
 
         #endregion
 
+        #endregion
+        public string MyDocumentsEFTSettings = "";
+        dynamic profile_content = JsonConvert.DeserializeObject("{\"Resolution\":{\"Width\":1920,\"Height\":1080,\"RefreshRate\":60,\"IsWideScreen\":false},\"ResolutionIndex\":15,\"AspectRatio\":1,\"GraphicsQuality\":3,\"CustomGraphicsQuality\":false,\"MultimonitorSupport\":false,\"VSync\":0,\"IsFullscreen\":false,\"LobbyFramerate\":30,\"GameFramerate\":119,\"TextureQuality\":2,\"ShadowsQuality\":3,\"LightingQuality\":0,\"ObjectLodQuality\":0,\"ContactSSAO\":3,\"AnisotropicFiltering\":2,\"OverallVisibility\":5,\"ShadowVisibility\":17,\"Ssao\":2,\"Sharpen\":7,\"SSR\":0,\"AntiAliasing\":1,\"Bloom\":1,\"ChromaticAberrations\":1,\"Noise\":1,\"Hdr\":1,\"ZBlur\":1}");
+
+        private void ScreenMode_DropDownClosed(object sender, EventArgs e)
+        {
+
+            int i = ScreenMode.SelectedIndex;
+            if (i != 0)
+            {
+                laucherSettings.SetScreenMode(i);
+                MyDocumentsEFTSettings = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Escape from Tarkov\local.ini";
+                Console.WriteLine(i.ToString());
+                Console.WriteLine(profile_content.IsFullscreen);
+                using (StreamReader sr = new StreamReader(MyDocumentsEFTSettings))
+                {
+                    string json = sr.ReadToEnd();
+                    profile_content = JsonConvert.DeserializeObject(json);
+                }
+                bool changedFullScreen = true;
+                if (i == 3) // for Windowed
+                    changedFullScreen = false;
+
+                if (i != 0)
+                    profile_content.IsFullscreen = changedFullScreen;
+
+                Console.WriteLine(changedFullScreen);
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.NullValueHandling = NullValueHandling.Ignore;
+                using (StreamWriter sw = new StreamWriter(MyDocumentsEFTSettings))
+                {
+                    using (JsonWriter writer = new JsonTextWriter(sw))
+                    {
+                        serializer.Serialize(sw, profile_content);
+                    }
+                }
+            }
+        }
     }
 }

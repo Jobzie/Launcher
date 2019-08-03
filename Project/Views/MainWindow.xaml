@@ -480,7 +480,7 @@
                                  Margin="10,63,60,0" Foreground="#FFDDDDDD" Background="#00000000" TextChanged="OnChangeServerFilename" />
                     </Grid>
                 </GroupBox>
-                <ComboBox x:Name="ScreenMode" HorizontalAlignment="Center" Margin="149,270,25,0" VerticalAlignment="Top" Width="116" FontFamily="{DynamicResource Bender}">
+                <ComboBox x:Name="ScreenMode" HorizontalAlignment="Center" Margin="149,270,25,0" VerticalAlignment="Top" Width="116" FontFamily="{DynamicResource Bender}" DropDownClosed="ScreenMode_DropDownClosed">
                     <ComboBoxItem Content="Do not change" IsSelected="True"/>
                     <ComboBoxItem Content="Fullscreen"/>
                     <ComboBoxItem Content="Borderless"/>

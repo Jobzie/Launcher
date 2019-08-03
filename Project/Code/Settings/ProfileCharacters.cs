@@ -67,8 +67,14 @@ namespace Launcher.Code.Settings
             }
             saveProfile();
         }
-        public string GetNickname() {
+        public string GetNickname()
+        {
             return profile_content.data[1].Info.Nickname;
+        }
+        public void SetProfileID(int i)
+        {
+            profile_content.data[1].aid = i;
+            saveProfile();
         }
         public void ChangeNickname(string newName, int profType = 1) {
             profile_content.data[profType].Info.Nickname = newName;
