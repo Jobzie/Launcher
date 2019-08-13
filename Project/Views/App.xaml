@@ -21,10 +21,10 @@
         <sw:WindowCloseCommand x:Key="CloseCommand"></sw:WindowCloseCommand>
 
         <Style TargetType="{x:Type Button}" x:Key="WindowButton">
-            <Setter Property="Height" Value="18"/>
+            <Setter Property="Height" Value="25"/>
             <Setter Property="Margin" Value="1,0"/>
             <Setter Property="Padding" Value="5"/>
-            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="FontSize" Value="12"/>
             <Setter Property="Background" Value="{StaticResource WindowButtonColor}"/>
             <Setter Property="Foreground" Value="{StaticResource WindowForeColor}"/>
             <Setter Property="Template">

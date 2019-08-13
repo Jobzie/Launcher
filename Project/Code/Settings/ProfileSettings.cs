@@ -62,8 +62,10 @@ namespace Launcher.Code.Settings
         }
         public void saveData()
         {
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.NullValueHandling = NullValueHandling.Ignore;
+            JsonSerializer serializer = new JsonSerializer
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
 
             using (StreamWriter sw = new StreamWriter(FullFilepath))
             {

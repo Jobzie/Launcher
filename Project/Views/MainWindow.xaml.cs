@@ -152,17 +152,18 @@ namespace Launcher
             private void LoadAllSettings()
             {
                 laucherSettings = new LauncherSettings();
-                serverSettings = new ServerSettings(System.IO.Path.Combine(laucherSettings.GetServerLocation(), "data"));
-                if(!ErrorHandler.isError(102))
-                    ProfileSettings = new ProfileSettings(Path.Combine(laucherSettings.GetServerLocation(), "data/profiles"));
                 BackendIP.Text = laucherSettings.LoadIP();
                 Port.Text = laucherSettings.LoadPort();
                 ScreenMode.SelectedIndex = laucherSettings.GetScreenMode();
+            //replace names if no error exist for client and server
             if (!ErrorHandler.isError(101))
                 clientWatcher.ChangeAppName(laucherSettings.GetClientFilename());
             if (!ErrorHandler.isError(102))
+            {
                 serverWatcher.ChangeAppName(laucherSettings.GetServerFilename());
-
+                serverSettings = new ServerSettings(Path.Combine(System.IO.Path.Combine(laucherSettings.GetServerLocation(), "/data")));
+                ProfileSettings = new ProfileSettings(Path.Combine(laucherSettings.GetServerLocation(), "data/profiles"));
+            }
         }
         #endregion
 
@@ -620,16 +621,19 @@ namespace Launcher
         {
             // reload config files
             LoadAllSettings();
-
+               
             // load the settings
-            Port.Text = serverSettings.GetServerPort();
+            if(!ErrorHandler.isError(102))
+                Port.Text = serverSettings.GetServerPort();
+
             BackendIP.Text = laucherSettings.LoadIP();
         }
 
         private void OnChangePort(object sender, RoutedEventArgs e)
         {
             laucherSettings.SavePort(Int32.Parse(Port.Text));
-            serverSettings.SetServerPort(Port.Text);
+            if (!ErrorHandler.isError(102))
+                serverSettings.SetServerPort(Port.Text);
             //serverSettings.SetServerPort(Port.Text);
         }
 
@@ -653,17 +657,22 @@ namespace Launcher
             #region BOTS_PMCWAR
                 private void LoadBotsPmcWarSettings()
                 {
-                    PmcWarEnabled.IsChecked = serverSettings.GetBotsPmcWarEnabled();
-                    PmcWarUsecChance.Text = serverSettings.GetBotsPmcWarUsecChance();
+                    if (!ErrorHandler.isError(102))
+                    {
+                        PmcWarEnabled.IsChecked = serverSettings.GetBotsPmcWarEnabled();
+                        PmcWarUsecChance.Text = serverSettings.GetBotsPmcWarUsecChance();
+                    }
                 }
 
                 private void OnChangePmcWarEnabled(object sender, RoutedEventArgs e)
                 {
+                if (!ErrorHandler.isError(102))
                     serverSettings.SetBotsPmcWarEnabled((bool)PmcWarEnabled.IsChecked);
                 }
 
                 private void OnChangePmcWarUsecChance(object sender, TextChangedEventArgs e)
                 {
+                if (!ErrorHandler.isError(102))
                     serverSettings.SetBotsPmcWarUsecChance(PmcWarUsecChance.Text);
                 }
             #endregion
@@ -671,47 +680,58 @@ namespace Launcher
             #region BOTS_LIMIT
                 private void LoadBotsLimitSettings()
                 {
-                    LimitKilla.Text = serverSettings.GetBotsLimitKilla();
-                    LimitBully.Text = serverSettings.GetBotsLimitBully();
-                    LimitBullyFollowers.Text = serverSettings.GetBotsLimitBullyFollowers();
-                    LimitMarksman.Text = serverSettings.GetBotsLimitMarksman();
-                    LimitPmcBot.Text = serverSettings.GetBotsLimitPmcBot();
-                    LimitScav.Text = serverSettings.GetBotsLimitScav();
+                    if (!ErrorHandler.isError(102))
+                    {
+                        LimitKilla.Text = serverSettings.GetBotsLimitKilla();
+                        LimitBully.Text = serverSettings.GetBotsLimitBully();
+                        LimitBullyFollowers.Text = serverSettings.GetBotsLimitBullyFollowers();
+                        LimitMarksman.Text = serverSettings.GetBotsLimitMarksman();
+                        LimitPmcBot.Text = serverSettings.GetBotsLimitPmcBot();
+                        LimitScav.Text = serverSettings.GetBotsLimitScav();
+                    }
                 }
 
                 private void OnChangeLimitKilla(object sender, TextChangedEventArgs e)
                 {
+                if (!ErrorHandler.isError(102))
                     serverSettings.SetBotsLimitKilla(LimitKilla.Text);
                 }
 
                 private void OnChangeLimitBully(object sender, TextChangedEventArgs e)
                 {
+                if (!ErrorHandler.isError(102))
                     serverSettings.SetBotsLimitBully(LimitBully.Text);
                 }
 
                 private void OnChangeLimitBullyFollower(object sender, TextChangedEventArgs e)
                 {
+                if (!ErrorHandler.isError(102))
                     serverSettings.SetBotsLimitBullyFollowers(LimitBullyFollowers.Text);
                 }
 
                 private void OnChangeLimitMarksman(object sender, TextChangedEventArgs e)
                 {
+                if (!ErrorHandler.isError(102))
                     serverSettings.SetBotsLimitMarksman(LimitMarksman.Text);
                 }
 
                 private void OnChangeLimitPmcBot(object sender, TextChangedEventArgs e)
                 {
+                if (!ErrorHandler.isError(102))
                     serverSettings.SetBotsLimitPmcBot(LimitPmcBot.Text);
                 }
 
                 private void OnChangeLimitScav(object sender, TextChangedEventArgs e)
                 {
+                if (!ErrorHandler.isError(102))
                     serverSettings.SetBotsLimitScav(LimitScav.Text);
                 }
             #endregion
 
             #region BOTS_SPAWN
                 private void LoadBotsSpawnSettings()
+                {
+                if (!ErrorHandler.isError(102))
                 {
                     SpawnGlasses.Text = serverSettings.GetBotsSpawnGlasses();
                     SpawnFaceCover.Text = serverSettings.GetBotsSpawnFaceCover();
@@ -721,39 +741,47 @@ namespace Launcher
                     SpawnMedPocket.Text = serverSettings.GetBotsSpawnMedPocket();
                     SpawnItemPocket.Text = serverSettings.GetBotsSpawnItemPocket();
                 }
+                }
 
                 private void OnChangeSpawnGlasses(object sender, TextChangedEventArgs e)
                 {
+                if (!ErrorHandler.isError(102))
                     serverSettings.SetBotsSpawnGlasses(SpawnGlasses.Text);
                 }
 
                 private void OnChangeSpawnFaceCover(object sender, TextChangedEventArgs e)
                 {
+                if (!ErrorHandler.isError(102))
                     serverSettings.SetBotsSpawnFaceCover(SpawnFaceCover.Text);
                 }
 
                 private void OnChangeSpawnHeadwear(object sender, TextChangedEventArgs e)
                 {
+                if (!ErrorHandler.isError(102))
                     serverSettings.SetBotsSpawnHeadwear(SpawnHeadwear.Text);
                 }
 
                 private void OnChangeSpawnBackpack(object sender, TextChangedEventArgs e)
                 {
+                if (!ErrorHandler.isError(102))
                     serverSettings.SetBotsSpawnBackpack(SpawnBackpack.Text);
                 }
 
                 private void OnChangeSpawnArmorVest(object sender, TextChangedEventArgs e)
                 {
+                if (!ErrorHandler.isError(102))
                     serverSettings.SetBotsSpawnArmorVest(SpawnArmorVest.Text);
                 }
 
                 private void OnChangeSpawnMedsPocket(object sender, TextChangedEventArgs e)
                 {
+                if (!ErrorHandler.isError(102))
                     serverSettings.SetBotsSpawnMedPocket(SpawnMedPocket.Text);
                 }
 
                 private void OnChangeSpawnItemPocket(object sender, TextChangedEventArgs e)
                 {
+                if (!ErrorHandler.isError(102))
                     serverSettings.SetBotsSpawnItemPocket(SpawnItemPocket.Text);
                 }
             #endregion
@@ -775,16 +803,25 @@ namespace Launcher
                 ServerFileName.Text = laucherSettings.GetServerFilename();
             }
 
-            #region CLIENT INPUTS CHANGED
+        #region CLIENT INPUTS CHANGED
                 private void OnChangeClientLocation(object sender, TextChangedEventArgs e)
                 {
                     laucherSettings.SetClientLocation(ClientLocation.Text);
                     string check_client_file = laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe";
-                    if (!File.Exists(check_client_file))
-                        ErrorHandler.AddError(ErrorType.error_Client_noLocation);
-                    else
-                        ErrorHandler.RemoveError(ErrorType.error_Client_noLocation);
+                if (!File.Exists(check_client_file))
+                    ErrorHandler.AddError(ErrorType.error_Client_noLocation);
+                else
+                {
+                if (!ErrorHandler.isError(102))
+                    if (laucherSettings.GetClientLocation() != serverSettings.GetClientLocation())
+                    {
+                        serverSettings.SetClientLocation(laucherSettings.GetClientLocation());
+                    }
+
+                    ErrorHandler.RemoveError(ErrorType.error_Client_noLocation);
+                }
                     DisplayErrors();
+                    LoadAllSettings();
                 }
                 private void OnChangeClientFilename(object sender, TextChangedEventArgs e)
                 {
@@ -798,43 +835,57 @@ namespace Launcher
                         ErrorHandler.RemoveError(ErrorType.error_Client_noLocation);
                     }
                     DisplayErrors();
+                    LoadAllSettings();
                 }
-            #endregion
+        #endregion
 
         #region SERVER INPUTS CHANGED
         private void OnChangeServerLocation(object sender, TextChangedEventArgs e)
+        {
+
+            laucherSettings.SetServerLocation(ServerLocation.Text);
+            string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
+            LoadAllSettings();
+            if (!File.Exists(check_server_file))
+                ErrorHandler.AddError(ErrorType.error_Server_noLocation);
+            else
+            {
+            if (!ErrorHandler.isError(102))
+                if (laucherSettings.GetClientLocation() != serverSettings.GetClientLocation())
                 {
-                    laucherSettings.SetServerLocation(ServerLocation.Text);
-                    string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
-                    if (!File.Exists(check_server_file))
-                        ErrorHandler.AddError(ErrorType.error_Server_noLocation);
-                    else
-                        ErrorHandler.RemoveError(ErrorType.error_Server_noLocation);
-                    DisplayErrors();
-                }
-                private void OnChangeServerFilename(object sender, TextChangedEventArgs e)
-                {
-                    laucherSettings.SetServerFilename(ServerFileName.Text);
-                    string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
-                    if (!File.Exists(check_server_file))
-                        ErrorHandler.AddError(ErrorType.error_Server_noLocation);
-                    else
-                    {
-                        serverWatcher.ChangeAppName(laucherSettings.GetServerFilename());
-                        ErrorHandler.RemoveError(ErrorType.error_Server_noLocation);
-                    }
-                    DisplayErrors();
+                    serverSettings.SetClientLocation(laucherSettings.GetClientLocation());
                 }
 
+                ErrorHandler.RemoveError(ErrorType.error_Server_noLocation);
+            }
+            DisplayErrors();
+            LoadAllSettings();
+        }
+        private void OnChangeServerFilename(object sender, TextChangedEventArgs e)
+        {
+            laucherSettings.SetServerFilename(ServerFileName.Text);
+            string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
+            LoadAllSettings();
+            if (!File.Exists(check_server_file))
+                ErrorHandler.AddError(ErrorType.error_Server_noLocation);
+            else
+            {
+                serverWatcher.ChangeAppName(laucherSettings.GetServerFilename());
+                ErrorHandler.RemoveError(ErrorType.error_Server_noLocation);
+            }
+            DisplayErrors();
+            LoadAllSettings();
+        }
+        #endregion
         #endregion
 
-        #endregion
         public string MyDocumentsEFTSettings = "";
         dynamic profile_content = JsonConvert.DeserializeObject("{\"Resolution\":{\"Width\":1920,\"Height\":1080,\"RefreshRate\":60,\"IsWideScreen\":false},\"ResolutionIndex\":15,\"AspectRatio\":1,\"GraphicsQuality\":3,\"CustomGraphicsQuality\":false,\"MultimonitorSupport\":false,\"VSync\":0,\"IsFullscreen\":false,\"LobbyFramerate\":30,\"GameFramerate\":119,\"TextureQuality\":2,\"ShadowsQuality\":3,\"LightingQuality\":0,\"ObjectLodQuality\":0,\"ContactSSAO\":3,\"AnisotropicFiltering\":2,\"OverallVisibility\":5,\"ShadowVisibility\":17,\"Ssao\":2,\"Sharpen\":7,\"SSR\":0,\"AntiAliasing\":1,\"Bloom\":1,\"ChromaticAberrations\":1,\"Noise\":1,\"Hdr\":1,\"ZBlur\":1}");
 
+        //script to change client settings
         private void ScreenMode_DropDownClosed(object sender, EventArgs e)
         {
-
+            // 0 no changes, 1 Fullscreen, 2 Borderless, 3 Windowed //
             int i = ScreenMode.SelectedIndex;
             if (i != 0)
             {
@@ -848,15 +899,17 @@ namespace Launcher
                     profile_content = JsonConvert.DeserializeObject(json);
                 }
                 bool changedFullScreen = true;
-                if (i == 3) // for Windowed
+                if (i == 3 || i == 2) // for Windowed and Borderless
                     changedFullScreen = false;
 
                 if (i != 0)
                     profile_content.IsFullscreen = changedFullScreen;
 
-                Console.WriteLine(changedFullScreen);
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.NullValueHandling = NullValueHandling.Ignore;
+                //Console.WriteLine(changedFullScreen);
+                JsonSerializer serializer = new JsonSerializer
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                };
                 using (StreamWriter sw = new StreamWriter(MyDocumentsEFTSettings))
                 {
                     using (JsonWriter writer = new JsonTextWriter(sw))

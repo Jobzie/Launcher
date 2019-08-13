@@ -60,9 +60,11 @@ namespace Launcher.Code.Helper
                 if(e.code == code)
                     return;// do not add it multiply times
             }
-            Errors error = new Errors();
-            error.code = code;
-            error.text = text;
+            Errors error = new Errors
+            {
+                code = code,
+                text = text
+            };
             storeErrors.Add(error);
         }
         public void AddError(Errors err) {

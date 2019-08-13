@@ -1,197 +1,234 @@
 ﻿using System;
 using Launcher.Code.Data;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
+using System.IO;
 
 namespace Launcher.Code.Settings
 {
-    public class ServerSettings : SettingsBase<ServerConfig>
+    public class ServerSettings
     {
-        public ServerSettings(string filepath) : base(filepath, "server.config.json")
+        private string FullFilepath = "";
+        dynamic profile_data = JsonConvert.DeserializeObject("{}");
+        public ServerSettings(string filepath, string filename = "server.config.json")
         {
-            // for calling base constructor
+            this.FullFilepath = filepath + "\\" + filename;
+            if (File.Exists(this.FullFilepath))
+            {
+                // for calling base constructor
+                using (StreamReader sr = new StreamReader(FullFilepath))
+                {
+                    string json = sr.ReadToEnd();
+                    profile_data = JsonConvert.DeserializeObject(json);
+                }
+            }
         }
-
+        public void SetClientLocation(string v) {
+            profile_data.game = v;
+            saveData();
+        }
+        public string GetClientLocation() {
+            return profile_data.game.ToString();
+        }
         #region SERVER
         public string GetServerPort()
         {
-            return base.config.server.port.ToString();
+            return profile_data.server.port.ToString();
         }
 
         public void SetServerPort(string value)
         {
-            base.config.server.port = Convert.ToInt32(value);
-            base.SaveSettings();
+            profile_data.server.port = Convert.ToInt32(value);
+            saveData();
         }
         #endregion
 
         #region BOTS_PMCWAR
         public bool GetBotsPmcWarEnabled()
         {
-            return base.config.bots.pmcWar.enabled;
+            return profile_data.bots.pmcWar.enabled;
         }
 
         public void SetBotsPmcWarEnabled(bool value)
         {
-            base.config.bots.pmcWar.enabled = value;
-            base.SaveSettings();
+            profile_data.bots.pmcWar.enabled = value;
+            saveData();
         }
 
         public string GetBotsPmcWarUsecChance()
         {
-            return base.config.bots.pmcWar.chanceUsec.ToString();
+            return profile_data.bots.pmcWar.chanceUsec.ToString();
         }
 
         public void SetBotsPmcWarUsecChance(string value)
         {
-            base.config.bots.pmcWar.chanceUsec = Convert.ToInt32(value);
-            base.SaveSettings();
+            profile_data.bots.pmcWar.chanceUsec = Convert.ToInt32(value);
+            saveData();
         }
         #endregion
 
         #region BOTS_LIMIT
         public string GetBotsLimitKilla()
         {
-            return base.config.bots.limit.bossKilla.ToString();
+            return profile_data.bots.limit.bossKilla.ToString();
         }
 
         public void SetBotsLimitKilla(string value)
         {
-            base.config.bots.limit.bossKilla = Convert.ToInt32(value);
-            base.SaveSettings();
+            profile_data.bots.limit.bossKilla = Convert.ToInt32(value);
+            saveData();
         }
 
         public string GetBotsLimitBully()
         {
-            return base.config.bots.limit.bossBully.ToString();
+            return profile_data.bots.limit.bossBully.ToString();
         }
 
         public void SetBotsLimitBully(string value)
         {
-            base.config.bots.limit.bossBully = Convert.ToInt32(value);
-            base.SaveSettings();
+            profile_data.bots.limit.bossBully = Convert.ToInt32(value);
+            saveData();
         }
 
         public string GetBotsLimitBullyFollowers()
         {
-            return base.config.bots.limit.bullyFollowers.ToString();
+            return profile_data.bots.limit.bullyFollowers.ToString();
         }
 
         public void SetBotsLimitBullyFollowers(string value)
         {
-            base.config.bots.limit.bullyFollowers = Convert.ToInt32(value);
-            base.SaveSettings();
+            profile_data.bots.limit.bullyFollowers = Convert.ToInt32(value);
+            saveData();
         }
 
         public string GetBotsLimitMarksman()
         {
-            return base.config.bots.limit.marksman.ToString();
+            return profile_data.bots.limit.marksman.ToString();
         }
 
         public void SetBotsLimitMarksman(string value)
         {
-            base.config.bots.limit.marksman = Convert.ToInt32(value);
-            base.SaveSettings();
+            profile_data.bots.limit.marksman = Convert.ToInt32(value);
+            saveData();
         }
 
         public string GetBotsLimitPmcBot()
         {
-            return base.config.bots.limit.pmcBot.ToString();
+            return profile_data.bots.limit.pmcBot.ToString();
         }
 
         public void SetBotsLimitPmcBot(string value)
         {
-            base.config.bots.limit.pmcBot = Convert.ToInt32(value);
-            base.SaveSettings();
+            profile_data.bots.limit.pmcBot = Convert.ToInt32(value);
+            saveData();
         }
 
         public string GetBotsLimitScav()
         {
-            return base.config.bots.limit.scav.ToString();
+            return profile_data.bots.limit.scav.ToString();
         }
 
         public void SetBotsLimitScav(string value)
         {
-            base.config.bots.limit.scav = Convert.ToInt32(value);
-            base.SaveSettings();
+            profile_data.bots.limit.scav = Convert.ToInt32(value);
+            saveData();
         }
         #endregion
 
         #region BOTS_SPAWN
         public string GetBotsSpawnGlasses()
         {
-            return base.config.bots.spawn.glasses.ToString();
+            return profile_data.bots.spawn.glasses.ToString();
         }
 
         public void SetBotsSpawnGlasses(string value)
         {
-            base.config.bots.spawn.glasses = Convert.ToInt32(value);
-            base.SaveSettings();
+            profile_data.bots.spawn.glasses = Convert.ToInt32(value);
+            saveData();
         }
 
         public string GetBotsSpawnFaceCover()
         {
-            return base.config.bots.spawn.faceCover.ToString();
+            return profile_data.bots.spawn.faceCover.ToString();
         }
 
         public void SetBotsSpawnFaceCover(string value)
         {
-            base.config.bots.spawn.faceCover = Convert.ToInt32(value);
-            base.SaveSettings();
+            profile_data.bots.spawn.faceCover = Convert.ToInt32(value);
+            saveData();
         }
 
         public string GetBotsSpawnHeadwear()
         {
-            return base.config.bots.spawn.headwear.ToString();
+            return profile_data.bots.spawn.headwear.ToString();
         }
 
         public void SetBotsSpawnHeadwear(string value)
         {
-            base.config.bots.spawn.headwear = Convert.ToInt32(value);
-            base.SaveSettings();
+            profile_data.bots.spawn.headwear = Convert.ToInt32(value);
+            saveData();
         }
 
         public string GetBotsSpawnBackpack()
         {
-            return base.config.bots.spawn.backpack.ToString();
+            return profile_data.bots.spawn.backpack.ToString();
         }
 
         public void SetBotsSpawnBackpack(string value)
         {
-            base.config.bots.spawn.backpack = Convert.ToInt32(value);
-            base.SaveSettings();
+            profile_data.bots.spawn.backpack = Convert.ToInt32(value);
+            saveData();
         }
 
         public string GetBotsSpawnArmorVest()
         {
-            return base.config.bots.spawn.armorVest.ToString();
+            return profile_data.bots.spawn.armorVest.ToString();
         }
 
         public void SetBotsSpawnArmorVest(string value)
         {
-            base.config.bots.spawn.armorVest = Convert.ToInt32(value);
-            base.SaveSettings();
+            profile_data.bots.spawn.armorVest = Convert.ToInt32(value);
+            saveData();
         }
 
         public string GetBotsSpawnMedPocket()
         {
-            return base.config.bots.spawn.medPocket.ToString();
+            return profile_data.bots.spawn.medPocket.ToString();
         }
 
         public void SetBotsSpawnMedPocket(string value)
         {
-            base.config.bots.spawn.medPocket = Convert.ToInt32(value);
-            base.SaveSettings();
+            profile_data.bots.spawn.medPocket = Convert.ToInt32(value);
+            saveData();
         }
 
         public string GetBotsSpawnItemPocket()
         {
-            return base.config.bots.spawn.itemPocket.ToString();
+            return profile_data.bots.spawn.itemPocket.ToString();
         }
 
         public void SetBotsSpawnItemPocket(string value)
         {
-            base.config.bots.spawn.itemPocket = Convert.ToInt32(value);
-            base.SaveSettings();
+            profile_data.bots.spawn.itemPocket = Convert.ToInt32(value);
+            saveData();
         }
         #endregion
+
+        public void saveData()
+        {
+            JsonSerializer serializer = new JsonSerializer
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            using (StreamWriter sw = new StreamWriter(FullFilepath))
+            {
+                using (JsonWriter writer = new JsonTextWriter(sw))
+                {
+                    serializer.Serialize(sw, profile_data);
+                }
+            }
+        }
     }
 }
