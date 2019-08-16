@@ -11,6 +11,7 @@ How to start:
  3.2 setup right locations of EFT game and server (errors should disapear on the left)
 4. login at Account page (use accounts from profiles.json)
 5. press start Server
+ 5.1 check in Server / General if backend Url is properly loaded
 6. press start Game
 
 enjoy
