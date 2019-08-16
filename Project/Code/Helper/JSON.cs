@@ -50,10 +50,7 @@ namespace Launcher.Code.Helper
 
             using (StreamWriter sw = new StreamWriter(filepath))
             {
-                using (JsonWriter writer = new JsonTextWriter(sw))
-                {
                     serializer.Serialize(sw, obj);
-                }
             }
 
             return "";

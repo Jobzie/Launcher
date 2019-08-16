@@ -20,5 +20,17 @@ namespace Launcher.Code.Helper
                 fileStream.Dispose();
             }
         }
+        public bool ExistF(string path)
+        {
+            if (File.Exists(path))
+                return true;
+            return false;
+        }
+        public bool ExistD(string path)
+        {
+            if (Directory.Exists(path))
+                return true;
+            return false;
+        }
     }
 }

@@ -4,7 +4,7 @@ using System.Timers;
 
 namespace Launcher.Code.Monitor
 {
-    public class Watcher
+    public class Watcher : IDisposable
     {
         public bool processAlive { get; private set; }
         private Timer monitor = null;
@@ -13,11 +13,18 @@ namespace Launcher.Code.Monitor
         public Watcher(string executable)
         {
             this.executable = executable.Replace(".exe", "");
-
             monitor = new Timer(1000);
             monitor.Elapsed += OnUpdate;
             monitor.AutoReset = true;
             monitor.Enabled = true;
+        }
+        protected virtual void Dispose(bool disposing) {
+            if (disposing)
+                monitor.Close();
+        }
+        public void Dispose() {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
         public void ChangeAppName(string newName) {
             this.executable = newName;

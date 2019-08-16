@@ -219,7 +219,7 @@
                 <Button x:Name="CreateProfile" Content="Create New Profile" HorizontalAlignment="Center" Margin="146,277,10,0" VerticalAlignment="Top" Width="134" Height="30" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnRegister" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource Bender}" BorderThickness="1" FontSize="14"/>
             </Grid>
             <!-- register grid -->
-            <Grid x:Name="RegisterGrid" HorizontalAlignment="Left" Height="342" VerticalAlignment="Top" Width="290" d:IsHidden="false" Grid.ColumnSpan="2" Margin="0,0,0,-2">
+            <Grid x:Name="RegisterGrid" HorizontalAlignment="Left" Height="342" VerticalAlignment="Top" Width="290" d:IsHidden="true" Grid.ColumnSpan="2" Margin="0,0,0,-2">
                 <!-- email -->
                 <Label Content="Email" HorizontalAlignment="Center" Margin="45,11,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
                 <TextBox x:Name="RegisterEmail" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="0,35,0,0" Foreground="#FFDDDDDD" Background="#00404040" FontFamily="{DynamicResource Bender}"/>
@@ -358,14 +358,14 @@
                 <Label Content="/ Server / Settings" HorizontalAlignment="Center" Margin="0,0,20,0" VerticalAlignment="Top" Foreground="White" Width="270" FontFamily="{DynamicResource Bender}" FontSize="10" Height="25"/>
 
                 <!-- port -->
-                <Label Content="Port" FontSize="16" HorizontalAlignment="Center" Margin="45,27,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
-                <TextBox x:Name="Port" HorizontalAlignment="Center" VerticalContentAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="45,52,45,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangePort" FontFamily="{DynamicResource Bender}" />
                 <!-- ip -->
-                <Label Content="IP" FontSize="16" HorizontalAlignment="Center" Margin="45,83,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
-                <TextBox x:Name="BackendIP" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="45,108,45,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeBackendIP"  FontFamily="{DynamicResource Bender}"/>
+                <Label Content="Backend URL" FontSize="16" HorizontalAlignment="Center" Margin="45,66,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
+                <TextBox x:Name="BackendIP" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="45,91,45,0" Foreground="#FFDDDDDD" Background="#00404040"  FontFamily="{DynamicResource Bender}"/>
                 <!-- additional info texts -->
-                <Label Content="Additional informations:" HorizontalAlignment="Center" Height="23" Margin="16,157,30,0" VerticalAlignment="Top" Width="244" Background="Transparent" Foreground="#FF909090" BorderBrush="#00A8ADB3" FontFamily="{DynamicResource Bender}"/>
-                <Label Content="No info yet." HorizontalAlignment="Center" Height="23" Margin="35,180,30,0" VerticalAlignment="Top" Width="225" Background="Transparent" Foreground="#FF909090" BorderBrush="#00A8ADB3" FontFamily="{DynamicResource Bender}"/>
+                <Label Content="Do not change this." HorizontalAlignment="Center" Height="23" Margin="10,24,36,0" VerticalAlignment="Top" Width="244" Background="Transparent" Foreground="#FF909090" BorderBrush="#00A8ADB3" FontFamily="{DynamicResource Bender}"/>
+                <Label Content="Its only for preview what server is setted to." HorizontalAlignment="Center" Height="23" Margin="10,44,36,0" VerticalAlignment="Top" Width="244" Background="Transparent" Foreground="#FF909090" BorderBrush="#00A8ADB3" FontFamily="{DynamicResource Bender}"/>
+                <Label Content="Default game backendUrl:" HorizontalAlignment="Center" Height="23" Margin="35,133,30,0" VerticalAlignment="Top" Width="225" Background="Transparent" Foreground="#FF909090" BorderBrush="#00A8ADB3" FontFamily="{DynamicResource Bender}"/>
+                <Label Content="https://prod.escapefromtarkov.com" HorizontalAlignment="Center" Height="23" Margin="35,153,30,0" VerticalAlignment="Top" Width="225" Background="Transparent" Foreground="#FF909090" BorderBrush="#00A8ADB3" FontFamily="{DynamicResource Bender}"/>
             </Grid>
             <!-- Server / bots grid -->
             <Grid x:Name="ServerBotsGrid" HorizontalAlignment="Left" Height="342" VerticalAlignment="Top" Width="290" Margin="0,0,0,-2" d:IsHidden="true" Grid.ColumnSpan="2">

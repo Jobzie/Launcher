@@ -4,19 +4,33 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using System.Dynamic;
 
 namespace Launcher.Code.Settings
 {
     public class ServerSettings
     {
         private string FullFilepath = "";
-        dynamic profile_data = JsonConvert.DeserializeObject("{}");
-        public ServerSettings(string filepath, string filename = "server.config.json")
+        dynamic profile_data = new ExpandoObject();// = JsonConvert.DeserializeObject("{}");
+        public ServerSettings(string filepath)
         {
-            this.FullFilepath = filepath + "\\" + filename;
+            this.FullFilepath = filepath + @"\server.config.json";
             if (File.Exists(this.FullFilepath))
             {
-                // for calling base constructor
+                using (StreamReader sr = new StreamReader(FullFilepath))
+                {
+                    string json = sr.ReadToEnd();
+                    profile_data = JsonConvert.DeserializeObject(json);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Cannot find file to save");
+            }
+        }
+        private void Reload() {
+            if (File.Exists(this.FullFilepath))
+            {
                 using (StreamReader sr = new StreamReader(FullFilepath))
                 {
                     string json = sr.ReadToEnd();
@@ -26,21 +40,18 @@ namespace Launcher.Code.Settings
         }
         public void SetClientLocation(string v) {
             profile_data.game = v;
-            saveData();
+            Save();
         }
         public string GetClientLocation() {
+            //Console.WriteLine(profile_data.game);
+            if (profile_data.game == null)
+                SetClientLocation(@"C:\EFT");
             return profile_data.game.ToString();
         }
         #region SERVER
-        public string GetServerPort()
+        public string GetServerBackend()
         {
-            return profile_data.server.port.ToString();
-        }
-
-        public void SetServerPort(string value)
-        {
-            profile_data.server.port = Convert.ToInt32(value);
-            saveData();
+            return profile_data.server.backendUrl.ToString();
         }
         #endregion
 
@@ -53,7 +64,7 @@ namespace Launcher.Code.Settings
         public void SetBotsPmcWarEnabled(bool value)
         {
             profile_data.bots.pmcWar.enabled = value;
-            saveData();
+            Save();
         }
 
         public string GetBotsPmcWarUsecChance()
@@ -64,7 +75,7 @@ namespace Launcher.Code.Settings
         public void SetBotsPmcWarUsecChance(string value)
         {
             profile_data.bots.pmcWar.chanceUsec = Convert.ToInt32(value);
-            saveData();
+            Save();
         }
         #endregion
 
@@ -77,7 +88,7 @@ namespace Launcher.Code.Settings
         public void SetBotsLimitKilla(string value)
         {
             profile_data.bots.limit.bossKilla = Convert.ToInt32(value);
-            saveData();
+            Save();
         }
 
         public string GetBotsLimitBully()
@@ -88,7 +99,7 @@ namespace Launcher.Code.Settings
         public void SetBotsLimitBully(string value)
         {
             profile_data.bots.limit.bossBully = Convert.ToInt32(value);
-            saveData();
+            Save();
         }
 
         public string GetBotsLimitBullyFollowers()
@@ -99,7 +110,7 @@ namespace Launcher.Code.Settings
         public void SetBotsLimitBullyFollowers(string value)
         {
             profile_data.bots.limit.bullyFollowers = Convert.ToInt32(value);
-            saveData();
+            Save();
         }
 
         public string GetBotsLimitMarksman()
@@ -110,7 +121,7 @@ namespace Launcher.Code.Settings
         public void SetBotsLimitMarksman(string value)
         {
             profile_data.bots.limit.marksman = Convert.ToInt32(value);
-            saveData();
+            Save();
         }
 
         public string GetBotsLimitPmcBot()
@@ -121,7 +132,7 @@ namespace Launcher.Code.Settings
         public void SetBotsLimitPmcBot(string value)
         {
             profile_data.bots.limit.pmcBot = Convert.ToInt32(value);
-            saveData();
+            Save();
         }
 
         public string GetBotsLimitScav()
@@ -132,7 +143,7 @@ namespace Launcher.Code.Settings
         public void SetBotsLimitScav(string value)
         {
             profile_data.bots.limit.scav = Convert.ToInt32(value);
-            saveData();
+            Save();
         }
         #endregion
 
@@ -145,7 +156,7 @@ namespace Launcher.Code.Settings
         public void SetBotsSpawnGlasses(string value)
         {
             profile_data.bots.spawn.glasses = Convert.ToInt32(value);
-            saveData();
+            Save();
         }
 
         public string GetBotsSpawnFaceCover()
@@ -156,7 +167,7 @@ namespace Launcher.Code.Settings
         public void SetBotsSpawnFaceCover(string value)
         {
             profile_data.bots.spawn.faceCover = Convert.ToInt32(value);
-            saveData();
+            Save();
         }
 
         public string GetBotsSpawnHeadwear()
@@ -167,7 +178,7 @@ namespace Launcher.Code.Settings
         public void SetBotsSpawnHeadwear(string value)
         {
             profile_data.bots.spawn.headwear = Convert.ToInt32(value);
-            saveData();
+            Save();
         }
 
         public string GetBotsSpawnBackpack()
@@ -178,7 +189,7 @@ namespace Launcher.Code.Settings
         public void SetBotsSpawnBackpack(string value)
         {
             profile_data.bots.spawn.backpack = Convert.ToInt32(value);
-            saveData();
+            Save();
         }
 
         public string GetBotsSpawnArmorVest()
@@ -189,7 +200,7 @@ namespace Launcher.Code.Settings
         public void SetBotsSpawnArmorVest(string value)
         {
             profile_data.bots.spawn.armorVest = Convert.ToInt32(value);
-            saveData();
+            Save();
         }
 
         public string GetBotsSpawnMedPocket()
@@ -200,7 +211,7 @@ namespace Launcher.Code.Settings
         public void SetBotsSpawnMedPocket(string value)
         {
             profile_data.bots.spawn.medPocket = Convert.ToInt32(value);
-            saveData();
+            Save();
         }
 
         public string GetBotsSpawnItemPocket()
@@ -211,24 +222,21 @@ namespace Launcher.Code.Settings
         public void SetBotsSpawnItemPocket(string value)
         {
             profile_data.bots.spawn.itemPocket = Convert.ToInt32(value);
-            saveData();
+            Save();
         }
         #endregion
 
-        public void saveData()
+        public void Save()
         {
             JsonSerializer serializer = new JsonSerializer
             {
                 NullValueHandling = NullValueHandling.Ignore
             };
-
             using (StreamWriter sw = new StreamWriter(FullFilepath))
             {
-                using (JsonWriter writer = new JsonTextWriter(sw))
-                {
                     serializer.Serialize(sw, profile_data);
-                }
             }
+            Reload();
         }
     }
 }

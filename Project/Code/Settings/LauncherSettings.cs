@@ -1,102 +1,150 @@
-﻿using Launcher.Code.Data;
+﻿using System.Collections.Generic;
+using System;
+using System.IO;
+using System.Linq;
+using System.Text;
+using Launcher.Code.Data;
+using Newtonsoft.Json;
+using System.Dynamic;
 
 namespace Launcher.Code.Settings
 {
-    public class LauncherSettings : SettingsBase<LauncherConfig>
+    public class LauncherSettings
     {
-        public LauncherSettings() : base("./data/", "launcher.config.json")
+        public string FullFilepath = "";
+        dynamic data = new ExpandoObject();// = JsonConvert.DeserializeObject("{\"email\": \"user1@jet.com\",\"password\": \"password\",\"clientLocation\": \"M:/game/ET\",\"serverLocation\": \"M:/game/ETS\",\"clientFilename\": \"EscapeFromTarkov\",\"serverFilename\": \"EmuTarkov-Server\",\"screenMode\": 0,\"port\": 1337,\"ip\": \"localhost\",\"backendURL\": \"http://localhost:1337\"}");
+        public LauncherSettings()
         {
-            // for calling base constructor
+            this.FullFilepath = @".\data\launcher.config.json";
+            if (File.Exists(this.FullFilepath))
+            {
+                using (StreamReader sr = new StreamReader(FullFilepath))
+                {
+                    string json = sr.ReadToEnd();
+                    data = JsonConvert.DeserializeObject(json);
+                }
+            }
         }
+        private void Reload()
+        {
+            if (File.Exists(this.FullFilepath))
+            {
+                using (StreamReader sr = new StreamReader(FullFilepath))
+                {
+                    string json = sr.ReadToEnd();
+                    data = JsonConvert.DeserializeObject(json);
+                }
+            }
+        }
+        private void Save()
+        {
+            JsonSerializer serializer = new JsonSerializer
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            if (File.Exists(this.FullFilepath))
+            {
+                using (StreamWriter sw = new StreamWriter(FullFilepath))
+                {
+                    serializer.Serialize(sw, data);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Cannot find file to save");
+            }
+            Reload();
+        }
+        // functions below
         #region EMAIL
         public string GetEmail()
         {
-            return base.config.email;
+            return data.email.ToString();
         }
 
         public void SetEmail(string value)
         {
-            base.config.email = value;
-            base.SaveSettings();
+            data.email = value;
+            Save();
         }
         #endregion
         #region Password
         public string GetPassword()
         {
-            return base.config.password;
+            return data.password.ToString();
         }
 
         public void SetPassword(string value)
         {
-            base.config.password = value;
-            base.SaveSettings();
+            data.password = value;
+            Save();
         }
         #endregion
         #region CLIENT DATA
         public string GetClientLocation()
         {
-            return base.config.clientLocation;
+            return data.clientLocation.ToString();
         }
         public string GetClientFilename()
         {
-            return base.config.clientFilename;
+            return data.clientFilename.ToString();
         }
         public int GetScreenMode()
         {
-            return base.config.screenMode;
+            return data.screenMode;
         }
         public void SetClientLocation(string value)
         {
-            base.config.clientLocation = value;
-            base.SaveSettings();
+            data.clientLocation = value;
+            Save();
         }
         public void SetClientFilename(string value)
         {
-            base.config.clientFilename = value;
-            base.SaveSettings();
+            data.clientFilename = value;
+            Save();
         }
         public void SetScreenMode(int value) {
-            base.config.screenMode = value;
-            base.SaveSettings();
+            data.screenMode = value;
+            Save();
         }
 
         #endregion
         #region SERVER DATA
         public string GetServerLocation()
         {
-            return base.config.serverLocation;
+            return data.serverLocation.ToString();
         }
         public string GetServerFilename()
         {
-            return base.config.serverFilename;
+            return data.serverFilename.ToString();
         }
 
         public void SetServerLocation(string value)
         {
-            base.config.serverLocation = value;
-            base.SaveSettings();
+            data.serverLocation = value;
+            Save();
         }
 
         public void SetServerFilename(string value)
         {
-            base.config.serverFilename = value;
-            base.SaveSettings();
+            data.serverFilename = value;
+            Save();
         }
         #endregion
         #region BACKEND URL
         public void SavePort(int value) {
-            base.config.port = value;
-            base.SaveSettings();
+            data.port = value;
+            Save();
         }
         public string LoadPort() {
-            return base.config.port.ToString();
+            return data.port.ToString();
         }
         public void SaveIP(string value) {
-            base.config.ip = value;
-            base.SaveSettings();
+            data.ip = value;
+            Save();
         }
         public string LoadIP() {
-            return base.config.ip;
+            return data.ip.ToString();
         }
         public string PrepareBackendURL(bool secured = false)
         {

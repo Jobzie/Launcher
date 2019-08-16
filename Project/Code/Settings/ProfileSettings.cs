@@ -3,43 +3,58 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Dynamic;
 
 namespace Launcher.Code.Settings
 {
     public class ProfileSettings
     {
         private string FullFilepath = "";
-        dynamic profile_data = JsonConvert.DeserializeObject("{}");
+        dynamic data = new ExpandoObject();// = JsonConvert.DeserializeObject("{}");
         #region Iniciator
-        public ProfileSettings(string filepath, string filename = "profiles.json") // last parameter is for object oriented return
+        public ProfileSettings(string filepath)
         {
-            this.FullFilepath = filepath + "\\" + filename;
-            // for calling base constructor
-            using (StreamReader sr = new StreamReader(FullFilepath))
+            this.FullFilepath = filepath + @"\profiles.json";
+            if (File.Exists(this.FullFilepath))
             {
-                string json = sr.ReadToEnd();
-                profile_data = JsonConvert.DeserializeObject(json);
+                using (StreamReader sr = new StreamReader(FullFilepath))
+                {
+                    string json = sr.ReadToEnd();
+                    data = JsonConvert.DeserializeObject(json);
+                }
+            }
+        }
+        private void Reload()
+        {
+            if (File.Exists(this.FullFilepath))
+            {
+                using (StreamReader sr = new StreamReader(FullFilepath))
+                {
+                    string json = sr.ReadToEnd();
+                    data = JsonConvert.DeserializeObject(json);
+                }
             }
         }
         #endregion
         #region Helpers
         public bool ListExists() {
             int counter = 0;
-            foreach (var i in profile_data)
+            foreach (var i in data)
                 counter++;
             return (counter > 0) ? true : false;
         }
 
         public int ListCount() {
             int counter = 0;
-            foreach (var i in profile_data)
+            foreach (var i in data)
                 counter++;
             return counter;
         }
 
         public bool CheckLoginApprove(string email, string password)
         {
-            foreach (dynamic profile in profile_data)
+            foreach (dynamic profile in data)
             {
                 if (profile.email == email && profile.password == password)
                 {
@@ -51,7 +66,7 @@ namespace Launcher.Code.Settings
 
         public int GetProfile(string email, string password)
         {
-            foreach (dynamic profile in profile_data)
+            foreach (dynamic profile in data)
             {
                 if (profile.email == email && profile.password == password)
                 {
@@ -60,20 +75,24 @@ namespace Launcher.Code.Settings
             }
             return -1;
         }
-        public void saveData()
+        public void Save()
         {
             JsonSerializer serializer = new JsonSerializer
             {
                 NullValueHandling = NullValueHandling.Ignore
             };
-
-            using (StreamWriter sw = new StreamWriter(FullFilepath))
+            if (File.Exists(this.FullFilepath))
             {
-                using (JsonWriter writer = new JsonTextWriter(sw))
+                using (StreamWriter sw = new StreamWriter(FullFilepath))
                 {
-                    serializer.Serialize(sw, profile_data);
+                    serializer.Serialize(sw, data);
                 }
             }
+            else
+            {
+                Console.WriteLine("Cannot find file to save");
+            }
+            Reload();
         }
         #endregion
         #region Main Functions
@@ -83,7 +102,7 @@ namespace Launcher.Code.Settings
             {
                 return false;
             }
-            var temp = JsonConvert.DeserializeObject<dynamic>(JsonConvert.SerializeObject(profile_data));
+            var temp = JsonConvert.DeserializeObject<dynamic>(JsonConvert.SerializeObject(data));
             dynamic newOne = new JObject();
             newOne.email = email;
             newOne.password = password;
@@ -91,9 +110,9 @@ namespace Launcher.Code.Settings
             newOne.timestamp = 0;
             newOne.online = false;
             temp.Add(newOne);
-            profile_data = temp;
+            data = temp;
             temp = null;
-            saveData();
+            Save();
             return true;
         }
 
@@ -106,8 +125,8 @@ namespace Launcher.Code.Settings
             {
                 return;
             }
-            profile_data[profileID] = "";
-            saveData();
+            data[profileID] = "";
+            Save();
         }
 
         public void ChangeProfileEmail(string email, string password, string newEmail)
@@ -122,8 +141,8 @@ namespace Launcher.Code.Settings
             }
 
             // change the profile email
-            profile_data[profileID].email = newEmail;
-            saveData();
+            data[profileID].email = newEmail;
+            Save();
         }
 
         public void ChangeProfilePassword(string email, string password, string newPassword)
@@ -136,8 +155,8 @@ namespace Launcher.Code.Settings
                 return;
             }
             // change the profile password and save
-            profile_data[profileID].password = newPassword;
-            saveData();
+            data[profileID].password = newPassword;
+            Save();
                         
         }
         #endregion

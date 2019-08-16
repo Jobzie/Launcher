@@ -1,12 +1,12 @@
 ﻿{
-  "email": "user1@jet.com",
-  "password": "password",
-  "clientLocation": "C:\\Games\\EmuTarkov\\Game",
-  "serverLocation": "C:\\Games\\EmuTarkov\\Server",
-  "clientFilename": "EscapeFromTarkov",
-  "serverFilename": "EmuTarkov-Server",
-  "screenMode": 0,
-  "port": 1337,
-  "ip":  "localhost",
-  "backendURL": "http://localhost:1337"
+	"email": "user1@jet.com",
+	"password": "password",
+	"clientLocation": "M:\\Game\\ET",
+	"serverLocation": "M:\\Server\\ETS",
+	"clientFilename": "EscapeFromTarkov",
+	"serverFilename": "EmuTarkov-Server",
+	"screenMode": 0,
+	"port": 1337,
+	"ip": "localhost",
+	"backendURL": "http://localhost:1337"
 }
