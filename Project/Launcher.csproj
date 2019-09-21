@@ -7,7 +7,7 @@
     <ProjectGuid>{D3DD2BA6-6EE3-4AF7-A377-799A4B032E44}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Launcher</RootNamespace>
-    <AssemblyName>JustEmuTarkov-Launcher</AssemblyName>
+    <AssemblyName>EmuTarkov-Launcher</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -97,6 +97,7 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Code\Data\Errors.cs" />
+    <Compile Include="Code\Data\ProfileData.cs" />
     <Compile Include="Code\Helper\ErrorHandler.cs" />
     <Compile Include="Code\Helper\Tools.cs" />
     <Compile Include="Code\Settings\ProfileCharacters.cs" />
@@ -113,7 +114,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Code\Data\ClientConfig.cs" />
+    <Compile Include="Code\Data\LauncherConfig.cs" />
     <Compile Include="Code\Data\LoginToken.cs" />
+    <Compile Include="Code\Data\ServerConfig.cs" />
     <Compile Include="Code\Helper\JSON.cs" />
     <Compile Include="Code\Monitor\Watcher.cs" />
     <Compile Include="Code\Settings\ClientSettings.cs" />
@@ -157,7 +161,6 @@
     <None Include="Resources\Data\game.config.json" />
     <Resource Include="Resources\Data\characterDefault.json" />
     <Resource Include="Resources\Data\purchasesDefault.json" />
-    <Resource Include="Resources\Fonts\Bender-Light.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
@@ -230,6 +233,9 @@
     <Content Include="data\images\error\icon_error.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Fonts\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

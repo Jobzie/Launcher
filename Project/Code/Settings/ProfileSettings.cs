@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Dynamic;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Launcher.Code.Settings
 {
@@ -94,6 +96,21 @@ namespace Launcher.Code.Settings
             }
             Reload();
         }
+        public string CalculateMD5Hash(string input)
+        {
+            // step 1, calculate MD5 hash from input
+            MD5 md5 = MD5.Create();
+            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+            byte[] hash = md5.ComputeHash(inputBytes);
+
+            // step 2, convert byte array to hex string
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+            {
+                sb.Append(hash[i].ToString("x2"));
+            }
+            return sb.ToString();
+        }
         #endregion
         #region Main Functions
         public bool AddProfile(string email, string password)
@@ -106,6 +123,7 @@ namespace Launcher.Code.Settings
             dynamic newOne = new JObject();
             newOne.email = email;
             newOne.password = password;
+            newOne.password_md5 = CalculateMD5Hash(password);
             newOne.id = ListCount();
             newOne.timestamp = 0;
             newOne.online = false;

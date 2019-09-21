@@ -49,9 +49,15 @@ namespace Launcher.Code.Settings
             return profile_data.game.ToString();
         }
         #region SERVER
-        public string GetServerBackend()
+        public string GetServerPort()
         {
-            return profile_data.server.backendUrl.ToString();
+            return profile_data.server.port.ToString();
+        }
+
+        public void SetServerPort(string value)
+        {
+            profile_data.server.port = Convert.ToInt32(value);
+            Save();
         }
         #endregion
 

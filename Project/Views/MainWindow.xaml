@@ -167,19 +167,19 @@
         <!-- menu bar -->
         <DockPanel Margin="434,-2,1,407" Panel.ZIndex="11" Grid.ColumnSpan="2">
             <Menu DockPanel.Dock="Top" HorizontalAlignment="Left" Height="25" Margin="0,0,4,0" Foreground="#FFDDDDDD" Background="#00000000">
-                <MenuItem Header="#" FontSize="14" BorderBrush="#ff404040" Foreground="#FFDDDDDD" Background="{x:Null}" Click="OnIntro" Height="25" FontFamily="{DynamicResource Bender}" BorderThickness="0,0,1,0" />
-                <MenuItem Header="Account" FontSize="14" BorderBrush="#ff404040" Foreground="#FFDDDDDD" Background="{x:Null}" Click="OnAccount" FontFamily="{DynamicResource Bender}" BorderThickness="0,0,1,0" />
-                <MenuItem Header="Server" FontSize="14" BorderBrush="#ff404040" Foreground="#FFDDDDDD" Background="#00202020" FontFamily="{DynamicResource Bender}" BorderThickness="0,0,1,0">
-                    <MenuItem Header="General" FontSize="14" Foreground="#FFDDDDDD" Background="#FF202020" Click="OnServerGeneral" FontFamily="{DynamicResource Bender}" Template="{DynamicResource SubMenuItemTemplate}" />
-                    <MenuItem Header="Bots" FontSize="14" Foreground="#FFDDDDDD" Background="#FF202020" Click="OnServerBots" FontFamily="{DynamicResource Bender}" Template="{DynamicResource SubMenuItemTemplate}" />
-                    <MenuItem Header="Weather" FontSize="14" Foreground="#FFDDDDDD" Background="#FF202020" Click="OnServerWeather" FontFamily="{DynamicResource Bender}" Template="{DynamicResource SubMenuItemTemplate}" />
+                <MenuItem Header="#" FontSize="14" BorderBrush="#ff404040" Foreground="#FFDDDDDD" Background="{x:Null}" Click="OnIntro" Height="25" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" BorderThickness="0,0,1,0" />
+                <MenuItem Header="Account" FontSize="14" BorderBrush="#ff404040" Foreground="#FFDDDDDD" Background="{x:Null}" Click="OnAccount" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" BorderThickness="0,0,1,0" />
+                <MenuItem Header="Server" FontSize="14" BorderBrush="#ff404040" Foreground="#FFDDDDDD" Background="#00202020" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" BorderThickness="0,0,1,0">
+                    <MenuItem Header="General" FontSize="14" Foreground="#FFDDDDDD" Background="#FF202020" Click="OnServerGeneral" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" Template="{DynamicResource SubMenuItemTemplate}" />
+                    <MenuItem Header="Bots" FontSize="14" Foreground="#FFDDDDDD" Background="#FF202020" Click="OnServerBots" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" Template="{DynamicResource SubMenuItemTemplate}" />
+                    <MenuItem Header="Weather" FontSize="14" Foreground="#FFDDDDDD" Background="#FF202020" Click="OnServerWeather" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" Template="{DynamicResource SubMenuItemTemplate}" />
                 </MenuItem>
-                <MenuItem Header="Settings" FontSize="14" Foreground="#FFDDDDDD" Background="{x:Null}" Click="OnSettings" FontFamily="{DynamicResource Bender}" />
+                <MenuItem Header="Settings" FontSize="14" Foreground="#FFDDDDDD" Background="{x:Null}" Click="OnSettings" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" />
             </Menu>
         </DockPanel>
 
-        <Button x:Name="btn_Start_Server" FontFamily="{DynamicResource Bender}" Content="Start Server" HorizontalAlignment="Left" Margin="585,375,0,0" VerticalAlignment="Top" Width="110" Height="40" Click="OnStartServer" FontSize="18" Background="#00404040" Foreground="White" BorderBrush="#FFABADB3"  Template="{DynamicResource ButtonTemplates}" Panel.ZIndex="11" Grid.ColumnSpan="2"/>
-        <Button x:Name="btn_Start_Client" FontFamily="{DynamicResource Bender}" Content="Start Client" HorizontalAlignment="Left" Margin="469,375,0,0" VerticalAlignment="Top" Width="110" Height="40" Click="OnStartClient" FontSize="18" Background="#00404040" Foreground="White" BorderBrush="#FFABADB3"  Template="{DynamicResource ButtonTemplates}" Panel.ZIndex="11" Grid.ColumnSpan="2"/>
+        <Button x:Name="btn_Start_Server" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" Content="Start Server" HorizontalAlignment="Left" Margin="585,375,0,0" VerticalAlignment="Top" Width="110" Height="40" Click="OnStartServer" FontSize="18" Background="#00404040" Foreground="White" BorderBrush="#FFABADB3"  Template="{DynamicResource ButtonTemplates}" Panel.ZIndex="11" Grid.ColumnSpan="2"/>
+        <Button x:Name="btn_Start_Client" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" Content="Start Client" HorizontalAlignment="Left" Margin="469,375,0,0" VerticalAlignment="Top" Width="110" Height="40" Click="OnStartClient" FontSize="18" Background="#00404040" Foreground="White" BorderBrush="#FFABADB3"  Template="{DynamicResource ButtonTemplates}" Panel.ZIndex="11" Grid.ColumnSpan="2"/>
 
         <Grid x:Name="AppGrid" HorizontalAlignment="right" Height="334" Width="293" VerticalAlignment="Top" RenderTransformOrigin="3.188,1.039" Margin="0,30,0,0" Panel.ZIndex="11" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
@@ -191,14 +191,14 @@
 
             <!-- Initial page to display -->
             <Grid x:Name="IntroGrid" HorizontalAlignment="Center" Height="342" VerticalAlignment="Top" Width="290" d:IsHidden="true" Grid.ColumnSpan="2" Margin="0,0,0,-2">
-                <Label Content="Just EmuTarkov - Launcher" FontSize="18" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="270" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
-                <Label HorizontalAlignment="Center" Margin="10,60,10,0" VerticalAlignment="Top" Width="280" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}" Height="71">
+                <Label Content="Just EmuTarkov - Launcher" FontSize="18" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="270" Foreground="#FFDDDDDD" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
+                <Label HorizontalAlignment="Center" Margin="10,60,10,0" VerticalAlignment="Top" Width="280" Foreground="#FFDDDDDD" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" Height="71">
                     <TextBlock Width="270" Height="58" FontSize="14" TextAlignment="Center" HorizontalAlignment="Center"><Run Text="This launcher allows you to run EFT game"/><LineBreak/><Run Text="without connecting to main game servers"/><LineBreak/><Run Text=""/></TextBlock>
                 </Label>
-                <Label HorizontalAlignment="Center" Margin="10,188,10,0" VerticalAlignment="Top" Width="270" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}" Height="71" FontSize="14">
+                <Label HorizontalAlignment="Center" Margin="10,188,10,0" VerticalAlignment="Top" Width="270" Foreground="#FFDDDDDD" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" Height="71" FontSize="14">
                     <TextBlock Width="260" Height="58" TextAlignment="Justify" HorizontalAlignment="Center"><Run Text="Launcher will display Start buttons,"/><LineBreak/><Run Text="after you get rid of the erorrs"/><LineBreak/><Run Text="displayed on the left"/></TextBlock>
                 </Label>
-                <TextBlock HorizontalAlignment="Center" FontSize="16" TextAlignment="Center" Height="32" Margin="5,290,5,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}">
+                <TextBlock HorizontalAlignment="Center" FontSize="16" TextAlignment="Center" Height="32" Margin="5,290,5,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" Foreground="#FFDDDDDD" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}">
                     More info at: <Hyperlink Name="creatorsWebpage" Foreground="Gold" NavigateUri="https://justemutarkov.github.io/">
                         justemutarkov.github.io
                     </Hyperlink>
@@ -208,31 +208,31 @@
             <!-- login grid -->
             <Grid x:Name="LoginGrid" HorizontalAlignment="Center" Height="342" VerticalAlignment="Top" Width="290" d:IsHidden="true" Grid.ColumnSpan="2" Margin="0,0,0,-2">
                 <!-- email -->
-                <Label Content="Email" FontSize="18" HorizontalAlignment="Center" Margin="45,35,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
-                <TextBox x:Name="LoginEmail" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="45,64,45,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLoginEmail"  FontFamily="{DynamicResource Bender}"/>
+                <Label Content="Email" FontSize="18" HorizontalAlignment="Center" Margin="45,35,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
+                <TextBox x:Name="LoginEmail" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="45,64,45,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLoginEmail"  FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
 
                 <!-- password -->
-                <Label Content="Password" FontSize="18" HorizontalAlignment="Center" Margin="45,91,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
-                <TextBox x:Name="LoginPassword" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="45,121,45,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLoginPassword"  FontFamily="{DynamicResource Bender}"/>
+                <Label Content="Password" FontSize="18" HorizontalAlignment="Center" Margin="45,91,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
+                <TextBox x:Name="LoginPassword" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="45,121,45,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLoginPassword"  FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
                 <!-- buttons -->
-                <Button x:Name="Login" Content="Login" FontSize="20" HorizontalAlignment="Center" Margin="95,169,95,0" VerticalAlignment="Top" Width="100" Height="40" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnLogin" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource Bender}" BorderThickness="1"/>
-                <Button x:Name="CreateProfile" Content="Create New Profile" HorizontalAlignment="Center" Margin="146,277,10,0" VerticalAlignment="Top" Width="134" Height="30" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnRegister" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource Bender}" BorderThickness="1" FontSize="14"/>
+                <Button x:Name="Login" Content="Login" FontSize="20" HorizontalAlignment="Center" Margin="95,169,95,0" VerticalAlignment="Top" Width="100" Height="40" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnLogin" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" BorderThickness="1"/>
+                <Button x:Name="CreateProfile" Content="Create New Profile" HorizontalAlignment="Center" Margin="146,277,10,0" VerticalAlignment="Top" Width="134" Height="30" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnRegister" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" BorderThickness="1" FontSize="14"/>
             </Grid>
             <!-- register grid -->
             <Grid x:Name="RegisterGrid" HorizontalAlignment="Left" Height="342" VerticalAlignment="Top" Width="290" d:IsHidden="true" Grid.ColumnSpan="2" Margin="0,0,0,-2">
                 <!-- email -->
-                <Label Content="Email" HorizontalAlignment="Center" Margin="45,11,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
-                <TextBox x:Name="RegisterEmail" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="0,35,0,0" Foreground="#FFDDDDDD" Background="#00404040" FontFamily="{DynamicResource Bender}"/>
+                <Label Content="Email" HorizontalAlignment="Center" Margin="45,11,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
+                <TextBox x:Name="RegisterEmail" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="0,35,0,0" Foreground="#FFDDDDDD" Background="#00404040" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
 
                 <!-- password -->
-                <Label Content="Password" HorizontalAlignment="Center" Margin="45,66,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
-                <TextBox x:Name="RegisterPassword" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="0,90,0,0" Foreground="#FFDDDDDD" Background="#00404040" FontFamily="{DynamicResource Bender}"/>
+                <Label Content="Password" HorizontalAlignment="Center" Margin="45,66,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
+                <TextBox x:Name="RegisterPassword" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="0,90,0,0" Foreground="#FFDDDDDD" Background="#00404040" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
 
-                <Label Content="Character nickname" HorizontalAlignment="Center" Margin="45,121,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
-                <TextBox x:Name="RegisterNickname" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="0,145,0,0" Foreground="#FFDDDDDD" Background="#00404040" FontFamily="{DynamicResource Bender}"/>
+                <Label Content="Character nickname" HorizontalAlignment="Center" Margin="45,121,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
+                <TextBox x:Name="RegisterNickname" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="0,145,0,0" Foreground="#FFDDDDDD" Background="#00404040" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
 
-                <Label Content="Side" Foreground="#FFDDDDDD" HorizontalAlignment="Center" Margin="45,175,45,0" VerticalAlignment="Top" Width="200" Height="25" FontFamily="{DynamicResource Bender}"/>
-                <ComboBox x:Name="RegisterSide" HorizontalAlignment="Center" Margin="0,200,0,0" VerticalAlignment="Top" Width="200" Foreground="Black" FontFamily="{DynamicResource Bender}">
+                <Label Content="Side" Foreground="#FFDDDDDD" HorizontalAlignment="Center" Margin="45,175,45,0" VerticalAlignment="Top" Width="200" Height="25" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
+                <ComboBox x:Name="RegisterSide" HorizontalAlignment="Center" Margin="0,200,0,0" VerticalAlignment="Top" Width="200" Foreground="Black" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}">
                     <ComboBox.Background>
                         <SolidColorBrush Color="Black"/>
                     </ComboBox.Background>
@@ -241,14 +241,14 @@
                 </ComboBox>
 
                 <!-- buttons -->
-                <Button x:Name="Register" Content="Create Profile" HorizontalAlignment="Center" Margin="0,262.398,0,0" VerticalAlignment="Top" Width="120" Height="30" Foreground="#FFDDDDDD" Background="#00000000" BorderBrush="#FFABADB3" Click="OnCreateProfile" Template="{DynamicResource ButtonTemplates}" FontFamily="{DynamicResource Bender}" />
+                <Button x:Name="Register" Content="Create Profile" HorizontalAlignment="Center" Margin="0,262.398,0,0" VerticalAlignment="Top" Width="120" Height="30" Foreground="#FFDDDDDD" Background="#00000000" BorderBrush="#FFABADB3" Click="OnCreateProfile" Template="{DynamicResource ButtonTemplates}" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" />
             </Grid>
             <!-- Account / log in / main panel grid -->
             <Grid x:Name="AccountSettingsGrid" HorizontalAlignment="Left" Height="342" VerticalAlignment="Top" Width="290" d:IsHidden="true" Grid.ColumnSpan="2" Margin="0,0,0,-2">
                 <!-- player greeting -->
-                <Label x:Name="PlayerName" FontFamily="{DynamicResource Bender}" Content="Hello, {username}" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="270" Foreground="White" Height="36.8" FontSize="20"/>
+                <Label x:Name="PlayerName" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" Content="Hello, {username}" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="270" Foreground="White" Height="36.8" FontSize="20"/>
 
-                <GroupBox Header=" Edit Data " HorizontalAlignment="Left" Height="146" Margin="168,52,0,0" VerticalAlignment="Top" Width="112"  FontFamily="{DynamicResource Bender}">
+                <GroupBox Header=" Edit Data " HorizontalAlignment="Left" Height="146" Margin="168,52,0,0" VerticalAlignment="Top" Width="112"  FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}">
                     <Grid HorizontalAlignment="Center" Height="128" VerticalAlignment="Top" Width="174" Margin="0,0,-2,0">
                         <!-- buttons -->
                         <Button x:Name="ChangeEmail" Content="Email" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="90" Height="25" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnChangeEmail" Template="{DynamicResource ButtonTemplates}" />
@@ -263,34 +263,34 @@
             </Grid>
             <!-- Account / ChangeEmail grid -->
             <Grid x:Name="ChangeEmailGrid" HorizontalAlignment="Left" Height="342" VerticalAlignment="Top" Width="290" d:IsHidden="true" Grid.ColumnSpan="2" Margin="0,0,0,-2">
-                <Button x:Name="Back_fromEmail" Content="Back" HorizontalAlignment="right" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Height="20" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnAccount" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource Bender}" BorderThickness="1" FontSize="12"/>
-                <Label Content="Change Email(Login)." HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
-                <Label Content="New Email(login)" HorizontalAlignment="Center" Margin="45,71,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
-                <TextBox x:Name="NewEmail" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="45,95,45,0" Foreground="#FFDDDDDD" Background="#00404040" FontFamily="{DynamicResource Bender}"/>
-                <Button x:Name="SaveEmail" Content="Save" HorizontalAlignment="Center" Margin="95,169,95,0" VerticalAlignment="Top" Width="100" Height="40" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnSaveProfile_Email" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource Bender}" BorderThickness="1" FontSize="16"/>
+                <Button x:Name="Back_fromEmail" Content="Back" HorizontalAlignment="right" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Height="20" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnAccount" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" BorderThickness="1" FontSize="12"/>
+                <Label Content="Change Email(Login)." HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
+                <Label Content="New Email(login)" HorizontalAlignment="Center" Margin="45,71,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
+                <TextBox x:Name="NewEmail" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="45,95,45,0" Foreground="#FFDDDDDD" Background="#00404040" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
+                <Button x:Name="SaveEmail" Content="Save" HorizontalAlignment="Center" Margin="95,169,95,0" VerticalAlignment="Top" Width="100" Height="40" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnSaveProfile_Email" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" BorderThickness="1" FontSize="16"/>
             </Grid>
             <!-- Account / ChangePassword grid -->
             <Grid x:Name="ChangePasswordGrid" HorizontalAlignment="Left" Height="342" VerticalAlignment="Top" Width="290" d:IsHidden="true" Grid.ColumnSpan="2" Margin="0,0,0,-2">
-                <Button x:Name="Back_fromPassword" Content="Back" HorizontalAlignment="right" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Height="20" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnAccount" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource Bender}" BorderThickness="1" FontSize="12"/>
-                <Label Content="Change Password." HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
-                <Label Content="Password" HorizontalAlignment="Center" Margin="45,71,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
-                <TextBox x:Name="NewPassword" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="45,95,45,0" Foreground="#FFDDDDDD" Background="#00404040"  FontFamily="{DynamicResource Bender}"/>
-                <Button x:Name="SavePassword" Content="Save" HorizontalAlignment="Center" Margin="95,169,95,0" VerticalAlignment="Top" Width="100" Height="40" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnSaveProfile_Password" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource Bender}" BorderThickness="1" FontSize="16"/>
+                <Button x:Name="Back_fromPassword" Content="Back" HorizontalAlignment="right" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Height="20" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnAccount" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" BorderThickness="1" FontSize="12"/>
+                <Label Content="Change Password." HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
+                <Label Content="Password" HorizontalAlignment="Center" Margin="45,71,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
+                <TextBox x:Name="NewPassword" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="45,95,45,0" Foreground="#FFDDDDDD" Background="#00404040"  FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
+                <Button x:Name="SavePassword" Content="Save" HorizontalAlignment="Center" Margin="95,169,95,0" VerticalAlignment="Top" Width="100" Height="40" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnSaveProfile_Password" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" BorderThickness="1" FontSize="16"/>
             </Grid>
             <!-- Account / ChangeNick grid -->
             <Grid x:Name="ChangeNicknameGrid" HorizontalAlignment="Left" Height="342" VerticalAlignment="Top" Width="290" d:IsHidden="true" Grid.ColumnSpan="2" Margin="0,0,0,-2">
-                <Button x:Name="Back_fromNickname" Content="Back" HorizontalAlignment="right" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Height="20" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnAccount" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource Bender}" BorderThickness="1" FontSize="12"/>
-                <Label Content="Change Nickname." HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
-                <Label Content="Nickname" HorizontalAlignment="Center" Margin="45,71,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
-                <TextBox x:Name="NewNickname" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="45,95,45,0" Foreground="#FFDDDDDD" Background="#00404040"  FontFamily="{DynamicResource Bender}"/>
-                <Button x:Name="SaveNickname" Content="Save" HorizontalAlignment="Center" Margin="95,169,95,0" VerticalAlignment="Top" Width="100" Height="40" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnSaveProfile_Nickname" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource Bender}" BorderThickness="1" FontSize="16"/>
+                <Button x:Name="Back_fromNickname" Content="Back" HorizontalAlignment="right" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Height="20" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnAccount" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" BorderThickness="1" FontSize="12"/>
+                <Label Content="Change Nickname." HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
+                <Label Content="Nickname" HorizontalAlignment="Center" Margin="45,71,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
+                <TextBox x:Name="NewNickname" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="45,95,45,0" Foreground="#FFDDDDDD" Background="#00404040"  FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
+                <Button x:Name="SaveNickname" Content="Save" HorizontalAlignment="Center" Margin="95,169,95,0" VerticalAlignment="Top" Width="100" Height="40" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnSaveProfile_Nickname" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" BorderThickness="1" FontSize="16"/>
 
             </Grid>
             <!-- Account / log in / Appeariance grid -->
             <Grid x:Name="ChangeAppearanceGrid" HorizontalAlignment="Left" Height="342" VerticalAlignment="Top" Width="295" d:IsHidden="true" Grid.ColumnSpan="2" Margin="0,0,-2,-2">
-                <Button x:Name="Back_fromAppeariance" Content="Back" HorizontalAlignment="right" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Height="20" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnAccount" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource Bender}" BorderThickness="1" FontSize="12"/>
+                <Button x:Name="Back_fromAppeariance" Content="Back" HorizontalAlignment="right" Margin="0,0,0,0" VerticalAlignment="Top" Width="50" Height="20" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnAccount" Template="{DynamicResource ButtonTemplates}"  FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" BorderThickness="1" FontSize="12"/>
                 <!-- head -->
-                <ComboBox x:Name="ChangeHead" HorizontalAlignment="Left" Margin="44,40,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource Bender}" SelectionChanged="ChangeHead_SelectionChanged">
+                <ComboBox x:Name="ChangeHead" HorizontalAlignment="Left" Margin="44,40,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" SelectionChanged="ChangeHead_SelectionChanged">
                     <ComboBoxItem Content="Head 1" IsSelected="True"/>
                     <ComboBoxItem Content="Head 2"/>
                     <ComboBoxItem Content="Head 3"/>
@@ -302,11 +302,11 @@
                     <ComboBoxItem Content="Head 9"/>
                     <ComboBoxItem Content="Head 10"/>
                 </ComboBox>
-                <Label Content="Head" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="64,16,0,0" VerticalAlignment="Top" Width="43" Height="24" FontFamily="{DynamicResource Bender}"/>
+                <Label Content="Head" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="64,16,0,0" VerticalAlignment="Top" Width="43" Height="24" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
                 <Image x:Name="HeadImage" Source="pack://application:,,,/Resources/Images/character/head/bear_head.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="44,60,0,0" VerticalAlignment="Top" />
 
                 <!-- hands -->
-                <ComboBox x:Name="ChangeHands" HorizontalAlignment="Left" Margin="169,40,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource Bender}" SelectionChanged="ChangeHands_SelectionChanged">
+                <ComboBox x:Name="ChangeHands" HorizontalAlignment="Left" Margin="169,40,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" SelectionChanged="ChangeHands_SelectionChanged">
                     <ComboBoxItem Content="Hands 1" IsSelected="True"/>
                     <ComboBoxItem Content="Hands 2"/>
                     <ComboBoxItem Content="Hands 3"/>
@@ -314,11 +314,11 @@
                     <ComboBoxItem Content="Hands 5"/>
                     <ComboBoxItem Content="Hands 6"/>
                 </ComboBox>
-                <Label Content="Hands" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="186,16,0,0" VerticalAlignment="Top" Width="44" Height="24" FontFamily="{DynamicResource Bender}"/>
+                <Label Content="Hands" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="186,16,0,0" VerticalAlignment="Top" Width="44" Height="24" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
                 <Image x:Name="HandsImage" Source="pack://application:,,,/Resources/Images/character/hands/bear_hands_skin.png" HorizontalAlignment="Left" Height="95" Width="80"  Margin="169,60,0,0" VerticalAlignment="Top" />
 
                 <!-- body -->
-                <ComboBox x:Name="ChangeBody" HorizontalAlignment="Left" Margin="169,178,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource Bender}" SelectionChanged="ChangeBody_SelectionChanged">
+                <ComboBox x:Name="ChangeBody" HorizontalAlignment="Left" Margin="169,178,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" SelectionChanged="ChangeBody_SelectionChanged">
                     <ComboBoxItem Content="Body 1" IsSelected="True"/>
                     <ComboBoxItem Content="Body 2"/>
                     <ComboBoxItem Content="Body 3"/>
@@ -331,11 +331,11 @@
                     <ComboBoxItem Content="Body 10"/>
                     <ComboBoxItem Content="Body 11"/>
                 </ComboBox>
-                <Label Content="Body" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="189,155,0,0" VerticalAlignment="Top" Width="43" Height="23" FontFamily="{DynamicResource Bender}"/>
+                <Label Content="Body" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="189,155,0,0" VerticalAlignment="Top" Width="43" Height="23" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
                 <Image x:Name="BodyImage" Source="pack://application:,,,/Resources/Images/character/body/bear_body.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="169,198,0,0" VerticalAlignment="Top"/>
 
                 <!-- legs -->
-                <ComboBox x:Name="ChangeLegs" HorizontalAlignment="Left" Margin="44,178,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource Bender}" SelectionChanged="ChangeLegs_SelectionChanged">
+                <ComboBox x:Name="ChangeLegs" HorizontalAlignment="Left" Margin="44,178,0,0" VerticalAlignment="Top" Width="80" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" SelectionChanged="ChangeLegs_SelectionChanged">
                     <ComboBoxItem Content="Legs 1" IsSelected="True"/>
                     <ComboBoxItem Content="Legs 2"/>
                     <ComboBoxItem Content="Legs 3"/>
@@ -347,118 +347,119 @@
                     <ComboBoxItem Content="Legs 9"/>
                     <ComboBoxItem Content="Legs 10"/>
                 </ComboBox>
-                <Label Content="Legs" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="66,155,0,0" VerticalAlignment="Top" Width="44" Height="23" FontFamily="{DynamicResource Bender}"/>
+                <Label Content="Legs" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="66,155,0,0" VerticalAlignment="Top" Width="44" Height="23" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
                 <Image x:Name="LegsImage" Source="pack://application:,,,/Resources/Images/character/legs/bear_feet.png" HorizontalAlignment="Left" Height="95" Width="80" Margin="44,198,0,0" VerticalAlignment="Top" />
 
                 <!-- buttons -->
-                <Button x:Name="ConfirmChangeAppearance" Content="Change" HorizontalAlignment="Right" Margin="0,314.398,106.391,0" VerticalAlignment="Top" Width="75" Height="25" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnAppearanceChange" Template="{DynamicResource ButtonTemplates}" FontFamily="{DynamicResource Bender}" />
+                <Button x:Name="ConfirmChangeAppearance" Content="Change" HorizontalAlignment="Right" Margin="0,314.398,106.391,0" VerticalAlignment="Top" Width="75" Height="25" Foreground="#FFDDDDDD" Background="#00404040" BorderBrush="#FFABADB3" Click="OnAppearanceChange" Template="{DynamicResource ButtonTemplates}" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" />
             </Grid>
             <!-- Server / general grid -->
             <Grid x:Name="ServerGeneralGrid" HorizontalAlignment="Left" Height="342" VerticalAlignment="Top" Width="290" d:IsHidden="true" Grid.ColumnSpan="2" Margin="0,0,0,-2">
-                <Label Content="/ Server / Settings" HorizontalAlignment="Center" Margin="0,0,20,0" VerticalAlignment="Top" Foreground="White" Width="270" FontFamily="{DynamicResource Bender}" FontSize="10" Height="25"/>
+                <Label Content="/ Server / Settings" HorizontalAlignment="Center" Margin="0,0,20,0" VerticalAlignment="Top" Foreground="White" Width="270" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" FontSize="10" Height="25"/>
 
                 <!-- port -->
+                <Label Content="Port" FontSize="16" HorizontalAlignment="Center" Margin="45,27,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
+                <TextBox x:Name="Port" HorizontalAlignment="Center" VerticalContentAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="45,52,45,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangePort" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" />
                 <!-- ip -->
-                <Label Content="Backend URL" FontSize="16" HorizontalAlignment="Center" Margin="45,66,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource Bender}"/>
-                <TextBox x:Name="BackendIP" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="45,91,45,0" Foreground="#FFDDDDDD" Background="#00404040"  FontFamily="{DynamicResource Bender}"/>
+                <Label Content="IP" FontSize="16" HorizontalAlignment="Center" Margin="45,83,45,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
+                <TextBox x:Name="BackendIP" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="45,108,45,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeBackendIP"  FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
                 <!-- additional info texts -->
-                <Label Content="Do not change this." HorizontalAlignment="Center" Height="23" Margin="10,24,36,0" VerticalAlignment="Top" Width="244" Background="Transparent" Foreground="#FF909090" BorderBrush="#00A8ADB3" FontFamily="{DynamicResource Bender}"/>
-                <Label Content="Its only for preview what server is setted to." HorizontalAlignment="Center" Height="23" Margin="10,44,36,0" VerticalAlignment="Top" Width="244" Background="Transparent" Foreground="#FF909090" BorderBrush="#00A8ADB3" FontFamily="{DynamicResource Bender}"/>
-                <Label Content="Default game backendUrl:" HorizontalAlignment="Center" Height="23" Margin="35,133,30,0" VerticalAlignment="Top" Width="225" Background="Transparent" Foreground="#FF909090" BorderBrush="#00A8ADB3" FontFamily="{DynamicResource Bender}"/>
-                <Label Content="https://prod.escapefromtarkov.com" HorizontalAlignment="Center" Height="23" Margin="35,153,30,0" VerticalAlignment="Top" Width="225" Background="Transparent" Foreground="#FF909090" BorderBrush="#00A8ADB3" FontFamily="{DynamicResource Bender}"/>
+                <Label Content="Additional informations:" HorizontalAlignment="Center" Height="23" Margin="16,157,30,0" VerticalAlignment="Top" Width="244" Background="Transparent" Foreground="#FF909090" BorderBrush="#00A8ADB3" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
+                <Label Content="No info yet." HorizontalAlignment="Center" Height="23" Margin="35,180,30,0" VerticalAlignment="Top" Width="225" Background="Transparent" Foreground="#FF909090" BorderBrush="#00A8ADB3" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
             </Grid>
             <!-- Server / bots grid -->
             <Grid x:Name="ServerBotsGrid" HorizontalAlignment="Left" Height="342" VerticalAlignment="Top" Width="290" Margin="0,0,0,-2" d:IsHidden="true" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-
+                <Label Content="Please change settings in server.config.json file" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Width="260" Foreground="#FFDDDDDD" Height="101"/>
+                <Label Content="directly next to Server Executable file." HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Width="260" Foreground="#FFDDDDDD" Height="101"/>
                 <!-- PMC war -->
-                <GroupBox Header=" PMC War" HorizontalAlignment="Left" Height="59.667" Margin="10,-0.005,0,0" VerticalAlignment="Top" Width="263.775" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" Template="{DynamicResource GroupBoxTemplate}" FontFamily="{DynamicResource Bender}">
+                <!--<GroupBox Header=" PMC War" HorizontalAlignment="Left" Height="59.667" Margin="10,-0.005,0,0" VerticalAlignment="Top" Width="263.775" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" Template="{DynamicResource GroupBoxTemplate}" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}">
                     <Grid HorizontalAlignment="Center" Height="36.666" VerticalAlignment="Top" Width="255" Margin="-1.5,0">
-                        <!-- enable -->
+                        <!- - enable - ->
                         <Label Content="Enabled" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" Width="73" Foreground="#FFDDDDDD"/>
                         <CheckBox x:Name="PmcWarEnabled" HorizontalAlignment="Left" Margin="84.6,9.6,0,0" VerticalAlignment="Top" Foreground="#FFDDDDDD" BorderBrush="#FFABADB3" Width="26.405" RenderTransformOrigin="0.829,0.525" Height="18.666" Click="OnChangePmcWarEnabled" Background="#00404040"/>
 
-                        <!-- side usec chance -->
+                        <!- - side usec chance - ->
                         <Label Content="USEC chance" HorizontalAlignment="Left" Margin="119,5,0,0" VerticalAlignment="Top" Width="80" Foreground="#FFDDDDDD"/>
                         <TextBox x:Name="PmcWarUsecChance" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="37.733" Margin="207.042,5.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangePmcWarUsecChance" TextAlignment="Center" />
                     </Grid>
                 </GroupBox>
 
-                <!-- bot limits -->
-                <GroupBox Header=" Limits" HorizontalAlignment="Left" Height="122.667" Margin="10,68.66,0,0" VerticalAlignment="Top" Width="263.775" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" Template="{DynamicResource GroupBoxTemplate}" FontFamily="{DynamicResource Bender}">
+                <!- - bot limits - ->
+                <GroupBox Header=" Limits" HorizontalAlignment="Left" Height="122.667" Margin="10,68.66,0,0" VerticalAlignment="Top" Width="263.775" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" Template="{DynamicResource GroupBoxTemplate}" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}">
                     <Grid HorizontalAlignment="Center" Height="97.332" VerticalAlignment="Top" Width="255">
-                        <!-- boss killa -->
+                        <!- - boss killa - ->
                         <Label Content="Killa" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFDDDDDD"/>
                         <TextBox x:Name="LimitKilla" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="77,8.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLimitKilla" TextAlignment="Center" />
 
-                        <!-- boss bully -->
+                        <!- - boss bully - ->
                         <Label Content="Bully" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFDDDDDD"/>
                         <TextBox x:Name="LimitBully" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="77,36.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLimitBully" TextAlignment="Center" />
 
-                        <!-- bully followers -->
+                        <!- - bully followers - ->
                         <Label Content="Followers" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFDDDDDD"/>
                         <TextBox x:Name="LimitBullyFollowers" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="77,64.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLimitBullyFollower" TextAlignment="Center" />
 
-                        <!-- marksman -->
+                        <!- - marksman - ->
                         <Label Content="Marksman" HorizontalAlignment="Left" Margin="133,8,0,0" VerticalAlignment="Top" Width="69" Foreground="#FFDDDDDD"/>
                         <TextBox x:Name="LimitMarksman" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,8.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLimitMarksman" TextAlignment="Center" />
 
-                        <!-- raiders -->
+                        <!- - raiders - ->
                         <Label Content="Raider" HorizontalAlignment="Left" Margin="133,36,0,0" VerticalAlignment="Top" Width="69" Foreground="#FFDDDDDD"/>
                         <TextBox x:Name="LimitPmcBot" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,36.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLimitPmcBot" TextAlignment="Center" />
 
-                        <!-- scavs -->
+                        <!- - scavs - ->
                         <Label Content="Scav" HorizontalAlignment="Left" Margin="133,65,0,0" VerticalAlignment="Top" Width="69" Foreground="#FFDDDDDD"/>
                         <TextBox x:Name="LimitScav" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="207.667,64.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeLimitScav" TextAlignment="Center" />
                     </Grid>
                 </GroupBox>
 
-                <GroupBox Header=" Spawn" HorizontalAlignment="Left" Height="138.741" Margin="10,197.325,0,0" VerticalAlignment="Top" Width="263.775" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" Template="{DynamicResource GroupBoxTemplate}" FontFamily="{DynamicResource Bender}">
+                <GroupBox Header=" Spawn" HorizontalAlignment="Left" Height="138.741" Margin="10,197.325,0,0" VerticalAlignment="Top" Width="263.775" Foreground="White" BorderBrush="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" Template="{DynamicResource GroupBoxTemplate}" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}">
                     <Grid HorizontalAlignment="Center" Height="120" VerticalAlignment="Top" Width="255" Margin="0,0,0,0">
-                        <!-- glasses -->
+                        <!- - glasses - ->
                         <Label Content="Glasses" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
                         <TextBox x:Name="SpawnGlasses" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,6.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeSpawnGlasses" TextAlignment="Center" />
 
-                        <!-- face cover -->
+                        <!- - face cover - ->
                         <Label Content="Face cover" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
                         <TextBox x:Name="SpawnFaceCover" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,34.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeSpawnFaceCover" TextAlignment="Center" />
 
-                        <!-- backpack -->
+                        <!- - backpack - ->
                         <Label Content="Backpack" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
                         <TextBox x:Name="SpawnBackpack" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,62.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeSpawnBackpack" TextAlignment="Center" />
 
-                        <!-- armor vest -->
+                        <!- - armor vest - ->
                         <Label Content="Armor / vests" HorizontalAlignment="Left" Margin="124,6,0,0" VerticalAlignment="Top" Width="85" Foreground="#FFDDDDDD"/>
                         <TextBox x:Name="SpawnArmorVest" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,6.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeSpawnArmorVest" TextAlignment="Center" />
 
-                        <!-- meds pockets -->
+                        <!- - meds pockets - ->
                         <Label Content="Meds pockets" HorizontalAlignment="Left" Margin="123,34,0,0" VerticalAlignment="Top" Width="85" Foreground="#FFDDDDDD"/>
                         <TextBox x:Name="SpawnMedPocket" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,34.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeSpawnMedsPocket" TextAlignment="Center" />
 
-                        <!-- item pockets -->
+                        <!- - item pockets - ->
                         <Label Content="Item pockets" HorizontalAlignment="Left" Margin="126,62,0,0" VerticalAlignment="Top" Width="82" Foreground="#FFDDDDDD"/>
                         <TextBox x:Name="SpawnItemPocket" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="208.667,62.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeSpawnItemPocket" TextAlignment="Center" />
 
-                        <!-- headwear -->
+                        <!- - headwear - ->
                         <Label Content="Headwear" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top" Width="68" Foreground="#FFDDDDDD"/>
                         <TextBox x:Name="SpawnHeadwear" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Margin="78,90.666,0,0" Foreground="#FFDDDDDD" Background="#00404040" TextChanged="OnChangeSpawnHeadwear" TextAlignment="Center" />
                     </Grid>
-                </GroupBox>
+                </GroupBox>-->
             </Grid>
             <!-- Server / weather grid -->
-            <Grid x:Name="ServerWeatherGrid" HorizontalAlignment="Left" Width="290" d:IsHidden="true" Grid.ColumnSpan="2" Margin="0,0,0,6">
-                <Label Content="Weather: still not implemented... awaits..." HorizontalAlignment="Center" Margin="10,5,10,0" VerticalAlignment="Top" Width="270" Foreground="#FFDDDDDD" FontSize="15" FontFamily="{DynamicResource Bender}" Height="68"/>
+            <Grid x:Name="ServerWeatherGrid" HorizontalAlignment="Left" Width="290" d:IsHidden="false" Grid.ColumnSpan="2" Margin="0,0,0,6">
+                <Label Content="Weather: still not implemented... awaits..." HorizontalAlignment="Center" Margin="10,5,10,0" VerticalAlignment="Top" Width="270" Foreground="#FFDDDDDD" FontSize="14" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" Height="68"/>
             </Grid>
             <!-- settings grid-->
             <Grid x:Name="SettingsGrid" HorizontalAlignment="Left" Height="342" VerticalAlignment="Top" Width="290" d:IsHidden="true" Grid.ColumnSpan="2" Margin="0,0,0,-2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="/ Settings" HorizontalAlignment="Center" Margin="0,0,20,0" VerticalAlignment="Top" Foreground="White" Width="270" FontFamily="{DynamicResource Bender}" FontSize="10" Height="25"/>
+                <Label Content="/ Settings" HorizontalAlignment="Center" Margin="0,0,20,0" VerticalAlignment="Top" Foreground="White" Width="270" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" FontSize="10" Height="25"/>
 
-                <GroupBox Header=" Client" FontSize="16" HorizontalAlignment="Center" Height="126" Margin="20,27,20,0" VerticalAlignment="Top" Width="250" Foreground="White" BorderBrush="#FF404040" FontFamily="{DynamicResource Bender}">
+                <GroupBox Header=" Client" FontSize="16" HorizontalAlignment="Center" Height="126" Margin="20,27,20,0" VerticalAlignment="Top" Width="250" Foreground="White" BorderBrush="#FF404040" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}">
                     <Grid HorizontalAlignment="Center" Height="95" Margin="-1,0" VerticalAlignment="Top" Width="240">
                         <!-- client location -->
                         <Label Content="Location" FontSize="16" HorizontalAlignment="Center" Margin="20,-4,20,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD" Height="27"/>
@@ -472,7 +473,7 @@
                     </Grid>
                 </GroupBox>
                 <GroupBox Header=" Server" FontSize="16" HorizontalAlignment="Center" Height="126
-                          " Margin="20,158,20,0" VerticalAlignment="Top" Width="250" Foreground="White" BorderBrush="#FF404040" FontFamily="{DynamicResource Bender}">
+                          " Margin="20,158,20,0" VerticalAlignment="Top" Width="250" Foreground="White" BorderBrush="#FF404040" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}">
                     <Grid HorizontalAlignment="Center" Height="94" Margin="-1,0" VerticalAlignment="Top" Width="240">
                         <!-- server location -->
                         <Label Content="Location" FontSize="16" HorizontalAlignment="Center" Margin="20,-3,20,0" VerticalAlignment="Top" Width="200" Foreground="#FFDDDDDD"/>
@@ -485,20 +486,20 @@
                                  Margin="10,69,60,0" Foreground="#FFDDDDDD" Background="#00000000" TextChanged="OnChangeServerFilename" />
                     </Grid>
                 </GroupBox>
-                <ComboBox x:Name="ScreenMode" HorizontalAlignment="Center" Margin="149,306,25,0" VerticalAlignment="Top" Width="116" FontFamily="{DynamicResource Bender}" DropDownClosed="ScreenMode_DropDownClosed">
+                <ComboBox x:Name="ScreenMode" HorizontalAlignment="Center" Margin="149,306,25,0" VerticalAlignment="Top" Width="116" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" DropDownClosed="ScreenMode_DropDownClosed">
                     <ComboBoxItem Content="Do not change" IsSelected="True"/>
                     <ComboBoxItem Content="Fullscreen"/>
                     <ComboBoxItem Content="Borderless"/>
                     <ComboBoxItem Content="Windowed"/>
                 </ComboBox>
-                <Label Content="Game screen mode:" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="20,302,0,0" VerticalAlignment="Top" Width="116" Height="24" FontFamily="{DynamicResource Bender}"/>
+                <Label Content="Game screen mode:" Foreground="#FFDDDDDD" HorizontalAlignment="Left" Margin="20,302,0,0" VerticalAlignment="Top" Width="116" Height="24" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
 
             </Grid>
         </Grid>
         <Grid x:Name="ErrorGrid" HorizontalAlignment="Left" Height="34" Margin="23,40,0,0" VerticalAlignment="Top" Width="381" Background="#CF000000" Panel.ZIndex="11" Grid.ColumnSpan="2">
             <Image HorizontalAlignment="Left" Source="../data/images/error/icon_error.png" Height="30" Margin="10,2,0,2" VerticalAlignment="Top" Width="30" Stretch="Fill"/>
             <!-- error goes here below add new line if needed "&#x0a;" 66-67(font:11) and 62(font:12) chars is new line for making responsive height or error log [Info for Maoci] -->
-            <TextBlock x:Name="ErrorText" HorizontalAlignment="Left" Margin="45,10,0,0" TextWrapping="Wrap" Text="No Errors" VerticalAlignment="Top" Height="14" Width="326" FontFamily="{DynamicResource Bender}" FontSize="12" Foreground="#FFD11111"/>
+            <TextBlock x:Name="ErrorText" HorizontalAlignment="Left" Margin="45,10,0,0" TextWrapping="Wrap" Text="No Errors" VerticalAlignment="Top" Height="14" Width="326" FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" FontSize="11" Foreground="#FFD11111"/>
         </Grid>
     </Grid>
 </Window>

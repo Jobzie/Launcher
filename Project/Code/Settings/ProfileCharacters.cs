@@ -16,7 +16,7 @@ namespace Launcher.Code.Settings
         dynamic profile_content = new ExpandoObject();// = JsonConvert.DeserializeObject(data);
         public ProfileCharacters(string filepath, string filename = "") // last parameter is for object oriented return
         {
-            this.FullFilepath = filepath + @"\character.json";
+            this.FullFilepath = filepath;
             if (File.Exists(this.FullFilepath))
             {
                 using (StreamReader sr = new StreamReader(FullFilepath))
@@ -67,16 +67,16 @@ namespace Launcher.Code.Settings
             switch (Part)
             {
                 case "Head":
-                    prepare = profile_content.data[1].Customization.Head.path;
+                    prepare = profile_content.Customization.Head.path;
                     break;
                 case "Body":
-                    prepare = profile_content.data[1].Customization.Body.path;
+                    prepare = profile_content.Customization.Body.path;
                     break;
                 case "Feet":
-                    prepare = profile_content.data[1].Customization.Feet.path;
+                    prepare = profile_content.Customization.Feet.path;
                     break;
                 case "Hands":
-                    prepare = profile_content.data[1].Customization.Hands.path;
+                    prepare = profile_content.Customization.Hands.path;
                     break;
             }
             prepare = prepare.Replace("assets/content/characters/character/prefabs/", "").Replace(".bundle", "");
@@ -85,37 +85,37 @@ namespace Launcher.Code.Settings
         public void SaveCharacterCustomization(string Part, string value) {
             switch (Part) {
                 case "Head":
-                    profile_content.data[1].Customization.Head.path = value;
+                    profile_content.Customization.Head.path = value;
                     break;
                 case "Body":
-                    profile_content.data[1].Customization.Body.path = value;
+                    profile_content.Customization.Body.path = value;
                     break;
                 case "Feet":
-                    profile_content.data[1].Customization.Feet.path = value;
+                    profile_content.Customization.Feet.path = value;
                     break;
                 case "Hands":
-                    profile_content.data[1].Customization.Hands.path = value;
+                    profile_content.Customization.Hands.path = value;
                     break;
             }
             Save();
         }
         public string GetNickname()
         {
-            return profile_content.data[1].Info.Nickname;
+            return profile_content.Info.Nickname;
         }
         public void SetProfileID(int i)
         {
-            profile_content.data[1].aid = i;
+            profile_content.aid = i;
             Save();
         }
         public void ChangeNickname(string newName, int profType = 1) {
-            profile_content.data[profType].Info.Nickname = newName;
-            profile_content.data[profType].Info.LowerNickname = newName.Replace(" ","").ToLower();
+            profile_content.Info.Nickname = newName;
+            profile_content.Info.LowerNickname = newName.Replace(" ","").ToLower();
             Save();
         }
 
         public void ChangeSide(string newSide, int profType = 1) {
-            profile_content.data[profType].Info.Side = newSide;
+            profile_content.Info.Side = newSide;
             Save();
         }
 }

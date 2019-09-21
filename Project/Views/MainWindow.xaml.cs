@@ -65,7 +65,7 @@ namespace Launcher
 
             Bg1.Source = _lstImages[_intCurrentImageIndex];
             _tmr.Interval = new TimeSpan(0, 1, 0);
-            _tmr.Tick += new EventHandler(BackgroundUpdater);
+            _tmr.Tick += new EventHandler(Timer_Tick);
             _tmr.Start();
             #endregion
             #region Updater
@@ -84,7 +84,7 @@ namespace Launcher
         }
 
         #region TIMERs
-        void BackgroundUpdater(object sender, EventArgs e)
+        void Timer_Tick(object sender, EventArgs e)
         {
             Image imgSet;
             Image imgOther;
@@ -114,10 +114,8 @@ namespace Launcher
         }
         void Auto_update_1sec(object sender, EventArgs e)
         {
-            CheckAllErrors();
             DisplayErrors();
             //update server each second if its changed
-
             if (!ErrorHandler.isError(102))
             {
                 if (laucherSettings.GetClientLocation() != serverSettings.GetClientLocation())
@@ -173,6 +171,8 @@ namespace Launcher
             private void LoadAllSettings()
                 {
                     laucherSettings = new LauncherSettings();
+                    BackendIP.Text = laucherSettings.LoadIP();
+                    Port.Text = laucherSettings.LoadPort();
                     ScreenMode.SelectedIndex = laucherSettings.GetScreenMode();
                 //replace names if no error exist for client and server
                     if (!ErrorHandler.isError(101))
@@ -180,7 +180,7 @@ namespace Launcher
                     if (!ErrorHandler.isError(102))
                     {
                         serverWatcher.ChangeAppName(laucherSettings.GetServerFilename());
-                        serverSettings = new ServerSettings(laucherSettings.GetServerLocation() + @"\data");
+                        serverSettings = new ServerSettings(laucherSettings.GetServerLocation() + @"\");
                         ProfileSettings = new ProfileSettings(laucherSettings.GetServerLocation() + @"\data\profiles");
                     }
                 }
@@ -264,31 +264,23 @@ namespace Launcher
 
         private void OnServerGeneral(object sender, RoutedEventArgs e)
         {
-            if (!ErrorHandler.isError(102))
-            {
-                HideAllGrids();
-                ServerGeneralGrid.Visibility = Visibility.Visible;
-                LoadServerGeneralSettings();
-            }
+            HideAllGrids();
+            ServerGeneralGrid.Visibility = Visibility.Visible;
+            LoadServerGeneralSettings();
         }
 
         private void OnServerBots(object sender, RoutedEventArgs e)
         {
-            if (!ErrorHandler.isError(102))
-            {
-                HideAllGrids();
-                ServerBotsGrid.Visibility = Visibility.Visible;
-                LoadServerBotsSettings();
-            }
+            HideAllGrids();
+            ServerBotsGrid.Visibility = Visibility.Visible;
+            LoadServerBotsSettings();
         }
 
         private void OnServerWeather(object sender, RoutedEventArgs e)
         {
-            if (!ErrorHandler.isError(102))
-            {
-                HideAllGrids();
-                ServerWeatherGrid.Visibility = Visibility.Visible;
-            }
+            HideAllGrids();
+            ServerWeatherGrid.Visibility = Visibility.Visible;
+
             // need more code here :)
         }
 
@@ -303,9 +295,15 @@ namespace Launcher
         #region APPLICATION_START - START BUTTONS HANDLER
         private void OnStartClient(object sender, RoutedEventArgs e)
         {
-            if (Tools.ExistF(laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe"))
+            string check_client_file = laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe";
+            if (!File.Exists(check_client_file))
+            {
+                ErrorHandler.AddError(ErrorType.error_Client_noLocation);
+            }
+            else
             {
                 ErrorHandler.RemoveError(ErrorType.error_Client_noLocation);
+                // allow only one instance to run
                 if (clientWatcher.IsProcessAlive())
                 {
                     ErrorHandler.AddError(ErrorType.error_ClientAlreadyRunning);
@@ -313,29 +311,23 @@ namespace Launcher
                 else
                 {
                     ErrorHandler.RemoveError(ErrorType.error_ClientAlreadyRunning);
-                    if (Tools.ExistF(laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe"))
-                    {
-                        ClientStarter starter = new ClientStarter(laucherSettings.GetClientLocation(), serverSettings.GetServerBackend(), laucherSettings.GetEmail(), laucherSettings.GetPassword(), laucherSettings.GetClientFilename(), CreateArguments());
-                    }
-                    else
-                    {
-                        ErrorHandler.AddError(ErrorType.error_Server_noLocation);
-                    }
+                    ClientStarter starter = new ClientStarter(laucherSettings.GetClientLocation(), laucherSettings.PrepareBackendURL(), laucherSettings.GetEmail(), laucherSettings.GetPassword(), laucherSettings.GetClientFilename(), CreateArguments());
                 }
-            }
-            else
-            {
-                ErrorHandler.AddError(ErrorType.error_Client_noLocation);
             }
             DisplayErrors();
         }
 
         private void OnStartServer(object sender, RoutedEventArgs e)
         {
-            string check = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
-            if (Tools.ExistF(check))
+            string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
+            if (!File.Exists(check_server_file))
+            {
+                ErrorHandler.AddError(ErrorType.error_Client_noLocation);
+            }
+            else
             {
                 ErrorHandler.RemoveError(ErrorType.error_Server_noLocation);
+                // allow only one instance to run
                 if (serverWatcher.IsProcessAlive())
                 {
                     ErrorHandler.AddError(ErrorType.error_ServerAlreadyRunning);
@@ -345,11 +337,6 @@ namespace Launcher
                     ErrorHandler.RemoveError(ErrorType.error_ServerAlreadyRunning);
                     ServerStarter starter = new ServerStarter(laucherSettings.GetServerLocation(), laucherSettings.GetServerFilename());
                 }
-            }
-            else
-            {
-
-                ErrorHandler.AddError(ErrorType.error_Client_noLocation);
             }
             DisplayErrors();
         }
@@ -384,12 +371,14 @@ namespace Launcher
                 {
                     if (ProfileSettings.CheckLoginApprove(LoginEmail.Text, LoginPassword.Text))
                     {
-                        HideAllGrids();
+                        //LoggedProfile = new ProfileSettings(Path.Combine(laucherSettings.GetServerLocation(), "data/profiles/" + ProfileSettings.GetProfile(LoginEmail.Text, LoginPassword.Text).ToString()));
                         Set_LoginToken(LoginEmail.Text, LoginPassword.Text, true, 0);
-                        Characters = new ProfileCharacters(laucherSettings.GetServerLocation() + "/data/profiles/" + ProfileSettings.GetProfile(LoginToken.email, LoginToken.password));
+                        Characters = new ProfileCharacters(laucherSettings.GetServerLocation() + "/data/profiles/character_" + ProfileSettings.GetProfile(LoginToken.email, LoginToken.password) + ".json");
+                        HideAllGrids();
+                        AccountSettingsGrid.Visibility = Visibility.Visible;
                         LoadAccountSettings();
                         ErrorHandler.RemoveError(ErrorType.error_noUserLikeThis);
-                        AccountSettingsGrid.Visibility = Visibility.Visible;
+                        //LoggedIn = true;
                     }
                     else
                     {
@@ -409,11 +398,8 @@ namespace Launcher
         #region ACCOUNT_REGISTER - Handling Profile creator page
         private void OnRegister(object sender, RoutedEventArgs e)
         {
-            if (!ErrorHandler.isError(102))
-            {
-                HideAllGrids();
-                RegisterGrid.Visibility = Visibility.Visible;
-            }
+            HideAllGrids();
+            RegisterGrid.Visibility = Visibility.Visible;
         }
 
         private void OnCreateProfile(object sender, RoutedEventArgs e) {
@@ -426,17 +412,14 @@ namespace Launcher
             ProfileSettings.AddProfile(email, password);
             //create folder
             int ID = ProfileSettings.GetProfile(email, password);
-            string path = laucherSettings.GetServerLocation() + "/data/profiles/" + ID + "";
-                string charactersJSON = "/character.json";
-                string purchasesJSON = "/purchases.json";
+            string path = laucherSettings.GetServerLocation() + "/data/profiles";
+                string charactersJSON = "/character_"+ ID + ".json";
             Directory.CreateDirectory(Path.GetDirectoryName(path + charactersJSON));
-            Directory.CreateDirectory(Path.GetDirectoryName(path + purchasesJSON));
             //put contents into created files
             Uri charactersDefault = new Uri("pack://application:,,,/Resources/Data/characterDefault.json");
-            Uri purchasesDefault  = new Uri("pack://application:,,,/Resources/Data/purchasesDefault.json");
             Tools.SaveFileStream(charactersDefault, path + charactersJSON);
-            Tools.SaveFileStream(purchasesDefault, path + purchasesJSON);
             //edit character and release it
+            path = path + charactersJSON;
             ProfileCharacters tempCharacter = new ProfileCharacters(path);
             tempCharacter.ChangeNickname(nickname);
             tempCharacter.ChangeSide(side);
@@ -659,7 +642,22 @@ namespace Launcher
             LoadAllSettings();
                
             // load the settings
-            BackendIP.Text = serverSettings.GetServerBackend();
+            if(!ErrorHandler.isError(102))
+                Port.Text = serverSettings.GetServerPort();
+
+            BackendIP.Text = laucherSettings.LoadIP();
+        }
+
+        private void OnChangePort(object sender, RoutedEventArgs e)
+        {
+            laucherSettings.SavePort(Int32.Parse(Port.Text));
+            if (!ErrorHandler.isError(102))
+                serverSettings.SetServerPort(Port.Text);
+        }
+
+        private void OnChangeBackendIP(object sender, TextChangedEventArgs e)
+        {
+            laucherSettings.SaveIP(BackendIP.Text);
         }
         #endregion
 
@@ -668,12 +666,12 @@ namespace Launcher
             {
                 // reload config files
                 LoadAllSettings();
-                LoadBotsPmcWarSettings();
-                LoadBotsLimitSettings();
-                LoadBotsSpawnSettings();
+                //LoadBotsPmcWarSettings();
+                //LoadBotsLimitSettings();
+                //LoadBotsSpawnSettings();
       
             }
-        
+        /*
             #region BOTS_PMCWAR
                 private void LoadBotsPmcWarSettings()
                 {
@@ -805,6 +803,7 @@ namespace Launcher
                     serverSettings.SetBotsSpawnItemPocket(SpawnItemPocket.Text);
                 }
             #endregion
+        */
         #endregion
 
         #region LAUNCHER_SETTINGS
@@ -812,62 +811,83 @@ namespace Launcher
             {
                 // reload config files
                 LoadAllSettings();
+
+                // load the settings
                     //load locations
                 ClientLocation.Text = laucherSettings.GetClientLocation();
                 ServerLocation.Text = laucherSettings.GetServerLocation();
+                ScreenMode.SelectedIndex = laucherSettings.GetScreenMode();
                     //load filenames
                 ClientFileName.Text = laucherSettings.GetClientFilename();
                 ServerFileName.Text = laucherSettings.GetServerFilename();
-                    //load screenmode for game launch
-                ScreenMode.SelectedIndex = laucherSettings.GetScreenMode();
             }
 
         #region CLIENT INPUTS CHANGED
-            private void OnChangeClientLocation(object sender, TextChangedEventArgs e)
-            {
-                laucherSettings.SetClientLocation(ClientLocation.Text);
-                if (Tools.ExistF(laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe"))
-                    ErrorHandler.RemoveError(ErrorType.error_Client_noLocation);
-                else
-                    ErrorHandler.AddError(ErrorType.error_Client_noLocation);
-                DisplayErrors();
-                LoadAllSettings();
-            }
-            private void OnChangeClientFilename(object sender, TextChangedEventArgs e)
-            {
-                laucherSettings.SetClientFilename(ClientFileName.Text);
-                if (Tools.ExistF(laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe"))
+                private void OnChangeClientLocation(object sender, TextChangedEventArgs e)
                 {
-                    clientWatcher.ChangeAppName(laucherSettings.GetClientFilename());
-                    ErrorHandler.RemoveError(ErrorType.error_Client_noLocation);
-                }
-                else
+                    laucherSettings.SetClientLocation(ClientLocation.Text);
+                    string check_client_file = laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe";
+                if (!File.Exists(check_client_file))
                     ErrorHandler.AddError(ErrorType.error_Client_noLocation);
-                DisplayErrors();
-                LoadAllSettings();
-            }
+                else
+                {
+                ErrorHandler.RemoveError(ErrorType.error_Client_noLocation);
+                }
+                    DisplayErrors();
+                    LoadAllSettings();
+                }
+                private void OnChangeClientFilename(object sender, TextChangedEventArgs e)
+                {
+                    laucherSettings.SetClientFilename(ClientFileName.Text);
+                    string check_client_file = laucherSettings.GetClientLocation() + @"\" + laucherSettings.GetClientFilename() + ".exe";
+                    if (!File.Exists(check_client_file))
+                        ErrorHandler.AddError(ErrorType.error_Client_noLocation);
+                    else
+                    {
+                        clientWatcher.ChangeAppName(laucherSettings.GetClientFilename());
+                        ErrorHandler.RemoveError(ErrorType.error_Client_noLocation);
+                    }
+                    DisplayErrors();
+                    LoadAllSettings();
+                }
         #endregion
 
         #region SERVER INPUTS CHANGED
         private void OnChangeServerLocation(object sender, TextChangedEventArgs e)
         {
+
             laucherSettings.SetServerLocation(ServerLocation.Text);
-            if (Tools.ExistF(laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe"))
-                ErrorHandler.RemoveError(ErrorType.error_Server_noLocation);
-            else
+            
+            string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
+            LoadAllSettings();
+            if (!File.Exists(check_server_file))
                 ErrorHandler.AddError(ErrorType.error_Server_noLocation);
+            else
+            {
+            if (!ErrorHandler.isError(102))
+                if (laucherSettings.GetClientLocation() != serverSettings.GetClientLocation())
+                {
+                    serverSettings.SetClientLocation(laucherSettings.GetClientLocation());
+                }
+
+                ErrorHandler.RemoveError(ErrorType.error_Server_noLocation);
+            }
+            DisplayErrors();
             LoadAllSettings();
         }
         private void OnChangeServerFilename(object sender, TextChangedEventArgs e)
         {
             laucherSettings.SetServerFilename(ServerFileName.Text);
-            if (Tools.ExistF(laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe"))
+            string check_server_file = laucherSettings.GetServerLocation() + @"\" + laucherSettings.GetServerFilename() + ".exe";
+            LoadAllSettings();
+            if (!File.Exists(check_server_file))
+                ErrorHandler.AddError(ErrorType.error_Server_noLocation);
+            else
             {
                 serverWatcher.ChangeAppName(laucherSettings.GetServerFilename());
                 ErrorHandler.RemoveError(ErrorType.error_Server_noLocation);
             }
-            else
-                ErrorHandler.AddError(ErrorType.error_Server_noLocation);
+            DisplayErrors();
             LoadAllSettings();
         }
         #endregion
@@ -876,7 +896,7 @@ namespace Launcher
         #region Change Screen Mode
         public string MyDocumentsEFTSettings = "";
         dynamic profile_content = JsonConvert.DeserializeObject("{\"Resolution\":{\"Width\":1920,\"Height\":1080,\"RefreshRate\":60,\"IsWideScreen\":false},\"ResolutionIndex\":15,\"AspectRatio\":1,\"GraphicsQuality\":3,\"CustomGraphicsQuality\":false,\"MultimonitorSupport\":false,\"VSync\":0,\"IsFullscreen\":false,\"LobbyFramerate\":30,\"GameFramerate\":119,\"TextureQuality\":2,\"ShadowsQuality\":3,\"LightingQuality\":0,\"ObjectLodQuality\":0,\"ContactSSAO\":3,\"AnisotropicFiltering\":2,\"OverallVisibility\":5,\"ShadowVisibility\":17,\"Ssao\":2,\"Sharpen\":7,\"SSR\":0,\"AntiAliasing\":1,\"Bloom\":1,\"ChromaticAberrations\":1,\"Noise\":1,\"Hdr\":1,\"ZBlur\":1}");
-    
+
         //script to change client settings
         private void ScreenMode_DropDownClosed(object sender, EventArgs e)
         {
@@ -886,35 +906,28 @@ namespace Launcher
             {
                 laucherSettings.SetScreenMode(i);
                 string testDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Escape from Tarkov\";
-                if (Tools.ExistD(testDir))
+                if (!Directory.Exists(testDir))
                 {
                     MyDocumentsEFTSettings = testDir + @"local.ini";
-                    if (Tools.ExistF(MyDocumentsEFTSettings))
+                    using (StreamReader sr = new StreamReader(MyDocumentsEFTSettings))
                     {
-                        using (StreamReader sr = new StreamReader(MyDocumentsEFTSettings))
-                        {
-                            string json = sr.ReadToEnd();
-                            profile_content = JsonConvert.DeserializeObject(json);
-                        }
-                        bool changedFullScreen = true;
-                        if (i == 3 || i == 2) // for Windowed and Borderless
-                            changedFullScreen = false;
-
-                        if (i != 0)
-                            profile_content.IsFullscreen = changedFullScreen;
-
-                        JsonSerializer serializer = new JsonSerializer
-                        {
-                            NullValueHandling = NullValueHandling.Ignore
-                        };
-                        using (StreamWriter sw = new StreamWriter(MyDocumentsEFTSettings))
-                        {
-                            serializer.Serialize(sw, profile_content);
-                        }
+                        string json = sr.ReadToEnd();
+                        profile_content = JsonConvert.DeserializeObject(json);
                     }
-                    else
+                    bool changedFullScreen = true;
+                    if (i == 3 || i == 2) // for Windowed and Borderless
+                        changedFullScreen = false;
+
+                    if (i != 0)
+                        profile_content.IsFullscreen = changedFullScreen;
+
+                    JsonSerializer serializer = new JsonSerializer
                     {
-                        Console.WriteLine("Escape from Tarkov/local.ini not found");
+                        NullValueHandling = NullValueHandling.Ignore
+                    };
+                    using (StreamWriter sw = new StreamWriter(MyDocumentsEFTSettings))
+                    {
+                        serializer.Serialize(sw, profile_content);
                     }
                 }
             }
