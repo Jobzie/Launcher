@@ -1,1 +1,4 @@
-# JustEmuTarkov launcher 0.1.8
+# JustEmuTarkov launcher 0.1.8 (deprecated - not optimised)
+
+THIS VERSION IS OUTDATED CHANGES TO 0.1.8 IS BROKEN DO NOT USE THAT
+LASTEST WORKING VERSION IS 0.1.7 FOR SERVER VERSION 0.7.3
