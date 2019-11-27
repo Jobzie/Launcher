@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 
 namespace EFT_Launcher_12
 {
@@ -32,27 +26,37 @@ namespace EFT_Launcher_12
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            using (StreamReader r = new StreamReader(Path.Combine(serverFolder, "appdata/profiles/profiles.json")))
-            {  
-                this.profiles = JsonConvert.DeserializeObject<Profile[]>( r.ReadToEnd() );
-
-                foreach(Profile someProfile in profiles)
+            try
+            {
+                using (StreamReader r = new StreamReader(Path.Combine(serverFolder, "appdata/profiles/profiles.json")))
                 {
-                    profilesListBox.Items.Add(someProfile.email);
+                    this.profiles = JsonConvert.DeserializeObject<Profile[]>(r.ReadToEnd());
+
+                    foreach (Profile someProfile in profiles)
+                    {
+                        if (File.Exists(Path.Combine(serverFolder, "appdata/profiles/character_" + someProfile.id + ".json")) == true)
+                        {
+                            profilesListBox.Items.Add(someProfile.email);
+                        }
+                    }
                 }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show("unable to find profile folder, make sure your launcher is in the server folder");
+            }
+
         }
 
         private void startButton_Click(object sender, EventArgs e)
         {
-
-            if(profilesListBox.SelectedIndex == 0)
+            if (profilesListBox.SelectedIndex == 0)
             {
                 MessageBox.Show("select a profile before starting !");
             }
             else
             {
-                int select = profilesListBox.SelectedIndex - 1;
+                int select = profiles[profilesListBox.SelectedIndex - 1].id;
 
                 string filePath = Path.Combine(gamePathTextBox.Text, "./EscapeFromTarkov.exe");
                 string launchArgs = "-bC5vLmcuaS5u=eyBlbWFpbDogInVzZXIwQGpldC5jb20iLCBwYXNzd29yZDogInBhc3N3b3JkIiwgdG9nZ2xlOiB0cnVlLCB0aW1lc3RhbXA6IDEzMjE3ODA5NzYzNTM2MTQ4M30= -token="+select+" -screenmode=fullscreen";
@@ -95,7 +99,9 @@ namespace EFT_Launcher_12
 
         private void profileEditButton_Click(object sender, EventArgs e)
         {
-            EditProfileForm edit = new EditProfileForm(profilesListBox.SelectedIndex - 1);
+            int select = profiles[profilesListBox.SelectedIndex - 1].id;
+
+            EditProfileForm edit = new EditProfileForm(select);
             edit.Show();
         }
     }

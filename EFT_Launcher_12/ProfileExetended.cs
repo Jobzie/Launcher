@@ -196,8 +196,8 @@ namespace EFT_Launcher_12
     public class Common
     {
         public string Id { get; set; }
-        public int Progress { get; set; }
-        public int MaxAchieved { get; set; }
+        public float Progress { get; set; }
+        public float MaxAchieved { get; set; }
         public int LastAccess { get; set; }
     }
 
@@ -217,8 +217,8 @@ namespace EFT_Launcher_12
     {
         public object SessionCounters { get; set; }
         public OverallCounters OverallCounters { get; set; }
-        public int SessionExperienceMult { get; set; }
-        public int TotalSessionExperience { get; set; }
+        public double SessionExperienceMult { get; set; }
+        public double TotalSessionExperience { get; set; }
         public int LastSessionDate { get; set; }
         public object Aggressor { get; set; }
         public List<object> DroppedItems { get; set; }

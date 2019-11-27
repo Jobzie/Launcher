@@ -1,12 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace EFT_Launcher_12
@@ -14,12 +8,14 @@ namespace EFT_Launcher_12
     public partial class EditProfileForm : Form
     {
         int id;
-        string serverFolder = "Y:/tarkov/EmuTarkov Server dev";
-        ProfileExtended profileToEdit = null;
+        string serverFolder = "Y:/tarkov/EmuTarkov Server dev"; //delete this
+        string profilePath;
+        ProfileExtended profileToEdit;
 
         public EditProfileForm(int id)
         {
             this.id = id;
+            this.profilePath = Path.Combine(this.serverFolder, "appdata/profiles/character_" + this.id + ".json"); //Program.profileFolder + "character_" id
             InitializeComponent();
         }
 
@@ -27,7 +23,7 @@ namespace EFT_Launcher_12
         {
             try
             {
-                using (StreamReader r = new StreamReader(Path.Combine(this.serverFolder, "appdata/profiles/character_" + this.id + ".json")))
+                using ( StreamReader r = new StreamReader(profilePath) )
                 {
                     this.profileToEdit = JsonConvert.DeserializeObject<ProfileExtended>(r.ReadToEnd());
                     this.Text += profileToEdit.Info.Nickname;
@@ -38,11 +34,23 @@ namespace EFT_Launcher_12
             }
             catch(Exception ex)
             {
-                
-                MessageBox.Show("profile can't be loaded");
-                this.Close();
-                
+                MessageBox.Show("profile can't be loaded : " + ex.Message );
+                this.Close();    
             }
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            profileToEdit.Info.Nickname = nicknameTextBox.Text;
+            profileToEdit.Info.Side = sideselectorComboBox.SelectedItem.ToString();
+            profileToEdit.Info.Experience = Convert.ToInt32(experienceBox.Value);
+
+            using ( StreamWriter file = File.CreateText(profilePath) )
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, profileToEdit);
+            }
+
         }
     }
 }
