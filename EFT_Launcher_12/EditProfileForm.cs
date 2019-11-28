@@ -26,10 +26,7 @@ namespace EFT_Launcher_12
                 using ( StreamReader r = new StreamReader(profilePath) )
                 {
                     this.profileToEdit = JsonConvert.DeserializeObject<ProfileExtended>(r.ReadToEnd());
-                    this.Text += profileToEdit.Info.Nickname;
-                    this.nicknameTextBox.Text = profileToEdit.Info.Nickname;
-                    this.sideselectorComboBox.SelectedItem = profileToEdit.Info.Side;
-                    this.experienceBox.Value = profileToEdit.Info.Experience;
+                    SetInfo();
                 }
             }
             catch(Exception ex)
@@ -52,5 +49,46 @@ namespace EFT_Launcher_12
             }
 
         }
+
+        private void SetInfo()
+        {
+            this.Text += profileToEdit.Info.Nickname;
+            this.nicknameTextBox.Text = profileToEdit.Info.Nickname;
+            this.sideselectorComboBox.SelectedItem = profileToEdit.Info.Side;
+            this.experienceBox.Value = profileToEdit.Info.Experience;
+            this.gameVersionCombo.SelectedItem = profileToEdit.Info.GameVersion;
+
+            this.enduranceNumericBox.Value =    GetSkillValue("Endurance");
+            this.strenghNumericBox.Value =      GetSkillValue("Strength");
+            this.vitalityNumericBox.Value =     GetSkillValue("Vitality");
+            this.healthNumericBox.Value =       GetSkillValue("Health");
+            this.strenghNumericBox.Value =      GetSkillValue("StressResistance");
+
+            /* lazy to finnish
+            this.enduranceNumericBox.Value =    GetSkillValue("Endurance");
+            this.enduranceNumericBox.Value =    GetSkillValue("Endurance");
+            this.enduranceNumericBox.Value =    GetSkillValue("Endurance");
+            this.enduranceNumericBox.Value =    GetSkillValue("Endurance");
+            this.enduranceNumericBox.Value =    GetSkillValue("Endurance");
+            this.enduranceNumericBox.Value =    GetSkillValue("Endurance");
+            this.enduranceNumericBox.Value =    GetSkillValue("Endurance");
+            */
+        }
+
+        private void SaveProfile()
+        {
+
+        }
+
+        private decimal GetSkillValue(string skill)
+        {          
+            return this.profileToEdit.Skills.Common[profileToEdit.Skills.Common.FindIndex(x => x.Id.Equals(skill))].Progress;
+        }
+
+        private void SetSkillValue(string skill, decimal newval)
+        {
+            this.profileToEdit.Skills.Common[profileToEdit.Skills.Common.FindIndex(x => x.Id.Equals(skill))].Progress = newval;
+        }
+
     }
 }

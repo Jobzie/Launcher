@@ -196,8 +196,8 @@ namespace EFT_Launcher_12
     public class Common
     {
         public string Id { get; set; }
-        public float Progress { get; set; }
-        public float MaxAchieved { get; set; }
+        public decimal Progress { get; set; }
+        public decimal MaxAchieved { get; set; }
         public int LastAccess { get; set; }
     }
 
