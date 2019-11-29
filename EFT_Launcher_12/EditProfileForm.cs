@@ -53,26 +53,35 @@ namespace EFT_Launcher_12
         private void SetInfo()
         {
             this.Text += profileToEdit.Info.Nickname;
+
             this.nicknameTextBox.Text = profileToEdit.Info.Nickname;
             this.sideselectorComboBox.SelectedItem = profileToEdit.Info.Side;
             this.experienceBox.Value = profileToEdit.Info.Experience;
             this.gameVersionCombo.SelectedItem = profileToEdit.Info.GameVersion;
 
+            #region INIT SKILLS numericBoxes
             this.enduranceNumericBox.Value =    GetSkillValue("Endurance");
             this.strenghNumericBox.Value =      GetSkillValue("Strength");
             this.vitalityNumericBox.Value =     GetSkillValue("Vitality");
             this.healthNumericBox.Value =       GetSkillValue("Health");
-            this.strenghNumericBox.Value =      GetSkillValue("StressResistance");
+            this.stressNumericBox.Value =      GetSkillValue("StressResistance");
 
-            /* lazy to finnish
-            this.enduranceNumericBox.Value =    GetSkillValue("Endurance");
-            this.enduranceNumericBox.Value =    GetSkillValue("Endurance");
-            this.enduranceNumericBox.Value =    GetSkillValue("Endurance");
-            this.enduranceNumericBox.Value =    GetSkillValue("Endurance");
-            this.enduranceNumericBox.Value =    GetSkillValue("Endurance");
-            this.enduranceNumericBox.Value =    GetSkillValue("Endurance");
-            this.enduranceNumericBox.Value =    GetSkillValue("Endurance");
-            */
+            
+            this.metabolismNumericBox.Value =   GetSkillValue("Metabolism");
+            this.immunityNumericBox.Value =     GetSkillValue("Immunity");
+            this.perceptionNumericBox.Value =   GetSkillValue("Perception");
+            this.intelNumericBox.Value =        GetSkillValue("Intellect");
+            this.attentionNumericBox.Value =    GetSkillValue("Attention");
+            this.charismaNumericBox.Value =     GetSkillValue("Charisma");
+            this.memoryNumericBox.Value =       GetSkillValue("Memory");
+
+            this.covertNumericBox.Value =       GetSkillValue("CovertMovement");
+            this.recoilNumericBox.Value =       GetSkillValue("RecoilControl");
+            this.searchNumericBox.Value =       GetSkillValue("Search");
+            this.magdrillsNumericBox.Value =    GetSkillValue("MagDrills");
+            #endregion
+
+
         }
 
         private void SaveProfile()
