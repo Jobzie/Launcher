@@ -672,6 +672,7 @@
             0,
             0,
             0});
+            this.hideoutLevelNumeric.ValueChanged += new System.EventHandler(this.hideoutLevelNumeric_ValueChanged);
             // 
             // EditProfileForm
             // 

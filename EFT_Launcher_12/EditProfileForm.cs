@@ -155,5 +155,10 @@ namespace EFT_Launcher_12
             hideoutLevelNumeric.Value = profileToEdit.Hideout.Areas.Find(x => x.type.Equals(this.hideoutAreaComboBox.SelectedIndex)).level;
            
         }
+
+        private void hideoutLevelNumeric_ValueChanged(object sender, EventArgs e)
+        {
+            profileToEdit.Hideout.Areas.Find(x => x.type.Equals(this.hideoutAreaComboBox.SelectedIndex)).level = Convert.ToInt32(hideoutLevelNumeric.Value);
+        }
     }
 }
