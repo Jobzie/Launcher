@@ -23,28 +23,32 @@ namespace EFT_Launcher_12
 			serverPathTextBox.Text = Properties.Settings.Default.serverPath;
 		}
 
+		public void LoadProfiles()
+		{
+			try
+			{
+				using (StreamReader r = new StreamReader(Path.Combine(Globals.serverFolder, "appdata/profiles/profiles.json")))
+				{
+					profiles = JsonConvert.DeserializeObject<Profile[]>(r.ReadToEnd());
+
+					foreach (Profile someProfile in profiles)
+					{
+						if (File.Exists(Path.Combine(Globals.serverFolder, "appdata/profiles/character_" + someProfile.id + ".json")) == true)
+						{
+							profilesListBox.Items.Add(someProfile.email);
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("unable to find profile folder, please set the server path");
+			}
+		}
+
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            try
-            {
-                using (StreamReader r = new StreamReader(Path.Combine(Globals.serverFolder, "appdata/profiles/profiles.json")))
-                {
-                    profiles = JsonConvert.DeserializeObject<Profile[]>(r.ReadToEnd());
-
-                    foreach (Profile someProfile in profiles)
-                    {
-                        if (File.Exists(Path.Combine(Globals.serverFolder, "appdata/profiles/character_" + someProfile.id + ".json")) == true)
-                        {
-                            profilesListBox.Items.Add(someProfile.email);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("unable to find profile folder, make sure your launcher is in the server folder");
-            }
-
+			LoadProfiles();
         }
 
         private void startButton_Click(object sender, EventArgs e)
@@ -90,6 +94,7 @@ namespace EFT_Launcher_12
 			Properties.Settings.Default.Save();
 
 			Globals.serverFolder = serverPathTextBox.Text;
+			LoadProfiles();
 		}
 
 		private void profilesListBox_SelectedIndexChanged(object sender, EventArgs e)
