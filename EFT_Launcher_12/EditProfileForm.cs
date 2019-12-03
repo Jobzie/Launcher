@@ -1,23 +1,20 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.IO;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace EFT_Launcher_12
 {
     public partial class EditProfileForm : Form
     {
-        int id;
-        string serverFolder = "Y:/tarkov/EmuTarkov Server dev"; //delete this
         string profilePath;
         ProfileExtended profileToEdit;
         List<HideoutUpgradesArea> hideoutLevels;
 
         public EditProfileForm(int id)
         {
-            this.id = id;
-            this.profilePath = Path.Combine(this.serverFolder, "appdata/profiles/character_" + this.id + ".json"); //Program.profileFolder + "character_" id
+            profilePath = Path.Combine(Globals.serverFolder, "appdata/profiles/character_" + id + ".json"); // Program.profileFolder + "character_" id
             hideoutLevels = new List<HideoutUpgradesArea>();
 
             #region hideoutlevel init
@@ -54,7 +51,7 @@ namespace EFT_Launcher_12
             {
                 using (StreamReader r = new StreamReader(profilePath))
                 {
-                    this.profileToEdit = JsonConvert.DeserializeObject<ProfileExtended>(r.ReadToEnd());
+                    profileToEdit = JsonConvert.DeserializeObject<ProfileExtended>(r.ReadToEnd());
                     SetInfo();
                 }
             }
@@ -66,7 +63,7 @@ namespace EFT_Launcher_12
 
             foreach (HideoutUpgradesArea h in hideoutLevels)
             {
-                this.hideoutAreaComboBox.Items.Add(h.areaName);
+                hideoutAreaComboBox.Items.Add(h.areaName);
             }
         }
 
@@ -85,12 +82,12 @@ namespace EFT_Launcher_12
 
         private void SetInfo()
         {
-            this.Text += profileToEdit.Info.Nickname;
+            Text += profileToEdit.Info.Nickname;
 
-            this.nicknameTextBox.Text = profileToEdit.Info.Nickname;
-            this.sideselectorComboBox.SelectedItem = profileToEdit.Info.Side;
-            this.experienceBox.Value = profileToEdit.Info.Experience;
-            this.gameVersionCombo.SelectedItem = profileToEdit.Info.GameVersion;
+            nicknameTextBox.Text = profileToEdit.Info.Nickname;
+            sideselectorComboBox.SelectedItem = profileToEdit.Info.Side;
+            experienceBox.Value = profileToEdit.Info.Experience;
+            gameVersionCombo.SelectedItem = profileToEdit.Info.GameVersion;
 
             #region INIT SKILLS numericBoxes
             this.enduranceNumericBox.Value = GetSkillValue("Endurance");
@@ -122,12 +119,12 @@ namespace EFT_Launcher_12
 
         private decimal GetSkillValue(string skill)
         {
-            return this.profileToEdit.Skills.Common[profileToEdit.Skills.Common.FindIndex(x => x.Id.Equals(skill))].Progress;
+            return profileToEdit.Skills.Common[profileToEdit.Skills.Common.FindIndex(x => x.Id.Equals(skill))].Progress;
         }
 
         private void SetSkillValue(string skill, decimal newval)
         {
-            this.profileToEdit.Skills.Common[profileToEdit.Skills.Common.FindIndex(x => x.Id.Equals(skill))].Progress = newval;
+            profileToEdit.Skills.Common[profileToEdit.Skills.Common.FindIndex(x => x.Id.Equals(skill))].Progress = newval;
         }
 
         private void hideoutAreaComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -152,9 +149,9 @@ namespace EFT_Launcher_12
 
             public HideoutUpgradesArea(int a, string n, int u)
             {
-                this.areaType = a;
-                this.areaName = n;
-                this.levelMax = u;
+                areaType = a;
+                areaName = n;
+                levelMax = u;
             }
         }
     }
