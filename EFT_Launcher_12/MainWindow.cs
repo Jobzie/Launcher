@@ -46,11 +46,6 @@ namespace EFT_Launcher_12
 			}
 		}
 
-        private void MainWindow_Load(object sender, EventArgs e)
-        {
-			LoadProfiles();
-        }
-
         private void startButton_Click(object sender, EventArgs e)
         {
             if (profilesListBox.SelectedIndex == 0)

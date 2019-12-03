@@ -140,11 +140,9 @@
 			this.Controls.Add(this.startButton);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.Name = "MainWindow";
-			this.Text = "EmuTarkov Launcher";
-			this.Load += new System.EventHandler(this.MainWindow_Load);
+			this.Text = Globals.version;
 			this.ResumeLayout(false);
 			this.PerformLayout();
-
         }
 
         #endregion
@@ -158,4 +156,3 @@
 		private System.Windows.Forms.Label label2;
 	}
 }
-
