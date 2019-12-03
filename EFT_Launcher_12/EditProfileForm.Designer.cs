@@ -72,6 +72,8 @@
             this.strenghNumericBox = new System.Windows.Forms.NumericUpDown();
             this.label26 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.hideoutAreaComboBox = new System.Windows.Forms.ComboBox();
+            this.hideoutLevelNumeric = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.experienceBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.enduranceNumericBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vitalityNumericBox)).BeginInit();
@@ -89,6 +91,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.metabolismNumericBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.healthNumericBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.strenghNumericBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hideoutLevelNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // experienceBox
@@ -635,12 +638,49 @@
             this.label6.TabIndex = 9;
             this.label6.Text = "HIDEOUT : ";
             // 
+            // hideoutAreaComboBox
+            // 
+            this.hideoutAreaComboBox.AutoCompleteCustomSource.AddRange(new string[] {
+            "standard",
+            "edge_of_darkness"});
+            this.hideoutAreaComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.hideoutAreaComboBox.Font = new System.Drawing.Font("Candara", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hideoutAreaComboBox.ForeColor = System.Drawing.Color.White;
+            this.hideoutAreaComboBox.FormattingEnabled = true;
+            this.hideoutAreaComboBox.Location = new System.Drawing.Point(12, 228);
+            this.hideoutAreaComboBox.Name = "hideoutAreaComboBox";
+            this.hideoutAreaComboBox.Size = new System.Drawing.Size(144, 26);
+            this.hideoutAreaComboBox.TabIndex = 49;
+            this.hideoutAreaComboBox.SelectedIndexChanged += new System.EventHandler(this.hideoutAreaComboBox_SelectedIndexChanged);
+            // 
+            // hideoutLevelNumeric
+            // 
+            this.hideoutLevelNumeric.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.hideoutLevelNumeric.Font = new System.Drawing.Font("Candara", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hideoutLevelNumeric.ForeColor = System.Drawing.Color.White;
+            this.hideoutLevelNumeric.Location = new System.Drawing.Point(162, 229);
+            this.hideoutLevelNumeric.Maximum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.hideoutLevelNumeric.Name = "hideoutLevelNumeric";
+            this.hideoutLevelNumeric.Size = new System.Drawing.Size(72, 26);
+            this.hideoutLevelNumeric.TabIndex = 50;
+            this.hideoutLevelNumeric.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
             // EditProfileForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(737, 414);
+            this.Controls.Add(this.hideoutLevelNumeric);
+            this.Controls.Add(this.hideoutAreaComboBox);
             this.Controls.Add(this.label26);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.magdrillsNumericBox);
@@ -708,6 +748,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.metabolismNumericBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.healthNumericBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.strenghNumericBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hideoutLevelNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -759,5 +800,7 @@
         private System.Windows.Forms.NumericUpDown strenghNumericBox;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox hideoutAreaComboBox;
+        private System.Windows.Forms.NumericUpDown hideoutLevelNumeric;
     }
 }
