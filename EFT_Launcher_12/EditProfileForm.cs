@@ -14,7 +14,6 @@ namespace EFT_Launcher_12
         ProfileExtended profileToEdit;
         List<HideoutUpgradesArea> hideoutLevels;
 
-
         public EditProfileForm(int id)
         {
             this.id = id;
@@ -65,11 +64,10 @@ namespace EFT_Launcher_12
                 this.Close();
             }
 
-            foreach(HideoutUpgradesArea h in hideoutLevels)
+            foreach (HideoutUpgradesArea h in hideoutLevels)
             {
                 this.hideoutAreaComboBox.Items.Add(h.areaName);
             }
-
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -83,7 +81,6 @@ namespace EFT_Launcher_12
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, profileToEdit);
             }
-
         }
 
         private void SetInfo()
@@ -116,13 +113,11 @@ namespace EFT_Launcher_12
             this.searchNumericBox.Value = GetSkillValue("Search");
             this.magdrillsNumericBox.Value = GetSkillValue("MagDrills");
             #endregion
-
-
         }
 
         private void SaveProfile()
         {
-
+			// intentionally empty
         }
 
         private decimal GetSkillValue(string skill)
@@ -135,13 +130,10 @@ namespace EFT_Launcher_12
             this.profileToEdit.Skills.Common[profileToEdit.Skills.Common.FindIndex(x => x.Id.Equals(skill))].Progress = newval;
         }
 
-
-
         private void hideoutAreaComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             hideoutLevelNumeric.Maximum = hideoutLevels[this.hideoutAreaComboBox.SelectedIndex].levelMax;
             hideoutLevelNumeric.Value = profileToEdit.Hideout.Areas.Find(x => x.type.Equals(this.hideoutAreaComboBox.SelectedIndex)).level;
-           
         }
 
         private void hideoutLevelNumeric_ValueChanged(object sender, EventArgs e)
@@ -149,16 +141,14 @@ namespace EFT_Launcher_12
             profileToEdit.Hideout.Areas.Find(x => x.type.Equals(this.hideoutAreaComboBox.SelectedIndex)).level = Convert.ToInt32(hideoutLevelNumeric.Value);
         }
 
-
-
         /// <summary>
         /// hideout upgrades level object
         /// </summary>
         internal class HideoutUpgradesArea
         {
-            public int areaType { get; set; }
-            public string areaName { get; set; }
-            public int levelMax { get; set; }
+			public int areaType;
+			public string areaName;
+			public int levelMax;
 
             public HideoutUpgradesArea(int a, string n, int u)
             {

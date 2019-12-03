@@ -21,7 +21,6 @@ namespace EFT_Launcher_12
             profileEditButton.Enabled = false;
             profilesListBox.SelectedIndex = 0;
             gamePathTextBox.Text = Properties.Settings.Default.gamePath;
-
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
