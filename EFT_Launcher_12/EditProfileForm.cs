@@ -135,23 +135,11 @@ namespace EFT_Launcher_12
             this.profileToEdit.Skills.Common[profileToEdit.Skills.Common.FindIndex(x => x.Id.Equals(skill))].Progress = newval;
         }
 
-        internal class HideoutUpgradesArea
-        {
-            public int areaType { get; set; }
-            public string areaName { get; set; }
-            public int upgrades { get; set; }
 
-            public HideoutUpgradesArea(int a, string n, int u)
-            {
-                this.areaType = a;
-                this.areaName = n;
-                this.upgrades = u;
-            }
-        }
 
         private void hideoutAreaComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            hideoutLevelNumeric.Maximum = hideoutLevels[this.hideoutAreaComboBox.SelectedIndex].upgrades;
+            hideoutLevelNumeric.Maximum = hideoutLevels[this.hideoutAreaComboBox.SelectedIndex].levelMax;
             hideoutLevelNumeric.Value = profileToEdit.Hideout.Areas.Find(x => x.type.Equals(this.hideoutAreaComboBox.SelectedIndex)).level;
            
         }
@@ -159,6 +147,25 @@ namespace EFT_Launcher_12
         private void hideoutLevelNumeric_ValueChanged(object sender, EventArgs e)
         {
             profileToEdit.Hideout.Areas.Find(x => x.type.Equals(this.hideoutAreaComboBox.SelectedIndex)).level = Convert.ToInt32(hideoutLevelNumeric.Value);
+        }
+
+
+
+        /// <summary>
+        /// hideout upgrades level object
+        /// </summary>
+        internal class HideoutUpgradesArea
+        {
+            public int areaType { get; set; }
+            public string areaName { get; set; }
+            public int levelMax { get; set; }
+
+            public HideoutUpgradesArea(int a, string n, int u)
+            {
+                this.areaType = a;
+                this.areaName = n;
+                this.levelMax = u;
+            }
         }
     }
 }
