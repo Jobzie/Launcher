@@ -14,11 +14,10 @@ namespace EFT_Launcher_12
         ProfileExtended profileToEdit;
         List<HideoutUpgradesArea> hideoutLevels;
 
-
         public EditProfileForm(int id)
         {
             this.id = id;
-            this.profilePath = Path.Combine(this.serverFolder, "appdata/profiles/character_" + this.id + ".json"); //Program.profileFolder + "character_" id
+            this.profilePath = Path.Combine(this.serverFolder, "appdata/profiles/character_" + this.id + ".json"); //Program.profileFolder + "character_" + this.id
             hideoutLevels = new List<HideoutUpgradesArea>();
 
             #region hideoutlevel init
@@ -70,6 +69,8 @@ namespace EFT_Launcher_12
                 this.hideoutAreaComboBox.Items.Add(h.areaName);
             }
 
+            this.hideoutAreaComboBox.SelectedIndex = 0;
+
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -77,12 +78,24 @@ namespace EFT_Launcher_12
             profileToEdit.Info.Nickname = nicknameTextBox.Text;
             profileToEdit.Info.Side = sideselectorComboBox.SelectedItem.ToString();
             profileToEdit.Info.Experience = Convert.ToInt32(experienceBox.Value);
+            profileToEdit.Info.GameVersion = gameVersionCombo.Text;
 
-            using (StreamWriter file = File.CreateText(profilePath))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, profileToEdit);
-            }
+            SetSkillValue("Endurance", enduranceNumericBox.Value);
+            SetSkillValue("Strength", strenghNumericBox.Value);
+            SetSkillValue("Vitality", vitalityNumericBox.Value);
+            SetSkillValue("Health", healthNumericBox.Value);
+            SetSkillValue("StressResistance", stressNumericBox.Value);
+            SetSkillValue("Metabolism", metabolismNumericBox.Value);
+            SetSkillValue("Immunity", immunityNumericBox.Value);
+            SetSkillValue("Perception", perceptionNumericBox.Value);
+            SetSkillValue("Intellect", intelNumericBox.Value);
+            SetSkillValue("Attention", attentionNumericBox.Value);
+            SetSkillValue("Charisma", charismaNumericBox.Value);
+            SetSkillValue("Memory", memoryNumericBox.Value);
+            SetSkillValue("CovertMovement", covertNumericBox.Value);
+            SetSkillValue("RecoilControl", recoilNumericBox.Value);
+            SetSkillValue("Search", searchNumericBox.Value);
+            SetSkillValue("MagDrills", magdrillsNumericBox.Value);
 
         }
 
@@ -117,12 +130,15 @@ namespace EFT_Launcher_12
             this.magdrillsNumericBox.Value = GetSkillValue("MagDrills");
             #endregion
 
-
         }
 
         private void SaveProfile()
         {
-
+            using (StreamWriter file = File.CreateText(profilePath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, profileToEdit);
+            }
         }
 
         private decimal GetSkillValue(string skill)
@@ -135,17 +151,15 @@ namespace EFT_Launcher_12
             this.profileToEdit.Skills.Common[profileToEdit.Skills.Common.FindIndex(x => x.Id.Equals(skill))].Progress = newval;
         }
 
-
-
         private void hideoutAreaComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             hideoutLevelNumeric.Maximum = hideoutLevels[this.hideoutAreaComboBox.SelectedIndex].levelMax;
             hideoutLevelNumeric.Value = profileToEdit.Hideout.Areas.Find(x => x.type.Equals(this.hideoutAreaComboBox.SelectedIndex)).level;
-           
         }
 
         private void hideoutLevelNumeric_ValueChanged(object sender, EventArgs e)
         {
+            
             profileToEdit.Hideout.Areas.Find(x => x.type.Equals(this.hideoutAreaComboBox.SelectedIndex)).level = Convert.ToInt32(hideoutLevelNumeric.Value);
         }
 
