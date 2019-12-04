@@ -55,41 +55,47 @@ namespace EFT_Launcher_12
             else
             {
                 int select = profiles[profilesListBox.SelectedIndex - 1].id;
-                string filePath = Path.Combine(Globals.gameFolder, "EscapeFromTarkov.exe");
-                string launchArgs = GenerateToken(profiles[select].email, profiles[select].password) + " -token="+select+" -screenmode=fullscreen";
+                string gamePath = Path.Combine(Globals.gameFolder, "EscapeFromTarkov.exe");
+				string serverPath = Path.Combine(Globals.serverFolder, "EmuTarkov-Server.exe");
+				string launchArgs = GenerateToken(profiles[select].email, profiles[select].password) + " -token="+select+" -screenmode=fullscreen";
 
-                Process.Start(filePath, launchArgs);
+                Process.Start(serverPath);
             }
         }
+
+		private void readyToLaunch()
+		{
+			if (File.Exists(Path.Combine(gamePathTextBox.Text, "EscapeFromTarkov.exe"))
+				&& File.Exists(Path.Combine(serverPathTextBox.Text, "EmuTarkov-Server.exe"))
+				&& profilesListBox.SelectedIndex > 0)
+			{
+				startButton.Enabled = true;
+				gamePathTextBox.ForeColor = Color.White;
+				serverPathTextBox.ForeColor = Color.White;
+			}
+			else
+			{
+				startButton.Enabled = false;
+				gamePathTextBox.ForeColor = Color.Red;
+				serverPathTextBox.ForeColor = Color.Red;
+			}
+		}
 
         private void gamePathTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (File.Exists(Path.Combine(gamePathTextBox.Text, "EscapeFromTarkov.exe")) == true)
-            {
-                startButton.Enabled = true;
-                gamePathTextBox.ForeColor = Color.White;
-
-                Properties.Settings.Default.gamePath = gamePathTextBox.Text;
-                Properties.Settings.Default.Save();
-
-				Globals.gameFolder = gamePathTextBox.Text;
-            }
-            else
-            {
-                startButton.Enabled = false;
-                gamePathTextBox.ForeColor = Color.Red;
-            }
-        }
+			Properties.Settings.Default.gamePath = gamePathTextBox.Text;
+			Properties.Settings.Default.Save();
+			Globals.gameFolder = gamePathTextBox.Text;
+			readyToLaunch();
+		}
 
 		private void serverPathTextBox_TextChanged(object sender, EventArgs e)
 		{
-			serverPathTextBox.ForeColor = Color.White;
-
 			Properties.Settings.Default.serverPath = serverPathTextBox.Text;
 			Properties.Settings.Default.Save();
-
 			Globals.serverFolder = serverPathTextBox.Text;
 			LoadProfiles();
+			readyToLaunch();
 		}
 
 		private void profilesListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -102,7 +108,9 @@ namespace EFT_Launcher_12
             {
                 profileEditButton.Enabled = false;
             }
-        }
+
+			readyToLaunch();
+		}
 
         private void profileEditButton_Click(object sender, EventArgs e)
         {
@@ -110,7 +118,7 @@ namespace EFT_Launcher_12
 
             EditProfileForm edit = new EditProfileForm(select);
             edit.Show();
-        }
+		}
 
 		private string GenerateToken(string email, string password)
 		{
