@@ -33,7 +33,7 @@ namespace EFT_Launcher_12
 
 					foreach (Profile someProfile in profiles)
 					{
-						if (File.Exists(Path.Combine(Globals.serverFolder, "appdata/profiles/" + someProfile.id + "/character.json")) == true)
+						if (File.Exists(Path.Combine(Globals.serverFolder, "appdata/profiles/" + someProfile.id + "/character.json")))
 						{
 							profilesListBox.Items.Add(someProfile.email);
 						}
