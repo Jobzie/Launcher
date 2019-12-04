@@ -80,22 +80,7 @@ namespace EFT_Launcher_12
             profileToEdit.Info.Experience = Convert.ToInt32(experienceBox.Value);
             profileToEdit.Info.GameVersion = gameVersionCombo.Text;
 
-            SetSkillValue("Endurance", enduranceNumericBox.Value);
-            SetSkillValue("Strength", strenghNumericBox.Value);
-            SetSkillValue("Vitality", vitalityNumericBox.Value);
-            SetSkillValue("Health", healthNumericBox.Value);
-            SetSkillValue("StressResistance", stressNumericBox.Value);
-            SetSkillValue("Metabolism", metabolismNumericBox.Value);
-            SetSkillValue("Immunity", immunityNumericBox.Value);
-            SetSkillValue("Perception", perceptionNumericBox.Value);
-            SetSkillValue("Intellect", intelNumericBox.Value);
-            SetSkillValue("Attention", attentionNumericBox.Value);
-            SetSkillValue("Charisma", charismaNumericBox.Value);
-            SetSkillValue("Memory", memoryNumericBox.Value);
-            SetSkillValue("CovertMovement", covertNumericBox.Value);
-            SetSkillValue("RecoilControl", recoilNumericBox.Value);
-            SetSkillValue("Search", searchNumericBox.Value);
-            SetSkillValue("MagDrills", magdrillsNumericBox.Value);
+
 
         }
 
