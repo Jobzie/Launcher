@@ -54,13 +54,21 @@ namespace EFT_Launcher_12
             }
             else
             {
-                int select = profiles[profilesListBox.SelectedIndex - 1].id;
-                string gamePath = Path.Combine(Globals.gameFolder, "EscapeFromTarkov.exe");
-				string serverPath = Path.Combine(Globals.serverFolder, "EmuTarkov-Server.exe");
-				string launchArgs = GenerateToken(profiles[select].email, profiles[select].password) + " -token="+select+" -screenmode=fullscreen";
+				ProcessStartInfo startServer = new ProcessStartInfo(Path.Combine(Globals.serverFolder, "EmuTarkov-Server.exe"));
+				ProcessStartInfo startGame = new ProcessStartInfo(Path.Combine(Globals.gameFolder, "EscapeFromTarkov.exe"));
+				int select = profiles[profilesListBox.SelectedIndex - 1].id;
 
-                Process.Start(serverPath);
-            }
+				// start server
+				startServer.UseShellExecute = false;
+				startServer.WorkingDirectory = Globals.serverFolder;
+				Process.Start(startServer);
+
+				// start game
+				startGame.Arguments = GenerateToken(profiles[select].email, profiles[select].password) + " -token=" + select + " -screenmode=fullscreen";
+				startGame.UseShellExecute = false;
+				startGame.WorkingDirectory = Globals.gameFolder;
+				Process.Start(startGame);
+			}
         }
 
 		private void readyToLaunch()
