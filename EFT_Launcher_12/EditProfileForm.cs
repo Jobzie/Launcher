@@ -73,11 +73,7 @@ namespace EFT_Launcher_12
             profileToEdit.Info.Side = sideselectorComboBox.SelectedItem.ToString();
             profileToEdit.Info.Experience = Convert.ToInt32(experienceBox.Value);
 
-            using (StreamWriter file = File.CreateText(profilePath))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, profileToEdit);
-            }
+            //SaveProfile();
         }
 
         private void SetInfo()
@@ -114,8 +110,29 @@ namespace EFT_Launcher_12
 
         private void SaveProfile()
         {
+            
+            SetSkillValue("Endurance", enduranceNumericBox.Value);
+            SetSkillValue("Strength", strenghNumericBox.Value);
+            SetSkillValue("Vitality", vitalityNumericBox.Value);
+            SetSkillValue("Health", healthNumericBox.Value);
+            SetSkillValue("StressResistance", stressNumericBox.Value);
+            SetSkillValue("Metabolism", metabolismNumericBox.Value);
+            SetSkillValue("Immunity", immunityNumericBox.Value);
+            SetSkillValue("Perception", perceptionNumericBox.Value);
+            SetSkillValue("Intellect", intelNumericBox.Value);
+            SetSkillValue("Attention", attentionNumericBox.Value);
+            SetSkillValue("Charisma", charismaNumericBox.Value);
+            SetSkillValue("Memory", memoryNumericBox.Value);
+            SetSkillValue("CovertMovement", covertNumericBox.Value);
+            SetSkillValue("RecoilControl", recoilNumericBox.Value);
+            SetSkillValue("Search", searchNumericBox.Value);
+            SetSkillValue("MagDrills", magdrillsNumericBox.Value);
 
-
+            using (StreamWriter file = File.CreateText(profilePath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, profileToEdit);
+            }
         }
 
         private decimal GetSkillValue(string skill)
