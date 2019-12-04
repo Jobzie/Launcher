@@ -25,24 +25,23 @@ namespace EFT_Launcher_12
 
 		public void LoadProfiles()
 		{
-			try
-			{
-				using (StreamReader r = new StreamReader(Path.Combine(Globals.serverFolder, "appdata/profiles/list.json")))
-				{
-					profiles = JsonConvert.DeserializeObject<Profile[]>(r.ReadToEnd());
-
-					foreach (Profile someProfile in profiles)
-					{
-						if (File.Exists(Path.Combine(Globals.serverFolder, "appdata/profiles/" + someProfile.id + "/character.json")))
-						{
-							profilesListBox.Items.Add(someProfile.email);
-						}
-					}
-				}
-			}
-			catch (Exception ex)
+			if (!File.Exists(Path.Combine(Globals.serverFolder, "appdata/profiles/list.json")))
 			{
 				MessageBox.Show("unable to find profile folder, please set the server path");
+				return;
+			}
+
+			using (StreamReader r = new StreamReader(Path.Combine(Globals.serverFolder, "appdata/profiles/list.json")))
+			{
+				profiles = JsonConvert.DeserializeObject<Profile[]>(r.ReadToEnd());
+
+				foreach (Profile someProfile in profiles)
+				{
+					if (File.Exists(Path.Combine(Globals.serverFolder, "appdata/profiles/" + someProfile.id + "/character.json")))
+					{
+						profilesListBox.Items.Add(someProfile.email);
+					}
+				}
 			}
 		}
 
