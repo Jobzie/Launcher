@@ -18,7 +18,6 @@ namespace EFT_Launcher_12
             hideoutLevels = new List<HideoutUpgradesArea>();
 
             #region hideoutlevel init
-
             hideoutLevels.Add(new HideoutUpgradesArea(0, "", 3));
             hideoutLevels.Add(new HideoutUpgradesArea(1, "", 3));
             hideoutLevels.Add(new HideoutUpgradesArea(2, "", 3));
@@ -40,8 +39,8 @@ namespace EFT_Launcher_12
             hideoutLevels.Add(new HideoutUpgradesArea(18, "", 1));
             hideoutLevels.Add(new HideoutUpgradesArea(19, "", 1));
             hideoutLevels.Add(new HideoutUpgradesArea(20, "Bitcoin Farm", 3));
-
             #endregion
+	    
             InitializeComponent();
         }
 
@@ -58,7 +57,7 @@ namespace EFT_Launcher_12
             catch (Exception ex)
             {
                 MessageBox.Show("profile can't be loaded : " + ex.Message);
-                this.Close();
+                Close();
             }
 
             foreach (HideoutUpgradesArea h in hideoutLevels)
@@ -72,8 +71,6 @@ namespace EFT_Launcher_12
             profileToEdit.Info.Nickname = nicknameTextBox.Text;
             profileToEdit.Info.Side = sideselectorComboBox.SelectedItem.ToString();
             profileToEdit.Info.Experience = Convert.ToInt32(experienceBox.Value);
-
-            //SaveProfile();
         }
 
         private void SetInfo()
@@ -86,25 +83,24 @@ namespace EFT_Launcher_12
             gameVersionCombo.SelectedItem = profileToEdit.Info.GameVersion;
 
             #region INIT SKILLS numericBoxes
-            this.enduranceNumericBox.Value = GetSkillValue("Endurance");
-            this.strenghNumericBox.Value = GetSkillValue("Strength");
-            this.vitalityNumericBox.Value = GetSkillValue("Vitality");
-            this.healthNumericBox.Value = GetSkillValue("Health");
-            this.stressNumericBox.Value = GetSkillValue("StressResistance");
+            enduranceNumericBox.Value = GetSkillValue("Endurance");
+            strenghNumericBox.Value = GetSkillValue("Strength");
+            vitalityNumericBox.Value = GetSkillValue("Vitality");
+            healthNumericBox.Value = GetSkillValue("Health");
+            stressNumericBox.Value = GetSkillValue("StressResistance");
 
+            metabolismNumericBox.Value = GetSkillValue("Metabolism");
+            immunityNumericBox.Value = GetSkillValue("Immunity");
+            perceptionNumericBox.Value = GetSkillValue("Perception");
+            intelNumericBox.Value = GetSkillValue("Intellect");
+            attentionNumericBox.Value = GetSkillValue("Attention");
+            charismaNumericBox.Value = GetSkillValue("Charisma");
+            memoryNumericBox.Value = GetSkillValue("Memory");
 
-            this.metabolismNumericBox.Value = GetSkillValue("Metabolism");
-            this.immunityNumericBox.Value = GetSkillValue("Immunity");
-            this.perceptionNumericBox.Value = GetSkillValue("Perception");
-            this.intelNumericBox.Value = GetSkillValue("Intellect");
-            this.attentionNumericBox.Value = GetSkillValue("Attention");
-            this.charismaNumericBox.Value = GetSkillValue("Charisma");
-            this.memoryNumericBox.Value = GetSkillValue("Memory");
-
-            this.covertNumericBox.Value = GetSkillValue("CovertMovement");
-            this.recoilNumericBox.Value = GetSkillValue("RecoilControl");
-            this.searchNumericBox.Value = GetSkillValue("Search");
-            this.magdrillsNumericBox.Value = GetSkillValue("MagDrills");
+            covertNumericBox.Value = GetSkillValue("CovertMovement");
+            recoilNumericBox.Value = GetSkillValue("RecoilControl");
+            searchNumericBox.Value = GetSkillValue("Search");
+            magdrillsNumericBox.Value = GetSkillValue("MagDrills");
             #endregion
         }
 
@@ -164,10 +160,6 @@ namespace EFT_Launcher_12
             public int areaType;
             public string areaName;
             public int levelMax;
-			public int areaType;
-			public string areaName;
-			public int levelMax;
-
 
             public HideoutUpgradesArea(int a, string n, int u)
             {
