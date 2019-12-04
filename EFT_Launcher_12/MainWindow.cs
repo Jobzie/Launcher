@@ -27,13 +27,13 @@ namespace EFT_Launcher_12
 		{
 			try
 			{
-				using (StreamReader r = new StreamReader(Path.Combine(Globals.serverFolder, "appdata/profiles/profiles.json")))
+				using (StreamReader r = new StreamReader(Path.Combine(Globals.serverFolder, "appdata/profiles/list.json")))
 				{
 					profiles = JsonConvert.DeserializeObject<Profile[]>(r.ReadToEnd());
 
 					foreach (Profile someProfile in profiles)
 					{
-						if (File.Exists(Path.Combine(Globals.serverFolder, "appdata/profiles/character_" + someProfile.id + ".json")) == true)
+						if (File.Exists(Path.Combine(Globals.serverFolder, "appdata/profiles/" + someProfile.id + "/character.json")) == true)
 						{
 							profilesListBox.Items.Add(someProfile.email);
 						}
@@ -64,7 +64,7 @@ namespace EFT_Launcher_12
 
         private void gamePathTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (File.Exists(Path.Combine(gamePathTextBox.Text, "./EscapeFromTarkov.exe")) == true)
+            if (File.Exists(Path.Combine(gamePathTextBox.Text, "EscapeFromTarkov.exe")) == true)
             {
                 startButton.Enabled = true;
                 gamePathTextBox.ForeColor = Color.White;
@@ -133,10 +133,7 @@ namespace EFT_Launcher_12
     {
 		public string email;
 		public string password;
-		public string password_md5;
 		public int id;
-		public long timestamp;
-		public bool online;
     }
 
 	// don't change the order of the members
