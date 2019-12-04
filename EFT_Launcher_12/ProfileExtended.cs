@@ -2,14 +2,14 @@
 
 namespace EFT_Launcher_12
 {
-    public struct Settings
+    public class Settings
     {
         public string Role;
         public string BotDifficulty;
         public int Experience;
     }
 
-    public struct Info
+    public class Info
     {
         public string Nickname;
         public string LowerNickname;
@@ -31,7 +31,7 @@ namespace EFT_Launcher_12
         public List<object> Bans;
     }
 
-    public struct Customization
+    public class Customization
     {
         public string Head;
         public string Body;
@@ -39,96 +39,96 @@ namespace EFT_Launcher_12
         public string Hands;
     }
 
-    public struct Hydration
+    public class Hydration
     {
         public int Current;
         public int Maximum;
     }
 
-    public struct Energy
+    public class Energy
     {
         public int Current;
         public int Maximum;
     }
 
-    public struct Health2
+    public class Health2
     {
         public int Current;
         public int Maximum;
     }
 
-    public struct Head
+    public class Head
     {
         public Health2 Health;
     }
 
-    public struct Health3
+    public class Health3
     {
         public int Current;
         public int Maximum;
     }
 
-    public struct Chest
+    public class Chest
     {
         public Health3 Health;
     }
 
-    public struct Health4
+    public class Health4
     {
         public int Current;
         public int Maximum;
     }
 
-    public struct Stomach
+    public class Stomach
     {
         public Health4 Health;
     }
 
-    public struct Health5
+    public class Health5
     {
         public int Current;
         public int Maximum;
     }
 
-    public struct LeftArm
+    public class LeftArm
     {
         public Health5 Health;
     }
 
-    public struct Health6
+    public class Health6
     {
         public int Current;
         public int Maximum;
     }
 
-    public struct RightArm
+    public class RightArm
     {
         public Health6 Health;
     }
 
-    public struct Health7
+    public class Health7
     {
         public int Current;
         public int Maximum;
     }
 
-    public struct LeftLeg
+    public class LeftLeg
     {
         public Health7 Health;
     }
 
-    public struct Health8
+    public class Health8
     {
         public int Current;
         public int Maximum;
     }
 
-    public struct RightLeg
+    public class RightLeg
     {
         public Health8 Health;
     }
 
-    public struct BodyParts
+    public class BodyParts
     {
         public Head Head;
         public Chest Chest;
@@ -139,7 +139,7 @@ namespace EFT_Launcher_12
         public RightLeg RightLeg;
     }
 
-    public struct Health
+    public class Health
     {
         public Hydration Hydration;
         public Energy Energy;
@@ -147,25 +147,25 @@ namespace EFT_Launcher_12
         public int UpdateTime;
     }
 
-    public struct Foldable
+    public class Foldable
     {
         public bool Folded;
     }
 
-    public struct Tag
+    public class Tag
     {
         public int Color;
         public string Name;
     }
 
-    public struct Upd
+    public class Upd
     {
         public int StackObjectsCount;
         public Foldable Foldable;
         public Tag Tag;
     }
 
-    public struct Item
+    public class Item
     {
         public string _id;
         public string _tpl;
@@ -175,12 +175,12 @@ namespace EFT_Launcher_12
         public object location;
     }
 
-    public struct FastPanel
+    public class FastPanel
     {
 		// intentionally empty
 	}
 
-	public struct Inventory
+	public class Inventory
     {
         public List<Item> items;
         public string equipment;
@@ -190,7 +190,7 @@ namespace EFT_Launcher_12
         public FastPanel fastPanel;
     }
 
-    public struct Common
+    public class Common
     {
         public string Id;
         public decimal Progress;
@@ -198,19 +198,19 @@ namespace EFT_Launcher_12
         public int LastAccess;
     }
 
-    public struct Skills
+    public class Skills
     {
         public List<Common> Common;
         public List<object> Mastering;
         public int Points;
     }
 
-    public struct OverallCounters
+    public class OverallCounters
     {
        public List<object> Items;
     }
 
-    public struct Stats
+    public class Stats
     {
         public object SessionCounters;
         public OverallCounters OverallCounters;
@@ -223,25 +223,25 @@ namespace EFT_Launcher_12
         public List<object> Victims;
         public List<object> CarriedQuestItems;
         public int TotalInGameTime;
-        public string Survivorstruct;
+        public string Survivorclass;
     }
 
-    public struct Encyclopedia
+    public class Encyclopedia
     {
 		// intentionally empty
 	}
 
-	public struct ConditionCounters
+	public class ConditionCounters
     {
         public List<object> Counters;
     }
 
-    public struct BackendCounters
+    public class BackendCounters
     {
 		// intentionally empty
     }
 
-    public struct Production
+    public class Production
     {
         public int Progress;
         public bool inProgress;
@@ -250,30 +250,30 @@ namespace EFT_Launcher_12
         public int StartTime;
     }
 
-    public struct Area
+    public class Area
     {
         public int type;
         public int level;
         public bool active;
         public bool passiveBonusesEnabled;
         public int completeTime;
-        public bool constructing;
+        public bool conclassing;
         public List<object> slots;
     }
 
-    public struct Hideout
+    public class Hideout
     {
         public Production Production;
         public List<Area> Areas;
     }
 
-    public struct Bonus
+    public class Bonus
     {
         public string type;
         public string templateId;
     }
 
-    public struct Notes
+    public class Notes
     {
         private List<object> notes;
 
@@ -288,19 +288,19 @@ namespace EFT_Launcher_12
         }
     }
 
-    public struct TraderStandings
+    public class TraderStandings
     {
 		// intentionally empty
     }
 
-    public struct RagfairInfo
+    public class RagfairInfo
     {
         public double rating;
         public bool isRatingGrowing;
         public List<object> offers;
     }
 
-    public struct ProfileExtended
+    public class ProfileExtended
     {
         public string _id;
         public int aid;

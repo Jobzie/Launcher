@@ -114,7 +114,8 @@ namespace EFT_Launcher_12
 
         private void SaveProfile()
         {
-            // intentionally empty
+
+
         }
 
         private decimal GetSkillValue(string skill)
@@ -146,6 +147,10 @@ namespace EFT_Launcher_12
             public int areaType;
             public string areaName;
             public int levelMax;
+			public int areaType;
+			public string areaName;
+			public int levelMax;
+
 
             public HideoutUpgradesArea(int a, string n, int u)
             {
