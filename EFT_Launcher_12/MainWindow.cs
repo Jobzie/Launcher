@@ -50,28 +50,31 @@ namespace EFT_Launcher_12
             if (profilesListBox.SelectedIndex == 0)
             {
                 MessageBox.Show("select a profile before starting !");
+				return;
             }
-            else
-            {
-				ProcessStartInfo startServer = new ProcessStartInfo(Path.Combine(Globals.serverFolder, "EmuTarkov-Server.exe"));
-				ProcessStartInfo startGame = new ProcessStartInfo(Path.Combine(Globals.gameFolder, "EscapeFromTarkov.exe"));
-				int select = profiles[profilesListBox.SelectedIndex - 1].id;
 
-				// start server
-				startServer.UseShellExecute = false;
-				startServer.WorkingDirectory = Globals.serverFolder;
-				Process.Start(startServer);
+			ProcessStartInfo startServer = new ProcessStartInfo(Path.Combine(Globals.serverFolder, "EmuTarkov-Server.exe"));
+			ProcessStartInfo startGame = new ProcessStartInfo(Path.Combine(Globals.gameFolder, "EscapeFromTarkov.exe"));
+			int select = profiles[profilesListBox.SelectedIndex - 1].id;
 
-				// start game
-				startGame.Arguments = GenerateToken(profiles[select].email, profiles[select].password) + " -token=" + select + " -screenmode=fullscreen";
-				startGame.UseShellExecute = false;
-				startGame.WorkingDirectory = Globals.gameFolder;
-				Process.Start(startGame);
-			}
+			// start server
+			startServer.UseShellExecute = false;
+			startServer.WorkingDirectory = Globals.serverFolder;
+			Process.Start(startServer);
+
+			// start game
+			startGame.Arguments = GenerateToken(profiles[select].email, profiles[select].password) + " -token=" + select + " -screenmode=fullscreen";
+			startGame.UseShellExecute = false;
+			startGame.WorkingDirectory = Globals.gameFolder;
+			Process.Start(startGame);
         }
 
 		private void readyToLaunch()
 		{
+			startButton.Enabled = false;
+			gamePathTextBox.ForeColor = Color.Red;
+			serverPathTextBox.ForeColor = Color.Red;
+
 			if (File.Exists(Path.Combine(gamePathTextBox.Text, "EscapeFromTarkov.exe"))
 				&& File.Exists(Path.Combine(serverPathTextBox.Text, "EmuTarkov-Server.exe"))
 				&& profilesListBox.SelectedIndex > 0)
@@ -79,12 +82,6 @@ namespace EFT_Launcher_12
 				startButton.Enabled = true;
 				gamePathTextBox.ForeColor = Color.White;
 				serverPathTextBox.ForeColor = Color.White;
-			}
-			else
-			{
-				startButton.Enabled = false;
-				gamePathTextBox.ForeColor = Color.Red;
-				serverPathTextBox.ForeColor = Color.Red;
 			}
 		}
 
@@ -107,13 +104,11 @@ namespace EFT_Launcher_12
 
 		private void profilesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (profilesListBox.SelectedIndex != 0)
+			profileEditButton.Enabled = false;
+
+			if (profilesListBox.SelectedIndex != 0)
             {
                 profileEditButton.Enabled = true;
-            }
-            else
-            {
-                profileEditButton.Enabled = false;
             }
 
 			readyToLaunch();
@@ -122,8 +117,8 @@ namespace EFT_Launcher_12
         private void profileEditButton_Click(object sender, EventArgs e)
         {
             int select = profiles[profilesListBox.SelectedIndex - 1].id;
-
             EditProfileForm edit = new EditProfileForm(select);
+
             edit.Show();
 		}
 
