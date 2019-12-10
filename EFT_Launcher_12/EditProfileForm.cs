@@ -14,7 +14,7 @@ namespace EFT_Launcher_12
 
         public EditProfileForm(int id)
         {
-            profilePath = Path.Combine(Globals.serverFolder, "appdata/profiles/" + id + "/character.json");
+            profilePath = Path.Combine(Globals.profilesFolder, id + "/character.json");
             hideoutLevels = new List<HideoutUpgradesArea>();
 
             #region hideoutlevel init

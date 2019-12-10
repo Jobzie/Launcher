@@ -20,24 +20,25 @@ namespace EFT_Launcher_12
             profileEditButton.Enabled = false;
             profilesListBox.SelectedIndex = 0;
             gamePathTextBox.Text = Properties.Settings.Default.gamePath;
-			serverPathTextBox.Text = Properties.Settings.Default.serverPath;
+            LoadProfiles();
+
 		}
 
 		public void LoadProfiles()
 		{
-			if (!File.Exists(Path.Combine(Globals.serverFolder, "appdata/profiles/list.json")))
+			if (!File.Exists(Path.Combine(Globals.profilesFolder, "list.json")))
 			{
 				MessageBox.Show("unable to find profile folder, please set the server path");
 				return;
 			}
 
-			using (StreamReader r = new StreamReader(Path.Combine(Globals.serverFolder, "appdata/profiles/list.json")))
+			using (StreamReader r = new StreamReader(Path.Combine(Globals.profilesFolder, "list.json")))
 			{
 				profiles = JsonConvert.DeserializeObject<Profile[]>(r.ReadToEnd());
 
 				foreach (Profile someProfile in profiles)
 				{
-					if (File.Exists(Path.Combine(Globals.serverFolder, "appdata/profiles/" + someProfile.id + "/character.json")))
+					if (File.Exists(Path.Combine(Globals.profilesFolder, someProfile.id + "/character.json")))
 					{
 						profilesListBox.Items.Add(someProfile.email);
 					}
@@ -50,7 +51,7 @@ namespace EFT_Launcher_12
             if (profilesListBox.SelectedIndex == 0)
             {
                 MessageBox.Show("select a profile before starting !");
-				return;
+				return; //oh, return cut the function ? that's cool !
             }
 
 			ProcessStartInfo startServer = new ProcessStartInfo(Path.Combine(Globals.serverFolder, "EmuTarkov-Server.exe"));
@@ -71,47 +72,45 @@ namespace EFT_Launcher_12
 
 		private void readyToLaunch()
 		{
-			startButton.Enabled = false;
-			gamePathTextBox.ForeColor = Color.Red;
-			serverPathTextBox.ForeColor = Color.Red;
-
-			if (File.Exists(Path.Combine(gamePathTextBox.Text, "EscapeFromTarkov.exe"))
-				&& File.Exists(Path.Combine(serverPathTextBox.Text, "EmuTarkov-Server.exe"))
-				&& profilesListBox.SelectedIndex > 0)
+			if(File.Exists( Path.Combine(gamePathTextBox.Text, "EscapeFromTarkov.exe") ) && profilesListBox.SelectedIndex > 0)
 			{
 				startButton.Enabled = true;
-				gamePathTextBox.ForeColor = Color.White;
-				serverPathTextBox.ForeColor = Color.White;
 			}
+            else
+            {
+                startButton.Enabled = false;
+            }
 		}
 
         private void gamePathTextBox_TextChanged(object sender, EventArgs e)
         {
-			Properties.Settings.Default.gamePath = gamePathTextBox.Text;
-			Properties.Settings.Default.Save();
-			Globals.gameFolder = gamePathTextBox.Text;
-			readyToLaunch();
-		}
+            if( File.Exists(Path.Combine(gamePathTextBox.Text, "EscapeFromTarkov.exe")) )
+            {
+                gamePathTextBox.ForeColor = Color.White;
+                Properties.Settings.Default.gamePath = gamePathTextBox.Text;
+                Properties.Settings.Default.Save();
+                Globals.gameFolder = gamePathTextBox.Text;
+                readyToLaunch();
+            }
+            else
+            {
+                gamePathTextBox.ForeColor = Color.Red;
+                startButton.Enabled = false;
+            }
 
-		private void serverPathTextBox_TextChanged(object sender, EventArgs e)
-		{
-			Properties.Settings.Default.serverPath = serverPathTextBox.Text;
-			Properties.Settings.Default.Save();
-			Globals.serverFolder = serverPathTextBox.Text;
-			LoadProfiles();
-			readyToLaunch();
 		}
 
 		private void profilesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-			profileEditButton.Enabled = false;
-
 			if (profilesListBox.SelectedIndex != 0)
             {
                 profileEditButton.Enabled = true;
+                readyToLaunch();
             }
-
-			readyToLaunch();
+            else
+            {
+                profileEditButton.Enabled = false;
+            }
 		}
 
         private void profileEditButton_Click(object sender, EventArgs e)
