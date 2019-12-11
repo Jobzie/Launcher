@@ -12,11 +12,13 @@ namespace EFT_Launcher_12
     {
         Profile[] profiles = null;
 		delegate void SetTextCallback(string text);
+		delegate void ResetLauncherCallback();
+		string serverProcessName;
 
 		public MainWindow()
         {
             InitializeComponent();
-            
+			this.FormClosing += MainWindow_FormClosing;
             startButton.Enabled = false;
             profileEditButton.Enabled = false;
             profilesListBox.SelectedIndex = 0;
@@ -24,6 +26,8 @@ namespace EFT_Launcher_12
             LoadProfiles();
 
 		}
+
+
 
 		public void LoadProfiles()
 		{
@@ -136,7 +140,7 @@ namespace EFT_Launcher_12
 			startGame.Arguments = GenerateToken(profiles[select].email, profiles[select].password) + " -token=" + select + " -screenmode=fullscreen";
 			startGame.UseShellExecute = false;
 			startGame.WorkingDirectory = Globals.gameFolder;
-			//Process.Start(startGame);
+			Process.Start(startGame);
 
 		}
 
@@ -144,23 +148,51 @@ namespace EFT_Launcher_12
 		{
 			var proc = new Process();
 
-			proc.StartInfo.CreateNoWindow = false;
+			proc.StartInfo.CreateNoWindow = true;
+			proc.StartInfo.UseShellExecute = false;
+			proc.StartInfo.WorkingDirectory = Globals.serverFolder;	
+			proc.StartInfo.RedirectStandardError = true;
 			proc.StartInfo.RedirectStandardInput = true;
 			proc.StartInfo.RedirectStandardOutput = true;
-			proc.StartInfo.UseShellExecute = false;
-			proc.StartInfo.RedirectStandardError = true;
 			proc.StartInfo.FileName = Path.Combine(Globals.serverFolder, "EmuTarkov-Server.exe");
+			proc.EnableRaisingEvents = true;
+			proc.Exited += Proc_Exited;
 			
 			proc.Start();
+			
 			proc.BeginOutputReadLine();
 			proc.OutputDataReceived += proc_OutputDataReceived;
+			serverProcessName = proc.ProcessName;
+		}
+
+		void killServer()
+		{
+			try
+			{
+				Process[] procs = Process.GetProcessesByName(serverProcessName);
+				procs[0].Kill();
+			}
+			catch(Exception ex)
+			{
+				//do nothing whatever
+			}
 			
+		}
+
+		private void Proc_Exited(object sender, EventArgs e)
+		{
+			resetLauncherSize();
+		}
+		private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			killServer();
 		}
 
 		void proc_OutputDataReceived(object sender, DataReceivedEventArgs e)
 		{
-			MessageBox.Show(e.Data);
-			//SetConsoleOutputText(e.Data);
+			string res = e.Data;
+			//string res2 = Encoding.ASCII.GetString(Encoding.Convert(Encoding.UTF8, Encoding.ASCII, Encoding.UTF8.GetBytes(e.Data)));
+			SetConsoleOutputText(res + "\n");
 		}
 
 		private void SetConsoleOutputText(string text)
@@ -175,7 +207,26 @@ namespace EFT_Launcher_12
 			}
 			else
 			{
-				this.serverOutputRichBox.Text = text;
+				this.serverOutputRichBox.Text += text;
+				serverOutputRichBox.SelectionStart = serverOutputRichBox.Text.Length;
+				this.serverOutputRichBox.ScrollToCaret();
+			}
+		}
+
+		private void resetLauncherSize()
+		{
+			// InvokeRequired required compares the thread ID of the
+			// calling thread to the thread ID of the creating thread.
+			// If these threads are different, it returns true.
+			if (this.serverOutputRichBox.InvokeRequired)
+			{
+				ResetLauncherCallback d = new ResetLauncherCallback(resetLauncherSize);
+				this.Invoke(d, new object[] { });
+			}
+			else
+			{
+				this.Height -= 200;
+				this.serverOutputRichBox.Text = "";
 			}
 		}
 	}

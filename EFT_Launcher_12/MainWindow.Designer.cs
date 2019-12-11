@@ -105,7 +105,7 @@
             // serverOutputRichBox
             // 
             this.serverOutputRichBox.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.serverOutputRichBox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.serverOutputRichBox.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.serverOutputRichBox.ForeColor = System.Drawing.Color.Lime;
             this.serverOutputRichBox.Location = new System.Drawing.Point(0, 160);
             this.serverOutputRichBox.Name = "serverOutputRichBox";
