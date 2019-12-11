@@ -33,6 +33,7 @@
             this.gamePathTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.profileEditButton = new System.Windows.Forms.Button();
+            this.serverOutputRichBox = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // startButton
@@ -41,7 +42,7 @@
             this.startButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.startButton.Font = new System.Drawing.Font("Trebuchet MS", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.startButton.Location = new System.Drawing.Point(349, 104);
+            this.startButton.Location = new System.Drawing.Point(412, 100);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(160, 49);
             this.startButton.TabIndex = 0;
@@ -59,7 +60,7 @@
             this.profilesListBox.FormattingEnabled = true;
             this.profilesListBox.Items.AddRange(new object[] {
             "Select a Profile !"});
-            this.profilesListBox.Location = new System.Drawing.Point(349, 14);
+            this.profilesListBox.Location = new System.Drawing.Point(412, 14);
             this.profilesListBox.Name = "profilesListBox";
             this.profilesListBox.Size = new System.Drawing.Size(160, 26);
             this.profilesListBox.TabIndex = 1;
@@ -70,7 +71,7 @@
             this.gamePathTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.gamePathTextBox.Font = new System.Drawing.Font("Candara", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gamePathTextBox.ForeColor = System.Drawing.Color.White;
-            this.gamePathTextBox.Location = new System.Drawing.Point(129, 127);
+            this.gamePathTextBox.Location = new System.Drawing.Point(130, 120);
             this.gamePathTextBox.Name = "gamePathTextBox";
             this.gamePathTextBox.Size = new System.Drawing.Size(199, 26);
             this.gamePathTextBox.TabIndex = 2;
@@ -81,7 +82,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Candara", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 130);
+            this.label1.Location = new System.Drawing.Point(15, 125);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 18);
             this.label1.TabIndex = 3;
@@ -93,7 +94,7 @@
             this.profileEditButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.profileEditButton.Font = new System.Drawing.Font("Candara", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.profileEditButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.profileEditButton.Location = new System.Drawing.Point(349, 46);
+            this.profileEditButton.Location = new System.Drawing.Point(412, 46);
             this.profileEditButton.Name = "profileEditButton";
             this.profileEditButton.Size = new System.Drawing.Size(160, 26);
             this.profileEditButton.TabIndex = 6;
@@ -101,12 +102,24 @@
             this.profileEditButton.UseVisualStyleBackColor = false;
             this.profileEditButton.Click += new System.EventHandler(this.profileEditButton_Click);
             // 
+            // serverOutputRichBox
+            // 
+            this.serverOutputRichBox.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.serverOutputRichBox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.serverOutputRichBox.ForeColor = System.Drawing.Color.Lime;
+            this.serverOutputRichBox.Location = new System.Drawing.Point(0, 160);
+            this.serverOutputRichBox.Name = "serverOutputRichBox";
+            this.serverOutputRichBox.Size = new System.Drawing.Size(585, 202);
+            this.serverOutputRichBox.TabIndex = 7;
+            this.serverOutputRichBox.Text = "";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.ClientSize = new System.Drawing.Size(524, 172);
+            this.ClientSize = new System.Drawing.Size(584, 161);
+            this.Controls.Add(this.serverOutputRichBox);
             this.Controls.Add(this.profileEditButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.gamePathTextBox);
@@ -126,5 +139,6 @@
         private System.Windows.Forms.TextBox gamePathTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button profileEditButton;
-	}
+        private System.Windows.Forms.RichTextBox serverOutputRichBox;
+    }
 }

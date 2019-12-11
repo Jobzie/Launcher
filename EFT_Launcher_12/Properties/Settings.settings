@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="gamePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">*enter game path here*</Value>
     </Setting>
   </Settings>
 </SettingsFile>

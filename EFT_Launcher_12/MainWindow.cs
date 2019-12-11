@@ -11,8 +11,9 @@ namespace EFT_Launcher_12
     public partial class MainWindow : Form
     {
         Profile[] profiles = null;
+		delegate void SetTextCallback(string text);
 
-        public MainWindow()
+		public MainWindow()
         {
             InitializeComponent();
             
@@ -28,7 +29,7 @@ namespace EFT_Launcher_12
 		{
 			if (!File.Exists(Path.Combine(Globals.profilesFolder, "list.json")))
 			{
-				MessageBox.Show("unable to find profile folder, please set the server path");
+				MessageBox.Show("unable to find profile folder, make sure the launcher is in the server folder");
 				return;
 			}
 
@@ -45,30 +46,6 @@ namespace EFT_Launcher_12
 				}
 			}
 		}
-
-        private void startButton_Click(object sender, EventArgs e)
-        {
-            if (profilesListBox.SelectedIndex == 0)
-            {
-                MessageBox.Show("select a profile before starting !");
-				return; //oh, return cut the function ? that's cool !
-            }
-
-			ProcessStartInfo startServer = new ProcessStartInfo(Path.Combine(Globals.serverFolder, "EmuTarkov-Server.exe"));
-			ProcessStartInfo startGame = new ProcessStartInfo(Path.Combine(Globals.gameFolder, "EscapeFromTarkov.exe"));
-			int select = profiles[profilesListBox.SelectedIndex - 1].id;
-
-			// start server
-			startServer.UseShellExecute = false;
-			startServer.WorkingDirectory = Globals.serverFolder;
-			Process.Start(startServer);
-
-			// start game
-			startGame.Arguments = GenerateToken(profiles[select].email, profiles[select].password) + " -token=" + select + " -screenmode=fullscreen";
-			startGame.UseShellExecute = false;
-			startGame.WorkingDirectory = Globals.gameFolder;
-			Process.Start(startGame);
-        }
 
 		private void readyToLaunch()
 		{
@@ -135,6 +112,71 @@ namespace EFT_Launcher_12
 
 			// add begin and end part of the token
 			return beginKey + result + endKey;
+		}
+
+
+		//**************************************************//
+		//					PROCESS FUNCTIONS				//
+		//**************************************************//
+		private void startButton_Click(object sender, EventArgs e)
+		{
+			if (profilesListBox.SelectedIndex == 0)
+			{
+				MessageBox.Show("select a profile before starting !");
+				return; //oh, return cut the function ? that's cool !
+			}
+			
+			int select = profiles[profilesListBox.SelectedIndex - 1].id;
+			this.Height += 200;
+
+			LaunchServer();
+
+			//start game
+			ProcessStartInfo startGame = new ProcessStartInfo(Path.Combine(Globals.gameFolder, "EscapeFromTarkov.exe"));
+			startGame.Arguments = GenerateToken(profiles[select].email, profiles[select].password) + " -token=" + select + " -screenmode=fullscreen";
+			startGame.UseShellExecute = false;
+			startGame.WorkingDirectory = Globals.gameFolder;
+			//Process.Start(startGame);
+
+		}
+
+		void LaunchServer()
+		{
+			var proc = new Process();
+
+			proc.StartInfo.CreateNoWindow = false;
+			proc.StartInfo.RedirectStandardInput = true;
+			proc.StartInfo.RedirectStandardOutput = true;
+			proc.StartInfo.UseShellExecute = false;
+			proc.StartInfo.RedirectStandardError = true;
+			proc.StartInfo.FileName = Path.Combine(Globals.serverFolder, "EmuTarkov-Server.exe");
+			
+			proc.Start();
+			proc.BeginOutputReadLine();
+			proc.OutputDataReceived += proc_OutputDataReceived;
+			
+		}
+
+		void proc_OutputDataReceived(object sender, DataReceivedEventArgs e)
+		{
+			MessageBox.Show(e.Data);
+			//SetConsoleOutputText(e.Data);
+		}
+
+		private void SetConsoleOutputText(string text)
+		{
+			// InvokeRequired required compares the thread ID of the
+			// calling thread to the thread ID of the creating thread.
+			// If these threads are different, it returns true.
+			if (this.serverOutputRichBox.InvokeRequired)
+			{
+				SetTextCallback d = new SetTextCallback(SetConsoleOutputText);
+				this.Invoke(d, new object[] { text });
+			}
+			else
+			{
+				this.serverOutputRichBox.Text = text;
+			}
 		}
 	}
 

@@ -18,26 +18,26 @@ namespace EFT_Launcher_12
             hideoutLevels = new List<HideoutUpgradesArea>();
 
             #region hideoutlevel init
-            hideoutLevels.Add(new HideoutUpgradesArea(0, "", 3));
-            hideoutLevels.Add(new HideoutUpgradesArea(1, "", 3));
-            hideoutLevels.Add(new HideoutUpgradesArea(2, "", 3));
-            hideoutLevels.Add(new HideoutUpgradesArea(3, "Stash", 4));
-            hideoutLevels.Add(new HideoutUpgradesArea(4, "", 3));
-            hideoutLevels.Add(new HideoutUpgradesArea(5, "", 3));
-            hideoutLevels.Add(new HideoutUpgradesArea(6, "", 3));
-            hideoutLevels.Add(new HideoutUpgradesArea(7, "", 3));
-            hideoutLevels.Add(new HideoutUpgradesArea(8, "", 3));
-            hideoutLevels.Add(new HideoutUpgradesArea(9, "", 3));
+            hideoutLevels.Add(new HideoutUpgradesArea(0,  "Vents", 3));
+            hideoutLevels.Add(new HideoutUpgradesArea(1,  "Security", 3));
+            hideoutLevels.Add(new HideoutUpgradesArea(2,  "Lavatory", 3));
+            hideoutLevels.Add(new HideoutUpgradesArea(3,  "Stash", 4));
+            hideoutLevels.Add(new HideoutUpgradesArea(4,  "Generator", 3));
+            hideoutLevels.Add(new HideoutUpgradesArea(5,  "Heating", 3));
+            hideoutLevels.Add(new HideoutUpgradesArea(6,  "Water Collector", 3));
+            hideoutLevels.Add(new HideoutUpgradesArea(7,  "MedStation", 3));
+            hideoutLevels.Add(new HideoutUpgradesArea(8,  "Nutrition Unit", 3));
+            hideoutLevels.Add(new HideoutUpgradesArea(9,  "Rest Space", 3));
             hideoutLevels.Add(new HideoutUpgradesArea(10, "Workbench", 3));
-            hideoutLevels.Add(new HideoutUpgradesArea(11, "", 3));
-            hideoutLevels.Add(new HideoutUpgradesArea(12, "", 1));
-            hideoutLevels.Add(new HideoutUpgradesArea(13, "", 1));
-            hideoutLevels.Add(new HideoutUpgradesArea(14, "", 1));
-            hideoutLevels.Add(new HideoutUpgradesArea(15, "", 3));
-            hideoutLevels.Add(new HideoutUpgradesArea(16, "", 1));
-            hideoutLevels.Add(new HideoutUpgradesArea(17, "", 1));
-            hideoutLevels.Add(new HideoutUpgradesArea(18, "", 1));
-            hideoutLevels.Add(new HideoutUpgradesArea(19, "", 1));
+            hideoutLevels.Add(new HideoutUpgradesArea(11, "Intel Center", 3));
+            hideoutLevels.Add(new HideoutUpgradesArea(12, "Shooting Range", 1));
+            hideoutLevels.Add(new HideoutUpgradesArea(13, "Library", 1));
+            hideoutLevels.Add(new HideoutUpgradesArea(14, "Scav Case", 1));
+            hideoutLevels.Add(new HideoutUpgradesArea(15, "Illumination", 3));
+            hideoutLevels.Add(new HideoutUpgradesArea(16, "?trophies rack?", 1));
+            hideoutLevels.Add(new HideoutUpgradesArea(17, "Air Filter", 1));
+            hideoutLevels.Add(new HideoutUpgradesArea(18, "Solar Power", 1));
+            hideoutLevels.Add(new HideoutUpgradesArea(19, "Booze Generator", 1));
             hideoutLevels.Add(new HideoutUpgradesArea(20, "Bitcoin Farm", 3));
             #endregion
 	    
@@ -66,11 +66,44 @@ namespace EFT_Launcher_12
             }
         }
 
-        private void saveButton_Click(object sender, EventArgs e)
+        private void saveButton_Click(object sender, EventArgs e) //saving the profile 
         {
             profileToEdit.Info.Nickname = nicknameTextBox.Text;
             profileToEdit.Info.Side = sideselectorComboBox.SelectedItem.ToString();
             profileToEdit.Info.Experience = Convert.ToInt32(experienceBox.Value);
+            profileToEdit.Info.GameVersion = gameVersionCombo.SelectedItem.ToString();
+
+            SetSkillValue("Endurance", enduranceNumericBox.Value);
+            SetSkillValue("Strength", strenghNumericBox.Value);
+            SetSkillValue("Vitality", vitalityNumericBox.Value);
+            SetSkillValue("Health", healthNumericBox.Value);
+            SetSkillValue("StressResistance", stressNumericBox.Value);
+            SetSkillValue("Metabolism", metabolismNumericBox.Value);
+            SetSkillValue("Immunity", immunityNumericBox.Value);
+            SetSkillValue("Perception", perceptionNumericBox.Value);
+            SetSkillValue("Intellect", intelNumericBox.Value);
+            SetSkillValue("Attention", attentionNumericBox.Value);
+            SetSkillValue("Charisma", charismaNumericBox.Value);
+            SetSkillValue("Memory", memoryNumericBox.Value);
+            SetSkillValue("CovertMovement", covertNumericBox.Value);
+            SetSkillValue("RecoilControl", recoilNumericBox.Value);
+            SetSkillValue("Search", searchNumericBox.Value);
+            SetSkillValue("MagDrills", magdrillsNumericBox.Value);
+
+            try
+            {
+                using (StreamWriter file = File.CreateText(profilePath))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    serializer.Serialize(file, profileToEdit);
+                }
+                MessageBox.Show("profile saved succesfullly");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("something went wrong : " + ex.Message);
+            }
+
         }
 
         private void SetInfo()
@@ -102,33 +135,6 @@ namespace EFT_Launcher_12
             searchNumericBox.Value = GetSkillValue("Search");
             magdrillsNumericBox.Value = GetSkillValue("MagDrills");
             #endregion
-        }
-
-        private void SaveProfile()
-        {
-            
-            SetSkillValue("Endurance", enduranceNumericBox.Value);
-            SetSkillValue("Strength", strenghNumericBox.Value);
-            SetSkillValue("Vitality", vitalityNumericBox.Value);
-            SetSkillValue("Health", healthNumericBox.Value);
-            SetSkillValue("StressResistance", stressNumericBox.Value);
-            SetSkillValue("Metabolism", metabolismNumericBox.Value);
-            SetSkillValue("Immunity", immunityNumericBox.Value);
-            SetSkillValue("Perception", perceptionNumericBox.Value);
-            SetSkillValue("Intellect", intelNumericBox.Value);
-            SetSkillValue("Attention", attentionNumericBox.Value);
-            SetSkillValue("Charisma", charismaNumericBox.Value);
-            SetSkillValue("Memory", memoryNumericBox.Value);
-            SetSkillValue("CovertMovement", covertNumericBox.Value);
-            SetSkillValue("RecoilControl", recoilNumericBox.Value);
-            SetSkillValue("Search", searchNumericBox.Value);
-            SetSkillValue("MagDrills", magdrillsNumericBox.Value);
-
-            using (StreamWriter file = File.CreateText(profilePath))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, profileToEdit);
-            }
         }
 
         private decimal GetSkillValue(string skill)
