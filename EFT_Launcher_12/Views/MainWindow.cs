@@ -381,11 +381,14 @@ namespace EFT_Launcher_12
 
 		void proc_OutputDataReceived(object sender, DataReceivedEventArgs e)
 		{
-			/*
-			string res = Regex.Replace(e.Data, @"(\\e\[[0-1];3[0-9])m", ""); // it should replace all \e[0;32m things
-			res = res.Replace(@"\e[0;0m", "");
-			*/
 			string res = e.Data;
+			
+			// get line color here
+			
+			res = Regex.Replace(res, @"(\\e\[[0-1];3[0-9])m", ""); // it should replace all \e[0;32m things
+			res = res.Replace(@"\e[0;0m", "");
+			
+			// make sure to modify this so it can handle colors!
 			SetConsoleOutputText(res + "\n");
 		}
 
