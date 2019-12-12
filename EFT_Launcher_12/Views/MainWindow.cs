@@ -10,14 +10,101 @@ namespace EFT_Launcher_12
 {
 	public partial class MainWindow : Form
 	{
+		#region Window Form Handling
+		private Label minimise = new Label(); // minimize window
+	    //private Label maximise = new Label(); // we dont use maximize button - its useless in our case
+	    private Label close = new Label(); // close app
+		private bool drag = false; // Dragging form Flag
+	    private Point startPoint = new Point(0, 0); // Point value for dragging
+		#endregion
 		private LauncherConfig launcherConfig = new LauncherConfig();
 		private Profile[] profiles = null;
 		private delegate void SetTextCallback(string text);
 		private delegate void ResetLauncherCallback();
 		private string serverProcessName;
+        #region controls drawing
+        private void formDrawing() {
+			// setup Minimize button
+			this.minimise.Text = "_";
+			this.minimise.Location = new Point(this.Location.X + 5, this.Location.Y + 5);
+			this.minimise.TextAlign = ContentAlignment.MiddleCenter;
+			this.minimise.ForeColor = Color.Red;
+			this.minimise.BackColor = Color.Black;
+			this.minimise.BorderStyle = BorderStyle.FixedSingle;
+			this.minimise.Width = 20; // this is just to make it fit nicely
+			this.Controls.Add(this.minimise); // add it to the form's controls
+			this.minimise.BringToFront();
+			//setup maximize button
+			this.close.Text = "X";
+			this.close.TextAlign = ContentAlignment.MiddleCenter;
+			this.close.Location = new Point(this.Location.X + 26, this.Location.Y + 5);
+			this.close.BorderStyle = BorderStyle.FixedSingle;
+			this.close.ForeColor = Color.Red;
+			this.close.BackColor = Color.Black;
+			this.close.Width = 20; // this is just to make it fit nicely
+			this.Controls.Add(this.close);
+			this.close.BringToFront();
+			// add handlers to the events
+			this.minimise.MouseEnter += new EventHandler(Control_MouseEnter);
+			this.close.MouseEnter += new EventHandler(Control_MouseEnter);
+			this.minimise.MouseLeave += new EventHandler(Control_MouseLeave);
+			this.close.MouseLeave += new EventHandler(Control_MouseLeave);
+			this.minimise.MouseClick += new MouseEventHandler(Control_MouseClick);
+			this.close.MouseClick += new MouseEventHandler(Control_MouseClick);
 
-		public MainWindow()
+		}
+		#endregion
+		#region controls events
+		private void Control_MouseEnter(object sender, EventArgs e)
 		{
+			if (sender.Equals(this.close))
+				this.close.ForeColor = Color.White;
+			else // it's the minimise label
+				this.minimise.ForeColor = Color.White;
+		}
+		private void Control_MouseLeave(object sender, EventArgs e)
+		{
+			if (sender.Equals(this.close))
+				this.close.ForeColor = Color.Red;
+			else // it's the minimise label
+				this.minimise.ForeColor = Color.Red;
+		}
+		private void Control_MouseClick(object sender, MouseEventArgs e)
+	    {
+			if (sender.Equals(this.close))
+			{
+				killServer();
+				this.Close(); // close the form
+			}
+			else
+			{ // it's the minimise label
+				this.WindowState = FormWindowState.Minimized; // minimise the form
+			}
+	    }
+		void Title_MouseUp(object sender, MouseEventArgs e)
+	    {
+	        this.drag = false;
+	    }
+	    void Title_MouseDown(object sender, MouseEventArgs e)
+	    {
+			this.startPoint = e.Location;
+			this.drag = true;
+		}
+	    void Title_MouseMove(object sender, MouseEventArgs e)
+	    {
+	        if (this.drag)
+			{ // if we should be dragging it, we need to figure out some movement
+				Point p1 = new Point(e.X, e.Y);
+				Point p2 = this.PointToScreen(p1);
+				Point p3 = new Point(p2.X - this.startPoint.X, p2.Y - this.startPoint.Y);
+				this.Location = p3;
+			}
+	    }
+	#endregion
+	public MainWindow()
+		{
+			formDrawing();
+
 			InitializeComponent();
 			this.FormClosing += MainWindow_FormClosing;
 			startButton.Enabled = false;
@@ -229,7 +316,8 @@ namespace EFT_Launcher_12
 			if (Globals.launchServer)
 			{
 				// no need for this.member, we're accessing members inside the class
-				Height += 200;
+				Height = 377;
+				this.background_panel.Height = 377;
 				LaunchServer();
 			}
 
@@ -327,10 +415,12 @@ namespace EFT_Launcher_12
 			}
 			else
 			{
-				Height -= 200;
+				Height = 162;
+				this.background_panel.Height = 162;
 				serverOutputRichBox.Text = "";
 			}
 		}
+
 	}
 
 	internal class Profile
