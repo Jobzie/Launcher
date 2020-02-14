@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EFT_Launcher_12")]
+[assembly: AssemblyTitle("EmuTarkov-Launcher")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("EFT_Launcher_12")]
+[assembly: AssemblyProduct("EmuTarkov-Launcher")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("9d09b904-3e30-475e-9502-211f50573fae")]
+[assembly: Guid("4af372e6-fac5-4d96-b833-7a26b43c037b")]
 
 // Version information for an assembly consists of the following four values:
 //

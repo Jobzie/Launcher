@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace EFT_Launcher_12
+﻿namespace EmuTarkov_Launcher
 {
 	public class ClientConfig
 	{
@@ -22,5 +17,24 @@ namespace EFT_Launcher_12
 		public bool ResetSettings;
 		public bool SaveResults;
 		public int FixedFrameRate;
+
+		public ClientConfig()
+		{
+			BackendUrl = "https://127.0.0.1";
+			Version = "live";
+			BuildVersion = "000";
+			LocalGame = false;
+			AmmoPoolSize = -1;
+			WeaponsPoolSize = -1;
+			MagsPoolSize = -1;
+			ItemsPoolSize = -1;
+			PlayersPoolSize = 30;
+			ObservedFix = 1;
+			TargetFrameRate = -1;
+			BotsCount = -1;
+			ResetSettings = false;
+			SaveResults = true;
+			FixedFrameRate = 60;
+	}
 	}
 }
