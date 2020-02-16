@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.IO.Compression;
+﻿using System.IO;
 using System.Net;
 using System.Text;
 
@@ -10,8 +8,8 @@ namespace EmuTarkov_Launcher
 	{
 		public static string Send(string url, string data)
 		{
-			//try
-			//{
+			try
+			{
 				SSLValidator.OverrideValidation();
 				HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(url));
 				byte[] requestData = Encoding.UTF8.GetBytes(data);
@@ -25,10 +23,8 @@ namespace EmuTarkov_Launcher
 				// set data
 				using (Stream stream = request.GetRequestStream())
 				{
-					using (DeflateStream zip = new DeflateStream(stream, CompressionMode.Compress))
-					{
-						zip.Write(requestData, 0, requestData.Length);
-					}
+					byte[] zippedData = Zip.Compress(requestData);
+					stream.Write(zippedData, 0, zippedData.Length);
 				}
 
 				// get response
@@ -36,19 +32,17 @@ namespace EmuTarkov_Launcher
 
 				using (Stream stream = response.GetResponseStream())
 				{
-					using (DeflateStream zip = new DeflateStream(stream, CompressionMode.Decompress))
+					using (MemoryStream ms = new MemoryStream())
 					{
-						using (StreamReader sr = new StreamReader(zip))
-						{
-							return sr.ReadToEnd();
-						}
+						stream.CopyTo(ms);
+						return Encoding.UTF8.GetString(Zip.Decompress(ms.ToArray()));
 					}
 				}
-			//}
-			//catch
-			//{
-			//	return null;
-			//}
+			}
+			catch
+			{
+				return null;
+			}
 		}
 	}
 }
