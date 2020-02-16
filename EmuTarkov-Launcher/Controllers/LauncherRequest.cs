@@ -12,19 +12,17 @@ namespace EmuTarkov_Launcher
 			{
 				SSLValidator.OverrideValidation();
 				HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new System.Uri(url));
-				byte[] requestData = Encoding.UTF8.GetBytes(data);
+				byte[] requestData = Zip.Compress(Encoding.UTF8.GetBytes(data));
 
 				// set header
 				request.Method = "POST";
 				request.ContentType = "application/json";
-				request.Headers[HttpRequestHeader.ContentEncoding] = "deflate";
 				request.ContentLength = requestData.Length;
 
 				// set data
 				using (Stream stream = request.GetRequestStream())
 				{
-					byte[] zippedData = Zip.Compress(requestData);
-					stream.Write(zippedData, 0, zippedData.Length);
+					stream.Write(requestData, 0, requestData.Length);
 				}
 
 				// get response
