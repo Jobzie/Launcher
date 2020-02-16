@@ -11,7 +11,7 @@ namespace EmuTarkov_Launcher
 			try
 			{
 				SSLValidator.OverrideValidation();
-				HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(url));
+				HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new System.Uri(url));
 				byte[] requestData = Encoding.UTF8.GetBytes(data);
 
 				// set header
