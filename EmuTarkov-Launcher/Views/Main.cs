@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Text;
-using System.Timers;
 using System.Windows.Forms;
 
 namespace EmuTarkov_Launcher
 {
 	public partial class Main : Form
 	{
-		private Monitor monitor;
+		private static Monitor monitor;
 
 		public Main()
 		{
@@ -63,33 +60,10 @@ namespace EmuTarkov_Launcher
 
 		private void StartGame_Click(object sender, EventArgs e)
 		{
-			// detect if executable is found
-			if (!System.IO.File.Exists(Globals.ClientExecutable))
-			{
-				MessageBox.Show("The launcher is not running from the Escape From Tarkov directory");
+			if (!Starter.StartGame()) {
 				return;
 			}
 
-			// get profile ID
-			string token = GenerateToken(Globals.LauncherConfig.Email, Globals.LauncherConfig.Password);
-			string playerId = LauncherRequest.Send(UrlInput.Text + "/launcher/profile/login", token);
-
-			if (playerId == "0")
-			{
-				MessageBox.Show("Wrong email and/or password");
-				return;
-			}
-
-			// set backend url
-			Globals.ClientConfig.BackendUrl = Globals.LauncherConfig.BackendUrl;
-			Json.Save<ClientConfig>(Globals.ClientConfigFile, Globals.ClientConfig);
-
-			ProcessStartInfo clientProcess = new ProcessStartInfo(Globals.ClientExecutable);
-			clientProcess.Arguments = "-bC5vLmcuaS5u=" + token + " -token=" + playerId + " -screenmode=fullscreen";
-			clientProcess.UseShellExecute = false;
-			clientProcess.WorkingDirectory = Environment.CurrentDirectory;
-
-			Process.Start(clientProcess);
 			monitor.Start();
 
 			if (Globals.LauncherConfig.MinimizeToTray)
@@ -97,16 +71,6 @@ namespace EmuTarkov_Launcher
 				TrayIcon.Visible = true;
 				this.Hide();
 			}
-		}
-
-		private string GenerateToken(string email, string password)
-		{
-			LoginToken token = new LoginToken(email, password);
-			string serialized = Json.Serialize(token);
-			string result = Convert.ToBase64String(Encoding.UTF8.GetBytes(serialized));
-
-			// add begin and end part of the token
-			return result + "=";
 		}
 
 		private void TrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
