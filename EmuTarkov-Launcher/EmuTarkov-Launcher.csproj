@@ -53,6 +53,7 @@
     <Compile Include="Controllers\LauncherRequest.cs" />
     <Compile Include="Controllers\Monitor.cs" />
     <Compile Include="Controllers\SSLValidator.cs" />
+    <Compile Include="Controllers\Starter.cs" />
     <Compile Include="Models\ClientConfig.cs" />
     <Compile Include="Controllers\Globals.cs" />
     <Compile Include="Controllers\Json.cs" />
