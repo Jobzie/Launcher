@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.IO.Compression;
 using System.Net;
 using System.Text;
 
@@ -11,29 +13,33 @@ namespace EmuTarkov_Launcher
 			try
 			{
 				SSLValidator.OverrideValidation();
-				HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new System.Uri(url));
-				byte[] requestData = Zip.Compress(Encoding.UTF8.GetBytes(data));
+			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(url));
+			byte[] requestData = Encoding.UTF8.GetBytes(data);
 
-				// set header
-				request.Method = "POST";
-				request.ContentType = "application/json";
-				request.ContentLength = requestData.Length;
+			// set header
+			request.Method = "POST";
+			request.ContentType = "application/json";
+			request.ContentLength = requestData.Length;
 
-				// set data
-				using (Stream stream = request.GetRequestStream())
+			// set data
+			using (Stream stream = request.GetRequestStream())
+			{
+				using (DeflateStream zip = new DeflateStream(stream, CompressionMode.Compress))
 				{
-					stream.Write(requestData, 0, requestData.Length);
+					zip.Write(requestData, 0, requestData.Length);
 				}
+			}
 
-				// get response
-				HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+			// get response
+			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
-				using (Stream stream = response.GetResponseStream())
+			using (Stream stream = response.GetResponseStream())
+			{
+				using (DeflateStream zip = new DeflateStream(stream, CompressionMode.Decompress))
 				{
-					using (MemoryStream ms = new MemoryStream())
+					using (StreamReader sr = new StreamReader(zip))
 					{
-						stream.CopyTo(ms);
-						return Encoding.UTF8.GetString(Zip.Decompress(ms.ToArray()));
+						return sr.ReadToEnd();
 					}
 				}
 			}
