@@ -24,13 +24,6 @@ namespace EmuTarkov_Launcher
 		{
 			string assembly = new AssemblyName(args.Name).Name;
 			string filename = Path.Combine(Environment.CurrentDirectory, "EscapeFromTarkov_Data/Managed/" + assembly + ".dll");
-
-            // resources are embedded inside assembly
-            if (filename.Contains("resources"))
-            {
-                return null;
-            }
-
 			return Assembly.LoadFrom(filename);
 		}
 	}

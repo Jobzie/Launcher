@@ -10,43 +10,36 @@ namespace EmuTarkov_Launcher
 	{
 		public static string Send(string url, string data)
 		{
-			try
+			ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
+			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(url));
+			byte[] requestData = Encoding.UTF8.GetBytes(data);
+
+			// set header
+			request.Method = "POST";
+			request.ContentType = "application/json";
+			request.ContentLength = requestData.Length;
+
+			// set data
+			using (Stream stream = request.GetRequestStream())
 			{
-				SSLValidator.OverrideValidation();
-				HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(url));
-				byte[] requestData = Encoding.UTF8.GetBytes(data);
-
-				// set header
-				request.Method = "POST";
-				request.ContentType = "application/json";
-				request.ContentLength = requestData.Length;
-
-				// set data
-				using (Stream stream = request.GetRequestStream())
+				using (DeflateStream zip = new DeflateStream(stream, CompressionMode.Compress))
 				{
-					using (DeflateStream zip = new DeflateStream(stream, CompressionMode.Compress))
-					{
-						zip.Write(requestData, 0, requestData.Length);
-					}
-				}
-
-				// get response
-				HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-				using (Stream stream = response.GetResponseStream())
-				{
-					using (DeflateStream zip = new DeflateStream(stream, CompressionMode.Decompress))
-					{
-						using (StreamReader sr = new StreamReader(zip))
-						{
-							return sr.ReadToEnd();
-						}
-					}
+					zip.Write(requestData, 0, requestData.Length);
 				}
 			}
-			catch
+
+			// get response
+			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+			using (Stream stream = response.GetResponseStream())
 			{
-				return null;
+				using (DeflateStream zip = new DeflateStream(stream, CompressionMode.Decompress))
+				{
+					using (StreamReader sr = new StreamReader(zip))
+					{
+						return sr.ReadToEnd();
+					}
+				}
 			}
 		}
 	}

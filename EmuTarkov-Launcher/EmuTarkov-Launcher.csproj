@@ -11,8 +11,6 @@
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -29,11 +27,9 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
@@ -52,8 +48,6 @@
   <ItemGroup>
     <Compile Include="Controllers\LauncherRequest.cs" />
     <Compile Include="Controllers\Monitor.cs" />
-    <Compile Include="Controllers\SSLValidator.cs" />
-    <Compile Include="Controllers\Starter.cs" />
     <Compile Include="Models\ClientConfig.cs" />
     <Compile Include="Controllers\Globals.cs" />
     <Compile Include="Controllers\Json.cs" />
